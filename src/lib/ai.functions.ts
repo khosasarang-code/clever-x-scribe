@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { optionalSupabaseAuth } from "@/integrations/supabase/optional-auth";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny", "Savage", "Controversial", "Intellectual", "Bold", "Empathetic", "Roast", "Salesy"] as const;
 export const REWRITE_STYLES = ["Stronger", "Funnier", "More Viral", "Shorter", "More Professional"] as const;
