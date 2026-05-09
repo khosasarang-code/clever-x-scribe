@@ -694,6 +694,10 @@ function Index() {
           )}
         </section>
 
+        <HowItWorks />
+
+        <RealResults />
+
         {/* History */}
         <section className="space-y-4">
           <div className="flex items-center justify-between">
