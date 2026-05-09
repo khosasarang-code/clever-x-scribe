@@ -783,39 +783,18 @@ function Index() {
         </section>
 
         {/* ============== TESTIMONIALS ============== */}
-        <section id="testimonials" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+        <section id="testimonials" className="py-20 sm:py-28 space-y-12 scroll-mt-24">
+          <Reveal className="text-center max-w-2xl mx-auto px-4 sm:px-6 space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Loved by creators</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Join <span className="text-gradient-brand">10,000+</span> creators growing on X
             </h2>
-          </div>
+            <p className="text-muted-foreground">Real reviews from founders, marketers, and indie creators on X.</p>
+          </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { q: "This tool 10x'd my reply game. Went from 20 likes to 200+ in weeks.", n: "Alex Chen", h: "techfounder", a: 12 },
-              { q: "The thread generator is insane. Gained 800 followers in 2 days.", n: "Sarah Patel", h: "growthwithai", a: 47 },
-              { q: "Replies feel natural, not robotic. My audience actually engages back.", n: "Mike Rivera", h: "marketingmike", a: 33 },
-              { q: "Saved me 2 hours a day. Now I enjoy replying to comments again.", n: "Chris Walker", h: "startupchris", a: 8 },
-              { q: "Went from lurker to 5k followers in a month. Pure gold.", n: "Jenna Lee", h: "jennabuilds", a: 25 },
-              { q: "Finally an AI that doesn't sound like ChatGPT. Worth every cent.", n: "Tom Becker", h: "tombuilds", a: 60 },
-            ].map((r, i) => (
-              <Card key={i} className="p-6 bg-card/50 border-border/60 hover:border-primary/40 transition-colors flex flex-col gap-4">
-                <div className="flex items-center gap-0.5 text-amber-400">
-                  {Array.from({length:5}).map((_,j)=>(<Star key={j} className="h-3.5 w-3.5 fill-current" />))}
-                </div>
-                <p className="text-sm leading-relaxed text-foreground/90">"{r.q}"</p>
-                <div className="flex items-center gap-3 mt-auto pt-3 border-t border-border/50">
-                  <img src={`https://i.pravatar.cc/64?img=${r.a}`} alt={r.n} loading="lazy"
-                       className="h-10 w-10 rounded-full object-cover" />
-                  <div>
-                    <div className="text-sm font-semibold">{r.n}</div>
-                    <div className="text-xs text-muted-foreground">@{r.h}</div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <Reveal y={28}>
+            <TestimonialsMarquee />
+          </Reveal>
         </section>
 
         {/* ============== PRICING ============== */}
