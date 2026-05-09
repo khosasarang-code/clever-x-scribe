@@ -131,6 +131,22 @@ function Index() {
   const search = useSearch({ from: "/" });
   const [openingPortal, setOpeningPortal] = useState(false);
 
+  const greetedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!user) {
+      greetedRef.current = null;
+      return;
+    }
+    if (greetedRef.current === user.id) return;
+    greetedRef.current = user.id;
+    const name =
+      (user.user_metadata?.full_name as string | undefined) ||
+      (user.user_metadata?.name as string | undefined) ||
+      user.email ||
+      "creator";
+    toast.success(`Signed in as ${name}`);
+  }, [user]);
+
   useEffect(() => {
     if (search.checkout === "success") {
       toast.success("Welcome to Pro! Unlimited generations unlocked.");
@@ -292,14 +308,14 @@ function Index() {
       <WelcomeDialog />
 
       {/* Header */}
-      <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-30 bg-background/70">
+      <header className="border-b border-border/60 backdrop-blur-md sticky top-0 z-30 bg-background/70 transition-all duration-300">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
           <a
             href="/"
-            className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-opacity"
+            className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-all duration-200 hover:scale-[1.02]"
             aria-label="SmartReply AI X — Home"
           >
-            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)]">
+            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-200">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
             <div className="min-w-0">
@@ -313,7 +329,7 @@ function Index() {
           </a>
           <div className="flex items-center gap-2 shrink-0">
             {!isPro && (
-              <span className="hidden sm:inline text-[11px] text-muted-foreground">
+              <span className="hidden sm:inline text-[11px] text-muted-foreground transition-colors">
                 {Math.max(0, FREE_DAILY_LIMIT - usedToday)}/{FREE_DAILY_LIMIT} left
               </span>
             )}
@@ -327,7 +343,7 @@ function Index() {
                   variant="ghost"
                   onClick={openPortal}
                   disabled={openingPortal}
-                  className="text-xs"
+                  className="text-xs transition-colors duration-200"
                   title="Manage billing"
                 >
                   {openingPortal ? <Loader2 className="h-3 w-3 animate-spin" /> : "Billing"}
@@ -336,19 +352,22 @@ function Index() {
             )}
             <Link
               to="/pricing"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors px-2"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 px-2"
             >
               Pricing
             </Link>
           {user ? (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:inline truncate max-w-[140px]">
-                {user.email}
-              </span>
-              <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground">
+            <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
+              <div className="hidden sm:flex flex-col items-end leading-tight">
+                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Signed in as</span>
+                <span className="text-xs font-medium text-foreground truncate max-w-[160px]">
+                  {(user.user_metadata?.full_name as string | undefined) || user.email}
+                </span>
+              </div>
+              <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground ring-2 ring-background transition-transform duration-200 hover:scale-110">
                 {(user.email ?? "U").slice(0, 1).toUpperCase()}
               </div>
-              <Button size="sm" variant="ghost" onClick={signOut} title="Sign out">
+              <Button size="sm" variant="ghost" onClick={signOut} title="Sign out" className="transition-colors duration-200">
                 <LogOut className="h-3.5 w-3.5" />
               </Button>
             </div>
