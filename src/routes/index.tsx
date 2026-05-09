@@ -12,7 +12,7 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
-import { Testimonials } from "@/components/Testimonials";
+import { HeroParticles } from "@/components/HeroParticles";
 
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { HowItWorks } from "@/components/HowItWorks";
