@@ -889,10 +889,10 @@ function Index() {
                   Coming soon
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
-                  Want replies directly while using X?
+                  Stay on X. Still Win.
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Get our Chrome Extension and generate smart replies inline — without leaving your timeline.
+                  Our Chrome Extension lets you generate smart replies inline — right inside your timeline. No tab switching, no copy-pasting. Just click, generate, post.
                 </p>
               </div>
               <Button
