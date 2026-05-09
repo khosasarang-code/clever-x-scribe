@@ -490,7 +490,7 @@ function Index() {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section id="smart-replies" className="space-y-4 scroll-mt-20">
           <div className="flex items-center gap-2">
             <MessageSquareText className="h-5 w-5 text-primary" />
             <h2 className="text-xl font-semibold">Smart Replies</h2>
