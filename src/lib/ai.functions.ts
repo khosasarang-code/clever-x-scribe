@@ -68,14 +68,14 @@ export const generateAI = createServerFn({ method: "POST" })
     let isPro = false;
     if (userId) {
       const env = data.environment ?? "live";
-      const { data: proRow } = await supabase.rpc("has_active_subscription", {
+      const { data: proRow } = await supabaseAdmin.rpc("has_active_subscription", {
         user_uuid: userId,
         check_env: env,
       });
       isPro = Boolean(proRow);
 
       // Atomically check + increment daily usage (signed-in users only).
-      const { data: usageRows, error: usageErr } = await supabase.rpc(
+      const { data: usageRows, error: usageErr } = await supabaseAdmin.rpc(
         "increment_daily_usage",
         { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
       );
@@ -91,7 +91,7 @@ export const generateAI = createServerFn({ method: "POST" })
     // Refund the credit if anything below fails (free signed-in users only).
     const refund = async () => {
       if (userId && !isPro) {
-        await supabase.rpc("decrement_daily_usage", { _user_id: userId });
+        await supabaseAdmin.rpc("decrement_daily_usage", { _user_id: userId });
       }
     };
 
@@ -189,12 +189,12 @@ export const rewriteAI = createServerFn({ method: "POST" })
     let isPro = false;
     if (userId) {
       const env = data.environment ?? "live";
-      const { data: proRow } = await supabase.rpc("has_active_subscription", {
+      const { data: proRow } = await supabaseAdmin.rpc("has_active_subscription", {
         user_uuid: userId,
         check_env: env,
       });
       isPro = Boolean(proRow);
-      const { data: usageRows, error: usageErr } = await supabase.rpc(
+      const { data: usageRows, error: usageErr } = await supabaseAdmin.rpc(
         "increment_daily_usage",
         { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
       );
@@ -209,7 +209,7 @@ export const rewriteAI = createServerFn({ method: "POST" })
 
     const refund = async () => {
       if (userId && !isPro) {
-        await supabase.rpc("decrement_daily_usage", { _user_id: userId });
+        await supabaseAdmin.rpc("decrement_daily_usage", { _user_id: userId });
       }
     };
 
