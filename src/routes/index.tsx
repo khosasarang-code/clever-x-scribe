@@ -330,14 +330,14 @@ function Index() {
           </a>
 
           {/* Center: Nav links */}
-          <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+          <nav className="primary-nav hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+            <a href="#features" className="px-3 py-2 rounded-md hover:bg-foreground/5 transition-colors">
               Features
             </a>
-            <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+            <a href="#how-it-works" className="px-3 py-2 rounded-md hover:bg-foreground/5 transition-colors">
               How it Works
             </a>
-            <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+            <Link to="/pricing" className="px-3 py-2 rounded-md hover:bg-foreground/5 transition-colors">
               Pricing
             </Link>
           </nav>
