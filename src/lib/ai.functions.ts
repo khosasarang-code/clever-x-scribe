@@ -100,6 +100,14 @@ export const generateAI = createServerFn({ method: "POST" })
         const tone = data.tone as (typeof TONES)[number];
         system += `\n\nPRIMARY TONE: ${tone}. ${TONE_GUIDANCE[tone]}\nAll 9 replies should lean into this tone while still varying in angle/length.`;
       }
+      if (data.mode === "replies" && data.persona && data.persona.trim()) {
+        const p = data.persona.trim();
+        const preset = PERSONA_PRESETS.find((x) => x.handle.toLowerCase() === p.toLowerCase());
+        const styleNote = preset
+          ? `Write in the voice of ${preset.label} (${preset.handle}): ${preset.style}.`
+          : `Write in the voice/style of "${p}". Mirror their known cadence, vocabulary, and worldview if recognizable; otherwise interpret it as a stylistic instruction.`;
+        system += `\n\nVOICE: ${styleNote}\nAll 9 replies should consistently sound like this voice while still varying in angle.`;
+      }
       const userMsg =
         data.mode === "replies"
           ? `Tweet to reply to:\n\n${data.prompt}`
