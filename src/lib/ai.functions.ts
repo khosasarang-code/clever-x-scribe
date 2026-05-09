@@ -1,10 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny"] as const;
+
 const inputSchema = z.object({
   prompt: z.string().min(1).max(8000),
   mode: z.enum(["replies", "thread"]),
+  tone: z.enum(TONES).optional(),
 });
+
+const TONE_GUIDANCE: Record<(typeof TONES)[number], string> = {
+  Witty: "Sharp, clever, playful wordplay. Quick punchlines.",
+  Helpful: "Genuinely useful. Add a tip, resource, framework, or clarifying question.",
+  Professional: "Polished, credible, articulate. No slang. Industry-aware.",
+  Viral: "Bold hooks, contrarian takes, pattern interrupts. Built for engagement.",
+  Funny: "Actually funny. Absurd, self-aware, meme-literate. Land the joke.",
+};
 
 const SYSTEM_REPLIES = `You are SmartReply, an expert at writing engaging, witty, human-sounding Twitter/X replies.
 Given a tweet, generate exactly 9 distinct reply options. Mix tones: insightful, witty/funny, contrarian (respectful), supportive, question-asking, value-add (with a tip/stat), bold one-liner, story-style, and meme-y.
