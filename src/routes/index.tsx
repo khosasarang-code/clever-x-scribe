@@ -252,7 +252,7 @@ function Index() {
     setLoadingReplies(true);
     setReplies([]);
     try {
-      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, environment: getPaddleEnvironment() } });
+      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, persona: persona.trim() || undefined, environment: getPaddleEnvironment() } });
       setReplies(res.items);
       if (!isPro) refreshUsage();
       save([
