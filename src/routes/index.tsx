@@ -123,7 +123,7 @@ function Index() {
     setLoadingReplies(true);
     setReplies([]);
     try {
-      const res = await generateAI({ data: { prompt: tweet, mode: "replies" } });
+      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
