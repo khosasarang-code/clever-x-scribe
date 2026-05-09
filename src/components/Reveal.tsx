@@ -54,15 +54,14 @@ export function Reveal({
     ["--reveal-y" as any]: `${y}px`,
   };
 
-  return (
-    // @ts-expect-error dynamic tag
-    <Tag
-      ref={ref}
-      data-visible={visible ? "true" : "false"}
-      className={`reveal ${className}`}
-      style={style}
-    >
-      {children}
-    </Tag>
+  return createElement(
+    Tag,
+    {
+      ref,
+      "data-visible": visible ? "true" : "false",
+      className: `reveal ${className}`,
+      style,
+    },
+    children,
   );
 }
