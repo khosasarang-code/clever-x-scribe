@@ -15,6 +15,8 @@ import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroDemo } from "@/components/HeroDemo";
 import { RewriteDialog } from "@/components/RewriteDialog";
+import { HowItWorks } from "@/components/HowItWorks";
+import { RealResults } from "@/components/RealResults";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -691,6 +693,10 @@ function Index() {
             </div>
           )}
         </section>
+
+        <HowItWorks />
+
+        <RealResults />
 
         {/* History */}
         <section className="space-y-4">
