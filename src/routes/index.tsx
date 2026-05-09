@@ -549,7 +549,15 @@ function Index() {
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
                       Reply {i + 1} · {r.length} chars · tap to copy
                     </span>
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                      <RewriteDialog
+                        initialText={r}
+                        trigger={
+                          <Button size="sm" variant="ghost" className="gap-1.5 text-xs h-8">
+                            <Wand2 className="h-3.5 w-3.5" /> Rewrite
+                          </Button>
+                        }
+                      />
                       <CopyButton text={r} />
                     </div>
                   </div>
