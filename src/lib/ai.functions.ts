@@ -10,8 +10,17 @@ const inputSchema = z.object({
   prompt: z.string().min(1).max(8000),
   mode: z.enum(["replies", "thread"]),
   tone: z.enum(TONES).optional(),
+  persona: z.string().max(80).optional(),
   environment: z.enum(["sandbox", "live"]).optional(),
 });
+
+export const PERSONA_PRESETS: { handle: string; label: string; style: string }[] = [
+  { handle: "@naval", label: "Naval Ravikant", style: "first-principles, calm, aphoristic, deeply thoughtful, often paradoxical one-liners about wealth, happiness, leverage" },
+  { handle: "@levelsio", label: "Pieter Levels", style: "indie hacker, blunt, numbers-driven, ship-fast energy, casual lowercase, occasional emoji, real talk about building" },
+  { handle: "@shreyas", label: "Shreyas Doshi", style: "PM frameworks, structured thinking, bullet-style clarity, named concepts (LNO, high-agency), executive crispness" },
+  { handle: "@garyvee", label: "Gary Vaynerchuk", style: "high-energy, motivational, blunt, hustle-mindset, attention-economy takes, short punchy sentences, occasional caps" },
+  { handle: "in my own style", label: "In my own style", style: "Match the writer's natural voice from the original tweet — mirror their cadence, vocabulary, formatting, and emoji habits." },
+];
 
 const TONE_GUIDANCE: Record<(typeof TONES)[number], string> = {
   Witty: "Sharp, clever, playful wordplay. Quick punchlines.",
