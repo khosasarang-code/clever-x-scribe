@@ -80,7 +80,8 @@ export const generateAI = createServerFn({ method: "POST" })
     try {
       let system = data.mode === "replies" ? SYSTEM_REPLIES : SYSTEM_THREAD;
       if (data.mode === "replies" && data.tone) {
-        system += `\n\nPRIMARY TONE: ${data.tone}. ${TONE_GUIDANCE[data.tone]}\nAll 9 replies should lean into this tone while still varying in angle/length.`;
+        const tone = data.tone as (typeof TONES)[number];
+        system += `\n\nPRIMARY TONE: ${tone}. ${TONE_GUIDANCE[tone]}\nAll 9 replies should lean into this tone while still varying in angle/length.`;
       }
       const userMsg =
         data.mode === "replies"
