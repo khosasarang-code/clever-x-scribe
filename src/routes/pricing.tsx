@@ -64,7 +64,6 @@ const TIERS: Tier[] = [
       "Priority AI model",
       "Longer threads (up to 15 tweets)",
       "Saved tone profiles",
-      "Cloud-synced history",
       "Early access to new features",
     ],
   },
