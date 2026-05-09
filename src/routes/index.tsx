@@ -156,14 +156,15 @@ function Index() {
       script.domain = "www.chatbase.co";
       document.body.appendChild(script);
     };
-    // @ts-expect-error requestIdleCallback may not exist on Safari
-    const ric = window.requestIdleCallback as undefined | ((cb: () => void, opts?: { timeout: number }) => number);
-    const id = ric
-      ? ric(load, { timeout: 4000 })
+    const w = window as unknown as {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const id = w.requestIdleCallback
+      ? w.requestIdleCallback(load, { timeout: 4000 })
       : (window.setTimeout(load, 2500) as unknown as number);
     return () => {
-      // @ts-expect-error
-      if (window.cancelIdleCallback) window.cancelIdleCallback(id);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(id);
       else window.clearTimeout(id);
     };
   }, []);
