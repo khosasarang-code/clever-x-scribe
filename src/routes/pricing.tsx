@@ -71,8 +71,39 @@ const TIERS: Tier[] = [
 ];
 
 function PricingPage() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { isPro } = useSubscription();
+  const { openCheckout, loading: checkoutLoading } = usePaddleCheckout();
+
+  const handleCta = async (tierName: string) => {
+    if (tierName === "Free") {
+      navigate({ to: "/" });
+      return;
+    }
+    if (isPro) {
+      toast.success("You're already on Pro!");
+      return;
+    }
+    if (!user) {
+      navigate({ to: "/auth", search: { next: "/pricing", mode: "signup" } });
+      return;
+    }
+    try {
+      await openCheckout({
+        priceId: "pro_monthly",
+        customerEmail: user.email ?? undefined,
+        customData: { userId: user.id },
+        successUrl: `${window.location.origin}/?checkout=success`,
+      });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Could not open checkout");
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <Toaster theme="dark" position="top-center" />
       <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-30 bg-background/70">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 min-w-0">
@@ -103,49 +134,63 @@ function PricingPage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 max-w-3xl mx-auto">
-          {TIERS.map((tier) => (
-            <Card
-              key={tier.name}
-              className={
-                "p-6 flex flex-col gap-5 relative " +
-                (tier.highlight
-                  ? "border-primary/50 shadow-[var(--shadow-glow)]"
-                  : "")
-              }
-            >
-              {tier.highlight && (
-                <div className="absolute -top-3 left-6 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
-                  Most popular
-                </div>
-              )}
-              <div>
-                <h2 className="text-xl font-semibold">{tier.name}</h2>
-                <p className="text-sm text-muted-foreground mt-1">{tier.blurb}</p>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">{tier.price}</span>
-                <span className="text-sm text-muted-foreground">{tier.cadence}</span>
-              </div>
-              <ul className="space-y-2.5 text-sm flex-1">
-                {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button
+          {TIERS.map((tier) => {
+            const isProTier = tier.name === "Pro";
+            const label =
+              isProTier && isPro
+                ? "Current plan"
+                : isProTier && checkoutLoading
+                ? "Opening checkout…"
+                : tier.cta;
+            return (
+              <Card
+                key={tier.name}
                 className={
-                  tier.highlight
-                    ? "bg-gradient-brand text-primary-foreground hover:opacity-90"
-                    : ""
+                  "p-6 flex flex-col gap-5 relative " +
+                  (tier.highlight
+                    ? "border-primary/50 shadow-[var(--shadow-glow)]"
+                    : "")
                 }
-                variant={tier.highlight ? "default" : "outline"}
               >
-                {tier.cta}
-              </Button>
-            </Card>
-          ))}
+                {tier.highlight && (
+                  <div className="absolute -top-3 left-6 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                    Most popular
+                  </div>
+                )}
+                <div>
+                  <h2 className="text-xl font-semibold">{tier.name}</h2>
+                  <p className="text-sm text-muted-foreground mt-1">{tier.blurb}</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight">{tier.price}</span>
+                  <span className="text-sm text-muted-foreground">{tier.cadence}</span>
+                </div>
+                <ul className="space-y-2.5 text-sm flex-1">
+                  {tier.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  onClick={() => handleCta(tier.name)}
+                  disabled={isProTier && (checkoutLoading || isPro)}
+                  className={
+                    tier.highlight
+                      ? "bg-gradient-brand text-primary-foreground hover:opacity-90"
+                      : ""
+                  }
+                  variant={tier.highlight ? "default" : "outline"}
+                >
+                  {isProTier && checkoutLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : null}
+                  {label}
+                </Button>
+              </Card>
+            );
+          })}
         </section>
 
         <p className="text-center text-xs text-muted-foreground">
