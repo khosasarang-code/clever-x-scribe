@@ -243,7 +243,7 @@ function Index() {
     setLoadingThread(true);
     setThread([]);
     try {
-      const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
+      const res = await generateAI({ data: { prompt: idea, mode: "thread", environment: getPaddleEnvironment() } });
       setThread(res.items);
       if (!isPro) refreshUsage();
       save([
