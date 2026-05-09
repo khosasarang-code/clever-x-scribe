@@ -725,9 +725,13 @@ function Index() {
           )}
         </section>
 
-        <HowItWorks />
+        <div className="animate-reveal-up">
+          <HowItWorks />
+        </div>
 
-        <RealResults />
+        <div className="animate-reveal-up">
+          <RealResults />
+        </div>
 
         {/* History */}
         <section className="space-y-4">
