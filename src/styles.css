@@ -442,6 +442,78 @@ html {
 .review-card .quote { font-size: 14px; color: #cbd5e1; line-height: 1.6; }
 .review-card .name { font-weight: 700; color: #ffffff; font-size: 14px; }
 .review-card .handle { color: #4f8ef7; font-size: 13px; }
+
+/* ============================================================
+   Premium motion system: scroll reveal, hover lift, marquee, float
+   ============================================================ */
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 18px));
+  transition:
+    opacity 0.7s var(--transition-smooth),
+    transform 0.8s var(--transition-smooth),
+    filter 0.7s var(--transition-smooth);
+  filter: blur(4px);
+  will-change: opacity, transform, filter;
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Premium hover lift for cards */
+.hover-lift {
+  transition:
+    transform 0.35s var(--transition-smooth),
+    box-shadow 0.35s var(--transition-smooth),
+    border-color 0.35s var(--transition-smooth),
+    background-color 0.35s var(--transition-smooth);
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+/* Floating UI utility — very subtle */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.float-soft { animation: float-y 7s ease-in-out infinite; }
+.float-soft-slow { animation: float-y 10s ease-in-out infinite; }
+
+/* Marquee for testimonials — premium two-row */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-row {
+  animation: marquee-x linear infinite;
+  will-change: transform;
+}
+.marquee-mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-mask:hover .marquee-row { animation-play-state: paused; }
+
+/* Hero parallax preview wrapper */
+.tilt-wrap {
+  transform-style: preserve-3d;
+  perspective: 1200px;
+}
+.tilt-inner {
+  transition: transform 0.5s var(--transition-smooth);
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+  .marquee-row { animation: none; }
+  .float-soft, .float-soft-slow { animation: none; }
+  .reveal { opacity: 1; transform: none; filter: none; }
 }
