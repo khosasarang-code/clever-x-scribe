@@ -98,7 +98,13 @@ function useDailyUsage(enabled: boolean) {
       const res = await getDailyUsage();
       setCount(res.count);
       setLimit(res.limit);
-    } catch {}
+    } catch (error: any) {
+      const message = error?.message ?? "";
+      if (message.toLowerCase().includes("unauthorized")) {
+        setCount(0);
+        return;
+      }
+    }
   };
   useEffect(() => {
     refresh();
@@ -117,7 +123,7 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { isPro, subscription, refetch: refetchSub } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
@@ -141,7 +147,7 @@ function Index() {
 
   const requireAuth = (): boolean => {
     if (!user) {
-      toast.error("Sign in to generate.");
+      toast.error("Sign in to save generations and unlock Pro.");
       navigate({ to: "/auth", search: { next: "/" } });
       return false;
     }
@@ -149,12 +155,23 @@ function Index() {
   };
 
   const openPortal = async () => {
+    if (!user) {
+      toast.error("Sign in to manage billing.");
+      navigate({ to: "/auth", search: { next: "/" } });
+      return;
+    }
     setOpeningPortal(true);
     try {
       const res = await createPortalSession({ data: { environment: getPaddleEnvironment() } });
       window.open(res.overviewUrl, "_blank", "noopener,noreferrer");
     } catch (e: any) {
-      toast.error(e?.message ?? "Could not open billing portal");
+      const message = e?.message ?? "Could not open billing portal";
+      if (String(message).toLowerCase().includes("unauthorized")) {
+        toast.error("Please sign in again to manage billing.");
+        navigate({ to: "/auth", search: { next: "/" } });
+      } else {
+        toast.error(message);
+      }
     } finally {
       setOpeningPortal(false);
     }
@@ -216,6 +233,10 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
+    if (authLoading) {
+      toast.error("Checking your session…");
+      return;
+    }
     if (!requireAuth()) return;
     setLoadingReplies(true);
     setReplies([]);
@@ -228,7 +249,13 @@ function Index() {
         ...history,
       ]);
     } catch (e: any) {
-      toast.error(e?.message ?? "Generation failed");
+      const message = e?.message ?? "Generation failed";
+      if (String(message).toLowerCase().includes("unauthorized")) {
+        toast.error("Please sign in again and retry.");
+        navigate({ to: "/auth", search: { next: "/" } });
+      } else {
+        toast.error(message);
+      }
     } finally {
       setLoadingReplies(false);
     }
@@ -237,6 +264,10 @@ function Index() {
   const runThread = async () => {
     if (!idea.trim()) {
       toast.error("Drop a thread idea first");
+      return;
+    }
+    if (authLoading) {
+      toast.error("Checking your session…");
       return;
     }
     if (!requireAuth()) return;
@@ -251,7 +282,13 @@ function Index() {
         ...history,
       ]);
     } catch (e: any) {
-      toast.error(e?.message ?? "Generation failed");
+      const message = e?.message ?? "Generation failed";
+      if (String(message).toLowerCase().includes("unauthorized")) {
+        toast.error("Please sign in again and retry.");
+        navigate({ to: "/auth", search: { next: "/" } });
+      } else {
+        toast.error(message);
+      }
     } finally {
       setLoadingThread(false);
     }

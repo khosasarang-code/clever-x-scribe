@@ -1,6 +1,7 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
+import { serverFnAuthFetch } from "./integrations/supabase/server-fn-fetch";
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -19,4 +20,9 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 
 export const startInstance = createStart(() => ({
   requestMiddleware: [errorMiddleware],
+  serverFns: {
+    fetch: async (input, init) => {
+      return serverFnAuthFetch(input, init);
+    },
+  },
 }));
