@@ -482,6 +482,57 @@ function Index() {
                 </button>
               ))}
             </div>
+
+            {/* Reply like ... */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground mr-1">
+                Reply like
+              </span>
+              <div className="relative flex-1 min-w-[200px]">
+                <input
+                  type="text"
+                  value={persona}
+                  onChange={(e) => setPersona(e.target.value)}
+                  onFocus={() => setPersonaOpen(true)}
+                  onBlur={() => setTimeout(() => setPersonaOpen(false), 150)}
+                  placeholder="@naval, @levelsio, or 'in my own style'…"
+                  className="w-full h-9 px-3 rounded-md text-sm bg-input/40 border border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground/70"
+                />
+                {personaOpen && (
+                  <div className="absolute z-20 left-0 right-0 mt-1 rounded-md border border-border/70 bg-popover shadow-lg overflow-hidden">
+                    {PERSONA_PRESETS.filter((p) =>
+                      persona.trim() === ""
+                        ? true
+                        : p.handle.toLowerCase().includes(persona.toLowerCase()) ||
+                          p.label.toLowerCase().includes(persona.toLowerCase()),
+                    ).map((p) => (
+                      <button
+                        key={p.handle}
+                        type="button"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setPersona(p.handle);
+                          setPersonaOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-2 text-sm hover:bg-primary/10 transition-colors flex items-center justify-between gap-3"
+                      >
+                        <span className="font-medium">{p.handle}</span>
+                        <span className="text-xs text-muted-foreground truncate">{p.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {persona && (
+                <button
+                  type="button"
+                  onClick={() => setPersona("")}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
             <Textarea
               value={tweet}
               onChange={(e) => setTweet(e.target.value)}
