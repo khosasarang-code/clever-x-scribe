@@ -220,7 +220,7 @@ function Index() {
     setLoadingReplies(true);
     setReplies([]);
     try {
-      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
+      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, environment: getPaddleEnvironment() } });
       setReplies(res.items);
       if (!isPro) refreshUsage();
       save([
