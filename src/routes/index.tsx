@@ -414,11 +414,11 @@ function Index() {
 
       <InstallBanner />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-24 sm:space-y-32">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <section className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
           {/* LEFT: Headline + trust + benefits */}
-          <div className="lg:col-span-5 space-y-7 lg:pt-4">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4">
             {/* Trust badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
