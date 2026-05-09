@@ -248,6 +248,8 @@ function Index() {
         </div>
       </header>
 
+      <InstallBanner />
+
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
         {/* Hero */}
         <section className="text-center space-y-4">
@@ -260,7 +262,6 @@ function Index() {
           </p>
         </section>
 
-        <InstallBanner />
         <section className="space-y-4">
           <div className="flex items-center gap-2">
             <MessageSquareText className="h-5 w-5 text-primary" />
