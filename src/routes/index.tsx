@@ -423,9 +423,10 @@ function Index() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section id="features" className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
+        <section id="features" className="relative grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
+          <HeroParticles />
           {/* LEFT: Headline + trust + benefits */}
-          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4 relative">
             {/* Trust badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
@@ -449,17 +450,16 @@ function Index() {
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.02] sm:leading-[0.98] animate-hero-in"
               style={{ animationDelay: "80ms" }}
             >
-              Smart Replies &{" "}
-              <span className="text-gradient-brand">Viral Threads</span>{" "}
-              for X
+              Smart Replies & Viral Threads for X —{" "}
+              <span className="text-gradient-brand">That Actually Sound Like You</span>
             </h1>
 
             <p
               className="text-foreground/80 text-base sm:text-lg lg:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
-              The fastest way to write replies that get{" "}
-              <span className="text-gradient-brand font-semibold">likes, reposts and followers</span>.
+              Stop posting forgettable replies. SmartReply AI X writes{" "}
+              <span className="text-gradient-brand font-semibold">9 ready-to-post replies</span> in seconds — witty, bold, savage, or professional. Paste a tweet. Pick a tone. Watch your engagement explode.
             </p>
           </div>
 
