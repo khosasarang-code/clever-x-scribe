@@ -451,32 +451,9 @@ function Index() {
               className="text-foreground/80 text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
-              Paste any tweet and get{" "}
-              <span className="text-gradient-brand font-semibold">9 intelligent replies</span>{" "}
-              instantly. Or turn one idea into a full{" "}
-              <span className="text-gradient-brand font-semibold">viral thread</span>.
+              The fastest way to write replies that get{" "}
+              <span className="text-gradient-brand font-semibold">likes, reposts and followers</span>.
             </p>
-
-            {/* Trust signals */}
-            <div
-              className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground pt-1 animate-hero-in"
-              style={{ animationDelay: "240ms" }}
-            >
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                No login needed to try
-              </span>
-              <span className="h-1 w-1 rounded-full bg-border" />
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                Thousands of creators
-              </span>
-              <span className="h-1 w-1 rounded-full bg-border" />
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                Natural &amp; engaging replies
-              </span>
-            </div>
           </div>
 
 
@@ -581,27 +558,51 @@ function Index() {
                   className="min-h-[160px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-primary"
                 />
 
-                <Button
-                  size="lg"
-                  onClick={runReplies}
-                  disabled={loadingReplies}
-                  className="group w-full h-12 text-base bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold rounded-xl"
-                >
-                  {loadingReplies ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <Sparkles className="h-5 w-5" />
-                  )}
-                  {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
-                  {!loadingReplies && (
-                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                  )}
-                </Button>
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-xl bg-gradient-brand opacity-60 blur-lg animate-pulse pointer-events-none" />
+                  <Button
+                    size="lg"
+                    onClick={runReplies}
+                    disabled={loadingReplies}
+                    className="group relative w-full h-14 text-base bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] hover:shadow-[0_20px_60px_-10px_oklch(0.7_0.22_290/0.85)] transition-all duration-300 font-bold rounded-xl"
+                  >
+                    {loadingReplies ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <Sparkles className="h-5 w-5" />
+                    )}
+                    {loadingReplies ? "Crafting replies…" : "Generate Smart Replies — Free"}
+                    {!loadingReplies && (
+                      <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    )}
+                  </Button>
+                </div>
 
                 <p className="text-[11px] text-center text-muted-foreground">
                   No login needed · Results in ~10 seconds
                 </p>
               </Card>
+
+              {/* Trust signals below generator */}
+              <div
+                className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground animate-hero-in"
+                style={{ animationDelay: "320ms" }}
+              >
+                <span className="flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-emerald-400" />
+                  No login required to try
+                </span>
+                <span className="h-1 w-1 rounded-full bg-border" />
+                <span className="flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-emerald-400" />
+                  Helped generate <span className="font-semibold text-foreground">12,458+</span> replies
+                </span>
+                <span className="h-1 w-1 rounded-full bg-border" />
+                <span className="flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-emerald-400" />
+                  Used by creators &amp; founders
+                </span>
+              </div>
             </div>
           </div>
         </section>
