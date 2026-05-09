@@ -9,6 +9,7 @@ const inputSchema = z.object({
   prompt: z.string().min(1).max(8000),
   mode: z.enum(["replies", "thread"]),
   tone: z.enum(TONES).optional(),
+  environment: z.enum(["sandbox", "live"]).optional(),
 });
 
 const TONE_GUIDANCE: Record<(typeof TONES)[number], string> = {
