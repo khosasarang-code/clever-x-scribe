@@ -148,7 +148,7 @@ html {
   --secondary-foreground: oklch(0.96 0.008 260);
   --muted: oklch(0.25 0.02 265);
   --muted-foreground: oklch(0.74 0.022 260);
-  --destructive: oklch(0.62 0.२ 25);
+  --destructive: oklch(0.62 0.2 25);
   --destructive-foreground: oklch(0.98 0.005 260);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
