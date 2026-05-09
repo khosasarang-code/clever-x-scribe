@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { generateAI } from "@/lib/ai.functions";
+import { generateAI, TONES } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -75,6 +75,7 @@ function CopyButton({ text }: { text: string }) {
 
 function Index() {
   const [tweet, setTweet] = useState("");
+  const [tone, setTone] = useState<(typeof TONES)[number]>("Witty");
   const [idea, setIdea] = useState("");
   const [replies, setReplies] = useState<string[]>([]);
   const [thread, setThread] = useState<string[]>([]);
@@ -122,7 +123,7 @@ function Index() {
     setLoadingReplies(true);
     setReplies([]);
     try {
-      const res = await generateAI({ data: { prompt: tweet, mode: "replies" } });
+      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
@@ -201,6 +202,25 @@ function Index() {
             <h2 className="text-xl font-semibold">Smart Replies</h2>
           </div>
           <Card className="p-4 space-y-3 bg-card/60 border-border/70">
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground self-center mr-1">
+                Tone
+              </span>
+              {TONES.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTone(t)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                    tone === t
+                      ? "bg-gradient-brand text-primary-foreground border-transparent shadow-[var(--shadow-glow)]"
+                      : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
             <Textarea
               value={tweet}
               onChange={(e) => setTweet(e.target.value)}
