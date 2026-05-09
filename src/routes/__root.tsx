@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "description",
         content: "AI-powered replies and viral threads for X / Twitter.",
       },
-      { name: "author", content: "SmartReply" },
+      { name: "author", content: "SmartReply AI" },
       { name: "theme-color", content: "#101524" },
       { name: "color-scheme", content: "dark" },
       { name: "format-detection", content: "telephone=no" },
@@ -92,7 +92,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "apple-mobile-web-app-status-bar-style",
         content: "black-translucent",
       },
-      { name: "apple-mobile-web-app-title", content: "SmartReply" },
+      { name: "apple-mobile-web-app-title", content: "SmartReply AI" },
       // Open Graph
       { property: "og:title", content: "SmartReply AI" },
       {
