@@ -1,6 +1,6 @@
 {
-  "name": "SmartReply for X",
-  "short_name": "SmartReply",
+  "name": "SmartReply AI",
+  "short_name": "SmartReply AI",
   "description": "AI-powered replies and viral threads for X / Twitter.",
   "start_url": "/",
   "scope": "/",

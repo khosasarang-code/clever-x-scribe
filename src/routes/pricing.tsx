@@ -7,13 +7,13 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — SmartReply for X" },
+      { title: "Pricing — SmartReply AI" },
       {
         name: "description",
         content:
-          "Simple pricing for SmartReply for X. Start free with 10 generations a day, or go Pro for unlimited replies and viral threads.",
+          "Simple pricing for SmartReply AI. Start free with 10 generations a day, or go Pro for unlimited replies and viral threads.",
       },
-      { property: "og:title", content: "Pricing — SmartReply for X" },
+      { property: "og:title", content: "Pricing — SmartReply AI" },
       {
         property: "og:description",
         content: "Free 10/day or Pro $19/mo unlimited.",
@@ -75,7 +75,7 @@ function PricingPage() {
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
             <div className="font-semibold tracking-tight">
-              SmartReply <span className="text-muted-foreground">for X</span>
+              SmartReply <span className="text-muted-foreground">AI</span>
             </div>
           </Link>
           <Button asChild size="sm" variant="ghost">

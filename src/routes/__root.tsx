@@ -76,12 +76,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5",
       },
-      { title: "SmartReply for X" },
+      { title: "SmartReply AI" },
       {
         name: "description",
         content: "AI-powered replies and viral threads for X / Twitter.",
       },
-      { name: "author", content: "SmartReply" },
+      { name: "author", content: "SmartReply AI" },
       { name: "theme-color", content: "#101524" },
       { name: "color-scheme", content: "dark" },
       { name: "format-detection", content: "telephone=no" },
@@ -92,9 +92,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "apple-mobile-web-app-status-bar-style",
         content: "black-translucent",
       },
-      { name: "apple-mobile-web-app-title", content: "SmartReply" },
+      { name: "apple-mobile-web-app-title", content: "SmartReply AI" },
       // Open Graph
-      { property: "og:title", content: "SmartReply for X" },
+      { property: "og:title", content: "SmartReply AI" },
       {
         property: "og:description",
         content: "Write replies and threads that actually pop.",
@@ -103,15 +103,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/605d0d91-f06f-4274-a7a4-94250f23be0b" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "SmartReply for X" },
+      { name: "twitter:title", content: "SmartReply AI" },
       {
         name: "twitter:description",
         content: "AI replies and viral threads for X.",
       },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/605d0d91-f06f-4274-a7a4-94250f23be0b" },
-      { name: "description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
-      { property: "og:description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
-      { name: "twitter:description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
+      { name: "description", content: "SmartReply AI instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
+      { property: "og:description", content: "SmartReply AI instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
+      { name: "twitter:description", content: "SmartReply AI instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

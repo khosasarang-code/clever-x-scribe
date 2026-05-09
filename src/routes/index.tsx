@@ -16,13 +16,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "SmartReply for X — AI Replies & Viral Threads" },
+      { title: "SmartReply AI — AI Replies & Viral Threads" },
       {
         name: "description",
         content:
           "Generate witty Twitter/X replies and viral threads in seconds with AI. Paste a tweet, get 9 smart replies. Drop an idea, get a full thread.",
       },
-      { property: "og:title", content: "SmartReply for X" },
+      { property: "og:title", content: "SmartReply AI" },
       {
         property: "og:description",
         content: "AI-powered replies and viral threads for X / Twitter.",
@@ -229,7 +229,7 @@ function Index() {
             </div>
             <div className="min-w-0">
               <div className="font-semibold tracking-tight leading-tight">
-                SmartReply <span className="text-muted-foreground">for X</span>
+                SmartReply <span className="text-muted-foreground">AI</span>
               </div>
               <div className="text-[11px] text-muted-foreground truncate hidden sm:block">
                 Write replies and threads that actually pop.
