@@ -245,26 +245,6 @@ function Index() {
     }
   };
 
-  const runThread = async () => {
-    if (!idea.trim()) {
-      toast.error("Drop a thread idea first");
-      return;
-    }
-    setLoadingThread(true);
-    setThread([]);
-    try {
-      const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
-      setThread(res.items);
-      save([
-        { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
-        ...history,
-      ]);
-    } catch (e: any) {
-      toast.error(e?.message ?? "Generation failed");
-    } finally {
-      setLoadingThread(false);
-    }
-  };
 
   const fullThreadText = thread.map((t, i) => `${i + 1}/ ${t}`).join("\n\n");
 
@@ -292,6 +272,16 @@ function Index() {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            {!isPro && (
+              <span className="hidden sm:inline text-[11px] text-muted-foreground">
+                {Math.max(0, FREE_DAILY_LIMIT - usedToday)}/{FREE_DAILY_LIMIT} left
+              </span>
+            )}
+            {isPro && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                <Crown className="h-3 w-3" /> Pro
+              </span>
+            )}
             <Link
               to="/pricing"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors px-2"
@@ -300,22 +290,23 @@ function Index() {
             </Link>
           {user ? (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:inline">@{user.handle}</span>
+              <span className="text-xs text-muted-foreground hidden sm:inline truncate max-w-[140px]">
+                {user.email}
+              </span>
               <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground">
-                {user.handle.slice(0, 1).toUpperCase()}
+                {(user.email ?? "U").slice(0, 1).toUpperCase()}
               </div>
-              <Button size="sm" variant="ghost" onClick={logout} title="Sign out">
+              <Button size="sm" variant="ghost" onClick={signOut} title="Sign out">
                 <LogOut className="h-3.5 w-3.5" />
               </Button>
             </div>
           ) : (
             <Button
+              asChild
               size="sm"
-              onClick={login}
               className="bg-foreground text-background hover:bg-foreground/90 shrink-0"
             >
-              <XLogo className="h-3.5 w-3.5" />
-              Login with X
+              <Link to="/auth">Sign in</Link>
             </Button>
           )}
           </div>
