@@ -75,7 +75,7 @@ function PricingPage() {
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
             <div className="font-semibold tracking-tight">
-              SmartReply <span className="text-muted-foreground">AI</span>
+              SmartReply <span className="text-muted-foreground">AI X</span>
             </div>
           </Link>
           <Button asChild size="sm" variant="ghost">
