@@ -380,7 +380,7 @@ function Index() {
       </main>
 
       <footer className="py-10 text-center text-xs text-muted-foreground">
-        Built with care · SmartReply for X
+        Made with <span className="text-red-400">❤️</span> using Lovable
       </footer>
     </div>
   );
