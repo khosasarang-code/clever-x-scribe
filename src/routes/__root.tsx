@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
+import { AmbientBackground } from "@/components/AmbientBackground";
 
 function NotFoundComponent() {
   return (
