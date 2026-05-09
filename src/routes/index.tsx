@@ -411,11 +411,11 @@ function Index() {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
         {/* Hero */}
         <section className="text-center space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.05]">
             Write replies and threads <br />
             that <span className="text-gradient-brand">actually pop.</span>
           </h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
             Paste any tweet to get 9 smart reply options. Drop an idea to get a full viral thread. No fluff.
           </p>
         </section>
