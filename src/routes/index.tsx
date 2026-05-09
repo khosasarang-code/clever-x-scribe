@@ -379,7 +379,8 @@ function Index() {
               <>
                 <Link
                   to="/auth"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-block"
+                  className="hidden sm:inline-flex items-center rounded-md px-3 py-1.5 text-sm font-bold text-white border-2 transition-colors"
+                  style={{ borderColor: "#4f8ef7" }}
                 >
                   Sign in
                 </Link>
