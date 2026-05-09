@@ -228,13 +228,13 @@ function Index() {
       toast.error("Drop a thread idea first");
       return;
     }
-    if (!requireQuota()) return;
+    if (!requireAuth()) return;
     setLoadingThread(true);
     setThread([]);
     try {
       const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
       setThread(res.items);
-      if (!isPro) incrementUsage();
+      if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
         ...history,
