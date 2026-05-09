@@ -131,6 +131,22 @@ function Index() {
   const search = useSearch({ from: "/" });
   const [openingPortal, setOpeningPortal] = useState(false);
 
+  const greetedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!user) {
+      greetedRef.current = null;
+      return;
+    }
+    if (greetedRef.current === user.id) return;
+    greetedRef.current = user.id;
+    const name =
+      (user.user_metadata?.full_name as string | undefined) ||
+      (user.user_metadata?.name as string | undefined) ||
+      user.email ||
+      "creator";
+    toast.success(`Signed in as ${name}`);
+  }, [user]);
+
   useEffect(() => {
     if (search.checkout === "success") {
       toast.success("Welcome to Pro! Unlimited generations unlocked.");
