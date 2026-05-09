@@ -396,19 +396,52 @@ html {
   50%, 100% { opacity: 0; }
 }
 
-/* Reviews marquee */
-@keyframes reviews-marquee {
+/* Primary nav links — bold electric blue */
+.primary-nav a {
+  font-weight: 700;
+  color: #4f8ef7;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+.primary-nav a:hover {
+  color: #ffffff;
+}
+
+/* Reviews marquee — auto-scrolling card carousel */
+.marquee-wrapper { overflow: hidden; width: 100%; }
+.marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+@keyframes scroll-left {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.reviews-marquee-track {
-  display: inline-flex;
-  gap: 3rem;
-  animation: reviews-marquee 60s linear infinite;
-  white-space: nowrap;
-  will-change: transform;
+.review-card {
+  min-width: 280px;
+  max-width: 280px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(79,142,247,0.2);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
 }
-.reviews-marquee:hover .reviews-marquee-track { animation-play-state: paused; }
+.review-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #4f8ef7;
+  object-fit: cover;
+}
+.review-card .quote { font-size: 14px; color: #cbd5e1; line-height: 1.6; }
+.review-card .name { font-weight: 700; color: #ffffff; font-size: 14px; }
+.review-card .handle { color: #4f8ef7; font-size: 13px; }
 @media (prefers-reduced-motion: reduce) {
-  .reviews-marquee-track { animation: none; }
+  .marquee-track { animation: none; }
 }
