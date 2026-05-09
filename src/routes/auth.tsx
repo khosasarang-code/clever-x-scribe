@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 
 const searchSchema = z.object({
   next: z.string().optional(),
