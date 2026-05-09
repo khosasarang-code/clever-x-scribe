@@ -27,6 +27,11 @@ const TESTIMONIALS: Testimonial[] = [
   { name: "Emma Reyes", handle: "emmascales", avatar: 23, role: "Brand Strategist", text: "Clients ask how I'm so consistent on X. This is the secret. Cannot believe it's this affordable." },
   { name: "Jordan Blake", handle: "jordancreates", avatar: 56, role: "Content Creator", text: "Doubled my newsletter signups from X traffic alone. The replies pull people into my profile." },
   { name: "Aisha Khan", handle: "aishabuilds", avatar: 41, role: "Tech Founder", text: "I've tried every X growth tool out there. Nothing comes close to the quality of this one." },
+  { name: "Ben Carter", handle: "bencarterio", avatar: 11, role: "Growth Lead", text: "Generated 50+ replies in my first session. Three of them went viral by the next morning." },
+  { name: "Sofia Rossi", handle: "sofiawrites", avatar: 16, role: "Newsletter Writer", text: "My favorite part: the tone presets actually match my voice. Feels like an extension of me." },
+  { name: "Kenji Watanabe", handle: "kenjibuilds", avatar: 68, role: "Engineer", text: "Replaced 4 different tools with this one. Pricing is honestly too generous for what you get." },
+  { name: "Olivia Brooks", handle: "oliviascales", avatar: 5, role: "Marketing Director", text: "Onboarded my whole team. Our brand engagement is up 4x and inbound DMs have doubled." },
+  { name: "Rahul Mehta", handle: "rahulships", avatar: 52, role: "Indie Maker", text: "Hit my first 10k followers thanks to this. The thread generator is straight up magic." },
 ];
 
 // Duplicate the list so the marquee loops seamlessly.

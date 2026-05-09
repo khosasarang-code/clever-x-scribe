@@ -294,7 +294,11 @@ function Index() {
       {/* Header */}
       <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-30 bg-background/70">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
+          <a
+            href="/"
+            className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-opacity"
+            aria-label="SmartReply AI X — Home"
+          >
             <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)]">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
@@ -306,7 +310,7 @@ function Index() {
                 Write replies and threads that actually pop.
               </div>
             </div>
-          </div>
+          </a>
           <div className="flex items-center gap-2 shrink-0">
             {!isPro && (
               <span className="hidden sm:inline text-[11px] text-muted-foreground">
