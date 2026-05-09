@@ -205,13 +205,13 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
-    if (!requireQuota()) return;
+    if (!requireAuth()) return;
     setLoadingReplies(true);
     setReplies([]);
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
-      if (!isPro) incrementUsage();
+      if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
         ...history,
