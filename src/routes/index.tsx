@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "SmartReply for X — AI Replies & Viral Threads" },
+      { title: "SmartReply AI — AI Replies & Viral Threads" },
       {
         name: "description",
         content:
