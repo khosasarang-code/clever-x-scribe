@@ -1,6 +1,6 @@
 /**
  * Full-page subtle background video. Sits behind everything (z-index: -1).
- * Dark base color from the page background remains underneath for readability.
+ * Must be a direct child of the root layout — no parent with overflow:hidden.
  */
 export function VideoBackground() {
   return (
@@ -18,12 +18,12 @@ export function VideoBackground() {
         height: "100%",
         objectFit: "cover",
         zIndex: -1,
-        opacity: 0.18,
+        opacity: 0.15,
         pointerEvents: "none",
       }}
     >
       <source
-        src="https://videos.pexels.com/video-files/3931604/3931604-uhd_2560_1440_25fps.mp4"
+        src="https://cdn.coverr.co/videos/coverr-typing-on-a-phone-1584/1080p.mp4"
         type="video/mp4"
       />
     </video>
