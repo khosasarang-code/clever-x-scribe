@@ -227,10 +227,6 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
-    if (authLoading) {
-      toast.error("Checking your session…");
-      return;
-    }
 
     setLoadingReplies(true);
     setReplies([]);
@@ -258,10 +254,6 @@ function Index() {
   const runThread = async () => {
     if (!idea.trim()) {
       toast.error("Drop a thread idea first");
-      return;
-    }
-    if (authLoading) {
-      toast.error("Checking your session…");
       return;
     }
 
