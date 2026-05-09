@@ -229,7 +229,7 @@ function Index() {
             </div>
             <div className="min-w-0">
               <div className="font-semibold tracking-tight leading-tight">
-                SmartReply <span className="text-muted-foreground">for X</span>
+                SmartReply <span className="text-muted-foreground">AI</span>
               </div>
               <div className="text-[11px] text-muted-foreground truncate hidden sm:block">
                 Write replies and threads that actually pop.
