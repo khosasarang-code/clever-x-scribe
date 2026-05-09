@@ -115,7 +115,7 @@ function Index() {
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
   const { user } = useAuth();
-  const { isPro } = useSubscription();
+  const { isPro, subscription } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
