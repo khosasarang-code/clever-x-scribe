@@ -57,7 +57,7 @@ Rules:
 Return ONLY a JSON array of strings (one per tweet). No commentary, no markdown fences.`;
 
 export const generateAI = createServerFn({ method: "POST" })
-  .middleware([optionalSupabaseAuth])
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data, context }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
@@ -66,7 +66,7 @@ export const generateAI = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
 
     let isPro = false;
-    if (userId) {
+    {
       const env = data.environment ?? "live";
       const { data: proRow } = await supabaseAdmin.rpc("has_active_subscription", {
         user_uuid: userId,
@@ -179,7 +179,7 @@ const rewriteSchema = z.object({
 });
 
 export const rewriteAI = createServerFn({ method: "POST" })
-  .middleware([optionalSupabaseAuth])
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => rewriteSchema.parse(data))
   .handler(async ({ data, context }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
@@ -187,7 +187,7 @@ export const rewriteAI = createServerFn({ method: "POST" })
 
     const { supabase, userId } = context;
     let isPro = false;
-    if (userId) {
+    {
       const env = data.environment ?? "live";
       const { data: proRow } = await supabaseAdmin.rpc("has_active_subscription", {
         user_uuid: userId,
