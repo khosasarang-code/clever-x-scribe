@@ -82,34 +82,26 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-const USAGE_KEY = "smartreply_usage_v1";
-const FREE_DAILY_LIMIT = 10;
+import { getDailyUsage, FREE_DAILY_LIMIT } from "@/utils/usage.functions";
+import { createPortalSession } from "@/utils/payments.functions";
+import { getPaddleEnvironment } from "@/lib/paddle";
 
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function useDailyUsage() {
+function useDailyUsage(enabled: boolean) {
   const [count, setCount] = useState(0);
-  useEffect(() => {
+  const [limit, setLimit] = useState(FREE_DAILY_LIMIT);
+  const refresh = async () => {
+    if (!enabled) return;
     try {
-      const raw = localStorage.getItem(USAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed.day === todayKey()) setCount(parsed.count);
-      }
+      const res = await getDailyUsage();
+      setCount(res.count);
+      setLimit(res.limit);
     } catch {}
-  }, []);
-  const increment = () => {
-    setCount((c) => {
-      const next = c + 1;
-      try {
-        localStorage.setItem(USAGE_KEY, JSON.stringify({ day: todayKey(), count: next }));
-      } catch {}
-      return next;
-    });
   };
-  return { count, increment, limit: FREE_DAILY_LIMIT };
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled]);
+  return { count, limit, refresh };
 }
 
 function Index() {
@@ -123,10 +115,11 @@ function Index() {
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
   const { user } = useAuth();
-  const { isPro } = useSubscription();
-  const { count: usedToday, increment: incrementUsage, limit } = useDailyUsage();
+  const { isPro, subscription } = useSubscription();
+  const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
+  const [openingPortal, setOpeningPortal] = useState(false);
 
   useEffect(() => {
     if (search.checkout === "success") {
@@ -135,17 +128,25 @@ function Index() {
     }
   }, [search.checkout, navigate]);
 
-  const canGenerate = isPro || usedToday < limit;
-  const requireQuota = (): boolean => {
-    if (canGenerate) return true;
+  const requireAuth = (): boolean => {
     if (!user) {
-      toast.error("Daily free limit reached. Sign up to continue.");
-      navigate({ to: "/auth", search: { next: "/pricing" } });
-    } else {
-      toast.error("Daily free limit reached. Upgrade to Pro for unlimited.");
-      navigate({ to: "/pricing" });
+      toast.error("Sign in to generate.");
+      navigate({ to: "/auth", search: { next: "/" } });
+      return false;
     }
-    return false;
+    return true;
+  };
+
+  const openPortal = async () => {
+    setOpeningPortal(true);
+    try {
+      const res = await createPortalSession({ data: { environment: getPaddleEnvironment() } });
+      window.open(res.overviewUrl, "_blank", "noopener,noreferrer");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Could not open billing portal");
+    } finally {
+      setOpeningPortal(false);
+    }
   };
 
   const signOut = async () => {
@@ -204,13 +205,13 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
-    if (!requireQuota()) return;
+    if (!requireAuth()) return;
     setLoadingReplies(true);
     setReplies([]);
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
-      if (!isPro) incrementUsage();
+      if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
         ...history,
@@ -227,13 +228,13 @@ function Index() {
       toast.error("Drop a thread idea first");
       return;
     }
-    if (!requireQuota()) return;
+    if (!requireAuth()) return;
     setLoadingThread(true);
     setThread([]);
     try {
       const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
       setThread(res.items);
-      if (!isPro) incrementUsage();
+      if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
         ...history,
@@ -278,9 +279,21 @@ function Index() {
               </span>
             )}
             {isPro && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
-                <Crown className="h-3 w-3" /> Pro
-              </span>
+              <>
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                  <Crown className="h-3 w-3" /> Pro
+                </span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={openPortal}
+                  disabled={openingPortal}
+                  className="text-xs"
+                  title="Manage billing"
+                >
+                  {openingPortal ? <Loader2 className="h-3 w-3 animate-spin" /> : "Billing"}
+                </Button>
+              </>
             )}
             <Link
               to="/pricing"
@@ -312,6 +325,28 @@ function Index() {
           </div>
         </div>
       </header>
+
+      {subscription && subscription.status === "past_due" && (
+        <div className="w-full bg-red-100 border-b border-red-300 px-4 py-2 text-center text-sm text-red-800">
+          Your last payment failed. Please update your payment method to keep Pro access.{" "}
+          <button onClick={openPortal} className="underline font-medium">Update payment</button>
+        </div>
+      )}
+      {subscription && subscription.status === "canceled" && subscription.current_period_end &&
+        new Date(subscription.current_period_end) > new Date() && (
+          <div className="w-full bg-amber-100 border-b border-amber-300 px-4 py-2 text-center text-sm text-amber-900">
+            Your Pro plan ends on {new Date(subscription.current_period_end).toLocaleDateString()}.{" "}
+            <Link to="/pricing" className="underline font-medium">Resubscribe</Link>
+          </div>
+        )}
+      {subscription && subscription.cancel_at_period_end && subscription.status !== "canceled" &&
+        subscription.current_period_end && (
+          <div className="w-full bg-amber-100 border-b border-amber-300 px-4 py-2 text-center text-sm text-amber-900">
+            Pro will not renew. Access continues until{" "}
+            {new Date(subscription.current_period_end).toLocaleDateString()}.{" "}
+            <button onClick={openPortal} className="underline font-medium">Manage</button>
+          </div>
+        )}
 
       <InstallBanner />
 

@@ -45,12 +45,16 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
+        if (!data.session) {
+          toast.success("Account created! Check your email to confirm.");
+          return;
+        }
         toast.success("Account created!");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -60,6 +64,25 @@ function AuthPage() {
       navigate({ to: next });
     } catch (e: any) {
       toast.error(e?.message ?? "Authentication failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const forgotPassword = async () => {
+    if (!email) {
+      toast.error("Enter your email above first");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      toast.success("Password reset email sent. Check your inbox.");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Could not send reset email");
     } finally {
       setBusy(false);
     }
@@ -152,6 +175,19 @@ function AuthPage() {
             {mode === "signin" ? "Sign in" : "Create account"}
           </Button>
         </form>
+
+        {mode === "signin" && (
+          <p className="text-xs text-center">
+            <button
+              type="button"
+              onClick={forgotPassword}
+              disabled={busy}
+              className="text-muted-foreground hover:text-foreground hover:underline"
+            >
+              Forgot password?
+            </button>
+          </p>
+        )}
 
         <p className="text-xs text-center text-muted-foreground">
           {mode === "signin" ? "New here?" : "Already have an account?"}{" "}
