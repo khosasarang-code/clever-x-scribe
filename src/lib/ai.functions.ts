@@ -39,7 +39,7 @@ Rules:
 Return ONLY a JSON array of strings (one per tweet). No commentary, no markdown fences.`;
 
 export const generateAI = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([optionalSupabaseAuth])
   .inputValidator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data, context }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
@@ -47,30 +47,32 @@ export const generateAI = createServerFn({ method: "POST" })
 
     const { supabase, userId } = context;
 
-    // Strict env match: only honor a Pro sub for the requested environment.
-    const env = data.environment ?? "live";
-    const { data: proRow } = await supabase.rpc("has_active_subscription", {
-      user_uuid: userId,
-      check_env: env,
-    });
-    const isPro = Boolean(proRow);
+    let isPro = false;
+    if (userId) {
+      const env = data.environment ?? "live";
+      const { data: proRow } = await supabase.rpc("has_active_subscription", {
+        user_uuid: userId,
+        check_env: env,
+      });
+      isPro = Boolean(proRow);
 
-    // Atomically check + increment daily usage.
-    const { data: usageRows, error: usageErr } = await supabase.rpc(
-      "increment_daily_usage",
-      { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
-    );
-    if (usageErr) throw new Error(usageErr.message);
-    const usage = Array.isArray(usageRows) ? usageRows[0] : usageRows;
-    if (!usage?.allowed) {
-      throw new Error(
-        `Daily free limit of ${FREE_DAILY_LIMIT} reached. Upgrade to Pro for unlimited generations.`,
+      // Atomically check + increment daily usage (signed-in users only).
+      const { data: usageRows, error: usageErr } = await supabase.rpc(
+        "increment_daily_usage",
+        { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
       );
+      if (usageErr) throw new Error(usageErr.message);
+      const usage = Array.isArray(usageRows) ? usageRows[0] : usageRows;
+      if (!usage?.allowed) {
+        throw new Error(
+          `Daily free limit of ${FREE_DAILY_LIMIT} reached. Upgrade to Pro for unlimited generations.`,
+        );
+      }
     }
 
-    // Refund the credit if anything below fails (free users only).
+    // Refund the credit if anything below fails (free signed-in users only).
     const refund = async () => {
-      if (!isPro) {
+      if (userId && !isPro) {
         await supabase.rpc("decrement_daily_usage", { _user_id: userId });
       }
     };
