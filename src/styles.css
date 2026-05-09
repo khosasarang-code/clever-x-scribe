@@ -137,34 +137,32 @@ html {
 }
 
 :root {
-  --background: oklch(0.16 0.015 260);
-  --foreground: oklch(0.97 0.005 260);
-  --card: oklch(0.21 0.018 260);
-  --card-foreground: oklch(0.97 0.005 260);
-  --popover: oklch(0.21 0.018 260);
-  --popover-foreground: oklch(0.97 0.005 260);
-  --primary: oklch(0.72 0.18 245);
-  --primary-foreground: oklch(0.16 0.015 260);
-  --secondary: oklch(0.26 0.02 260);
-  --secondary-foreground: oklch(0.97 0.005 260);
-  --muted: oklch(0.24 0.018 260);
-  --muted-foreground: oklch(0.7 0.02 260);
-  --accent: oklch(0.7 0.19 320);
-  --accent-foreground: oklch(0.16 0.015 260);
-  --destructive: oklch(0.65 0.22 25);
+  /* Premium dark navy palette — calm, Linear/Arc inspired */
+  --background: oklch(0.18 0.02 265);
+  --foreground: oklch(0.96 0.008 260);
+  --card: oklch(0.225 0.022 265);
+  --card-foreground: oklch(0.96 0.008 260);
+  --popover: oklch(0.225 0.022 265);
+  --popover-foreground: oklch(0.96 0.008 260);
+  --secondary: oklch(0.27 0.022 265);
+  --secondary-foreground: oklch(0.96 0.008 260);
+  --muted: oklch(0.25 0.02 265);
+  --muted-foreground: oklch(0.74 0.022 260);
+  --destructive: oklch(0.62 0.२ 25);
   --destructive-foreground: oklch(0.98 0.005 260);
-  --border: oklch(0.3 0.02 260);
-  --input: oklch(0.26 0.02 260);
-  --ring: oklch(0.72 0.18 245);
-  --primary: oklch(0.68 0.2 295);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  /* Sophisticated purple-blue accent */
+  --primary: oklch(0.66 0.16 275);
   --primary-foreground: oklch(0.98 0.005 260);
-  --accent: oklch(0.72 0.2 320);
-  --ring: oklch(0.68 0.2 295);
-  --gradient-brand: linear-gradient(135deg, oklch(0.7 0.2 280), oklch(0.72 0.21 320));
-  --gradient-subtle: linear-gradient(135deg, oklch(0.7 0.2 280 / 0.12), oklch(0.72 0.21 320 / 0.08));
-  --shadow-glow: 0 10px 40px -10px oklch(0.7 0.22 290 / 0.55);
-  --shadow-glow-sm: 0 4px 20px -4px oklch(0.7 0.22 290 / 0.45);
-  --shadow-elegant: 0 20px 50px -20px oklch(0.15 0.02 270 / 0.6);
+  --accent: oklch(0.68 0.15 290);
+  --accent-foreground: oklch(0.98 0.005 260);
+  --ring: oklch(0.66 0.16 275);
+  --gradient-brand: linear-gradient(135deg, oklch(0.62 0.16 265), oklch(0.66 0.15 290));
+  --gradient-subtle: linear-gradient(135deg, oklch(0.62 0.16 265 / 0.12), oklch(0.66 0.15 290 / 0.08));
+  --shadow-glow: 0 8px 32px -8px oklch(0.62 0.16 275 / 0.38);
+  --shadow-glow-sm: 0 4px 16px -4px oklch(0.62 0.16 275 / 0.32);
+  --shadow-elegant: 0 20px 50px -20px oklch(0.1 0.02 270 / 0.65);
   --transition-smooth: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
