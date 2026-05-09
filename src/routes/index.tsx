@@ -486,10 +486,10 @@ function Index() {
                       key={t}
                       type="button"
                       onClick={() => setTone(t)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-150 ${
                         tone === t
-                          ? "bg-gradient-brand text-primary-foreground border-transparent shadow-[var(--shadow-glow-sm)] scale-105"
-                          : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
+                          ? "bg-primary/15 text-foreground border-primary/40"
+                          : "bg-transparent text-muted-foreground border-border/60 hover:text-foreground hover:border-border"
                       }`}
                     >
                       {t}
