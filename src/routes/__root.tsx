@@ -162,6 +162,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <VideoBackground />
       <AmbientBackground />
       <PaymentTestModeBanner />
       <Outlet />
