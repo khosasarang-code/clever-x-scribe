@@ -948,8 +948,9 @@ function Index() {
 
       <footer className="border-t border-border/50 bg-background/40 mt-10">
         <div className="container max-w-6xl mx-auto px-4 py-12 sm:py-16">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
-            <div className="col-span-2 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+            {/* Brand */}
+            <div className="lg:col-span-2 space-y-4">
               <Link to="/" className="inline-flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
                   <Sparkles className="h-4 w-4 text-primary-foreground" />
@@ -987,55 +988,112 @@ function Index() {
               </div>
             </div>
 
-            {[
-              {
-                title: "Product",
-                links: [
-                  { label: "Features", href: "#features" },
-                  { label: "Pricing", href: "/pricing" },
-                ],
-              },
-              {
-                title: "Support",
-                links: [
-                  { label: "Contact", href: "mailto:hello@smartreplyaix.com" },
-                  { label: "Help", href: "#features" },
-                ],
-              },
-              {
-                title: "Legal",
-                links: [
-                  { label: "Privacy Policy", href: "#" },
-                  { label: "Terms of Service", href: "#" },
-                ],
-              },
-            ].map((col) => (
-              <div key={col.title} className="space-y-4">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
-                  {col.title}
-                </h3>
-                <ul className="space-y-2.5">
-                  {col.links.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {l.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Product */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Product
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <a
+                    href="#features"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    to="/pricing"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Support
+              </h3>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <a
+                    href="mailto:hello@smartreplyaix.com"
+                    className="block text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Contact
+                  </a>
+                  <a
+                    href="tel:+14378558844"
+                    className="block text-xs text-muted-foreground/80 hover:text-foreground transition-colors mt-1"
+                  >
+                    +1 437 855 8844
+                  </a>
+                </li>
+                <li className="group relative inline-block">
+                  <button
+                    type="button"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Help
+                  </button>
+                  <div
+                    role="tooltip"
+                    className="pointer-events-none absolute left-0 bottom-full mb-2 w-64 rounded-md border border-border/70 bg-popover p-3 text-xs text-popover-foreground shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity z-20"
+                  >
+                    For help, email us at{" "}
+                    <a className="text-primary underline" href="mailto:hello@smartreplyaix.com">
+                      hello@smartreplyaix.com
+                    </a>{" "}
+                    or call{" "}
+                    <a className="text-primary underline" href="tel:+14378558844">
+                      +1 437 855 8844
+                    </a>
+                    . We typically respond within 24 hours.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Legal
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="mt-12 pt-6 border-t border-border/50 text-center">
             <p className="text-xs text-muted-foreground">
-              © 2026 SmartReply AI X. All rights reserved.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Made with <span className="text-red-400">❤️</span> using Lovable
+              © 2026 SmartReply AI X. All rights reserved. ·{" "}
+              <a href="mailto:hello@smartreplyaix.com" className="hover:text-foreground transition-colors">
+                hello@smartreplyaix.com
+              </a>{" "}
+              ·{" "}
+              <a href="tel:+14378558844" className="hover:text-foreground transition-colors">
+                +1 437 855 8844
+              </a>
             </p>
           </div>
         </div>
