@@ -526,18 +526,18 @@ function Index() {
               { v: "1.2M+", l: "Replies generated" },
               { v: "12 sec", l: "Avg. generation time" },
               { v: "4.9 / 5", l: "Average rating" },
-            ].map(s => (
-              <div key={s.l}>
+            ].map((s, i) => (
+              <Reveal key={s.l} delay={i * 80}>
                 <div className="text-2xl sm:text-3xl font-bold tracking-tight text-gradient-brand">{s.v}</div>
                 <div className="text-xs sm:text-sm text-muted-foreground mt-1">{s.l}</div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ============== FEATURES ============== */}
         <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-16 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Features</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               Everything you need to <span className="text-gradient-brand">grow on X</span>
@@ -545,7 +545,7 @@ function Index() {
             <p className="text-muted-foreground text-lg">
               From smart replies to viral threads, SmartReply AI X gives you the unfair advantage every serious creator deserves.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
