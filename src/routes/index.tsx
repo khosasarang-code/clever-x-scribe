@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut, Crown } from "lucide-react";
+import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut, Crown, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -14,6 +14,7 @@ import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroDemo } from "@/components/HeroDemo";
+import { RewriteDialog } from "@/components/RewriteDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -548,7 +549,15 @@ function Index() {
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
                       Reply {i + 1} · {r.length} chars · tap to copy
                     </span>
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                      <RewriteDialog
+                        initialText={r}
+                        trigger={
+                          <Button size="sm" variant="ghost" className="gap-1.5 text-xs h-8">
+                            <Wand2 className="h-3.5 w-3.5" /> Rewrite
+                          </Button>
+                        }
+                      />
                       <CopyButton text={r} />
                     </div>
                   </div>

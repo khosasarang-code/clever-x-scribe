@@ -3,6 +3,7 @@ import { z } from "zod";
 import { optionalSupabaseAuth } from "@/integrations/supabase/optional-auth";
 
 export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny", "Savage", "Controversial", "Intellectual", "Bold", "Empathetic", "Roast", "Salesy"] as const;
+export const REWRITE_STYLES = ["Stronger", "Funnier", "More Viral", "Shorter", "More Professional"] as const;
 export const FREE_DAILY_LIMIT = 10;
 
 const inputSchema = z.object({
@@ -139,6 +140,94 @@ export const generateAI = createServerFn({ method: "POST" })
         throw new Error("AI returned no usable content");
       }
       return { items: items.map(String) };
+    } catch (err) {
+      await refund();
+      throw err;
+    }
+  });
+
+const REWRITE_GUIDANCE: Record<(typeof REWRITE_STYLES)[number], string> = {
+  Stronger: "Make it more impactful, confident, and assertive. Tighten weak verbs. Lead with the strongest idea.",
+  Funnier: "Make it actually funny. Add wit, surprise, or a clever twist. Land the joke. Avoid try-hard.",
+  "More Viral": "Make it pop. Bold hook, pattern interrupt, contrarian angle, or quotable line built for engagement.",
+  Shorter: "Cut ruthlessly. Same meaning in far fewer words. Aim for under 140 characters.",
+  "More Professional": "Polished, credible, articulate. Remove slang. Industry-aware tone.",
+};
+
+const rewriteSchema = z.object({
+  text: z.string().min(1).max(2000),
+  style: z.enum(REWRITE_STYLES),
+  environment: z.enum(["sandbox", "live"]).optional(),
+});
+
+export const rewriteAI = createServerFn({ method: "POST" })
+  .middleware([optionalSupabaseAuth])
+  .inputValidator((data: unknown) => rewriteSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
+
+    const { supabase, userId } = context;
+    let isPro = false;
+    if (userId) {
+      const env = data.environment ?? "live";
+      const { data: proRow } = await supabase.rpc("has_active_subscription", {
+        user_uuid: userId,
+        check_env: env,
+      });
+      isPro = Boolean(proRow);
+      const { data: usageRows, error: usageErr } = await supabase.rpc(
+        "increment_daily_usage",
+        { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
+      );
+      if (usageErr) throw new Error(usageErr.message);
+      const usage = Array.isArray(usageRows) ? usageRows[0] : usageRows;
+      if (!usage?.allowed) {
+        throw new Error(
+          `Daily free limit of ${FREE_DAILY_LIMIT} reached. Upgrade to Pro for unlimited generations.`,
+        );
+      }
+    }
+
+    const refund = async () => {
+      if (userId && !isPro) {
+        await supabase.rpc("decrement_daily_usage", { _user_id: userId });
+      }
+    };
+
+    try {
+      const system = `You rewrite Twitter/X replies. Keep the original intent but transform the style.
+STYLE: ${data.style}. ${REWRITE_GUIDANCE[data.style]}
+Rules:
+- Keep under 270 characters.
+- No hashtags. No "As an AI". No markdown. No quotes around the reply.
+- Sound like a real human.
+Return ONLY the rewritten reply text. No commentary, no preface.`;
+
+      const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash",
+          messages: [
+            { role: "system", content: system },
+            { role: "user", content: `Original reply:\n\n${data.text}` },
+          ],
+        }),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`AI gateway error ${res.status}: ${text}`);
+      }
+      const json = await res.json();
+      let content: string = json.choices?.[0]?.message?.content ?? "";
+      content = content.trim().replace(/^```[a-z]*\n?/i, "").replace(/```$/, "").trim();
+      content = content.replace(/^["'`]+|["'`]+$/g, "").trim();
+      if (!content) throw new Error("AI returned no content");
+      return { text: content };
     } catch (err) {
       await refund();
       throw err;
