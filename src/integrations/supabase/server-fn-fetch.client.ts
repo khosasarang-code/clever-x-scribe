@@ -1,40 +1,32 @@
-// Injects the current Supabase access token into all server function calls
-// (TanStack Start fetches /_serverFn/* from the browser without auth by default).
 import { supabase } from "./client";
 
-declare global {
-  interface Window {
-    __serverFnFetchPatched?: boolean;
-  }
+function getRequestUrl(input: RequestInfo | URL) {
+  if (typeof input === "string") return input;
+  if (input instanceof URL) return input.toString();
+  return input.url;
 }
 
-if (typeof window !== "undefined" && !window.__serverFnFetchPatched) {
-  window.__serverFnFetchPatched = true;
-  const originalFetch = window.fetch.bind(window);
-  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-    try {
-      const url =
-        typeof input === "string"
-          ? input
-          : input instanceof URL
-            ? input.toString()
-            : input.url;
-      if (url && url.includes("/_serverFn/")) {
-        const { data } = await supabase.auth.getSession();
-        const token = data.session?.access_token;
-        if (token) {
-          const headers = new Headers(init?.headers ?? (input instanceof Request ? input.headers : undefined));
-          if (!headers.has("authorization")) {
-            headers.set("authorization", `Bearer ${token}`);
-          }
-          return originalFetch(input, { ...init, headers });
-        }
-      }
-    } catch {
-      // fall through to plain fetch
+export async function serverFnAuthFetch(input: RequestInfo | URL, init?: RequestInit) {
+  const url = getRequestUrl(input);
+  if (!url.includes("/_serverFn/")) {
+    return fetch(input, init);
+  }
+
+  const headers = new Headers(
+    init?.headers ?? (input instanceof Request ? input.headers : undefined),
+  );
+
+  try {
+    const { data } = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    if (token && !headers.has("authorization")) {
+      headers.set("authorization", `Bearer ${token}`);
     }
-    return originalFetch(input, init);
-  };
+  } catch {
+    // Fall back to the original request if session lookup fails.
+  }
+
+  return fetch(input, { ...init, headers });
 }
 
 export {};

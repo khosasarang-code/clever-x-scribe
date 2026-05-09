@@ -10,7 +10,6 @@ import {
 
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import "@/integrations/supabase/server-fn-fetch.client";
 
 function NotFoundComponent() {
   return (
