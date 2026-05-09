@@ -73,6 +73,40 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
+const USER_KEY = "smartreply_user_v1";
+type FakeUser = { handle: string };
+
+function useFakeAuth() {
+  const [user, setUser] = useState<FakeUser | null>(null);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(USER_KEY);
+      if (raw) setUser(JSON.parse(raw));
+    } catch {}
+  }, []);
+  const login = () => {
+    const handles = ["builder", "shipfast", "indiehacker", "dev_curious", "growth_nerd", "tweetsmith"];
+    const u = { handle: handles[Math.floor(Math.random() * handles.length)] + Math.floor(Math.random() * 99) };
+    localStorage.setItem(USER_KEY, JSON.stringify(u));
+    setUser(u);
+    toast.success(`Signed in as @${u.handle}`);
+  };
+  const logout = () => {
+    localStorage.removeItem(USER_KEY);
+    setUser(null);
+    toast.success("Signed out");
+  };
+  return { user, login, logout };
+}
+
+function XLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M18.244 2H21.5l-7.5 8.57L23 22h-6.844l-5.36-7.01L4.6 22H1.34l8.02-9.165L1 2h7.02l4.84 6.41L18.244 2zm-2.4 18h1.84L7.26 4h-1.96l10.544 16z" />
+    </svg>
+  );
+}
+
 function Index() {
   const [tweet, setTweet] = useState("");
   const [tone, setTone] = useState<(typeof TONES)[number]>("Witty");
