@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { z } from "zod";
 import {
   Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2,
@@ -18,6 +18,8 @@ import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
+import { Reveal } from "@/components/Reveal";
+import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -120,10 +122,34 @@ function useDailyUsage(enabled: boolean) {
 
 /* ---------- Static product preview (TweetHunter-style mock) ---------- */
 function ProductPreview() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  const onMove = (e: ReactMouseEvent<HTMLDivElement>) => {
+    const el = wrapRef.current;
+    const inner = innerRef.current;
+    if (!el || !inner) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    inner.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) translateZ(0)`;
+  };
+  const onLeave = () => {
+    if (innerRef.current) innerRef.current.style.transform = "rotateX(0) rotateY(0)";
+  };
+
   return (
-    <div className="relative">
+    <div
+      ref={wrapRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="tilt-wrap relative float-soft-slow"
+    >
       <div className="absolute -inset-6 bg-gradient-to-br from-primary/20 via-transparent to-accent/15 blur-3xl opacity-60 pointer-events-none" />
-      <div className="relative rounded-2xl border border-border/70 bg-card/80 backdrop-blur-xl shadow-[var(--shadow-elegant)] overflow-hidden">
+      <div
+        ref={innerRef}
+        className="tilt-inner relative rounded-2xl border border-border/70 bg-card/80 backdrop-blur-xl shadow-[var(--shadow-elegant)] overflow-hidden"
+      >
         {/* window chrome */}
         <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border/60 bg-background/40">
           <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
@@ -500,18 +526,18 @@ function Index() {
               { v: "1.2M+", l: "Replies generated" },
               { v: "12 sec", l: "Avg. generation time" },
               { v: "4.9 / 5", l: "Average rating" },
-            ].map(s => (
-              <div key={s.l}>
+            ].map((s, i) => (
+              <Reveal key={s.l} delay={i * 80}>
                 <div className="text-2xl sm:text-3xl font-bold tracking-tight text-gradient-brand">{s.v}</div>
                 <div className="text-xs sm:text-sm text-muted-foreground mt-1">{s.l}</div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ============== FEATURES ============== */}
         <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-16 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Features</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
               Everything you need to <span className="text-gradient-brand">grow on X</span>
@@ -519,7 +545,7 @@ function Index() {
             <p className="text-muted-foreground text-lg">
               From smart replies to viral threads, SmartReply AI X gives you the unfair advantage every serious creator deserves.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -529,35 +555,39 @@ function Index() {
               { icon: TrendingUp, title: "Faster Audience Growth", desc: "Reply more, post more, grow more. Tested by 10,000+ creators." },
               { icon: Users, title: "Reply Like Top Creators", desc: "Mirror the voice of @naval, @levelsio, or save your own personal style." },
               { icon: Shield, title: "Private & Secure", desc: "We never train on your inputs. Your account, your voice, your data." },
-            ].map(f => (
-              <Card key={f.title} className="p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70 transition-all duration-300">
-                <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
-                  <f.icon className="h-5 w-5" />
-                </div>
-                <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </Card>
+            ].map((f, i) => (
+              <Reveal key={f.title} delay={i * 70} y={24}>
+                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70">
+                  <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
+                    <f.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ============== HOW IT WORKS ============== */}
         <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4 mb-14">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4 mb-14">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Workflow</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">From blank screen to posted in 30 seconds</h2>
-          </div>
+          </Reveal>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               { step: "01", title: "Paste a tweet or idea", desc: "Drop in any tweet you want to reply to, or a single thread idea." },
               { step: "02", title: "Pick your tone & voice", desc: "Choose from 12 tones and optional creator personas." },
               { step: "03", title: "Copy. Post. Grow.", desc: "Pick the reply you love, copy with one click, and ship it." },
-            ].map(s => (
-              <Card key={s.step} className="p-6 bg-card/50 border-border/60">
-                <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
-                <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              </Card>
+            ].map((s, i) => (
+              <Reveal key={s.step} delay={i * 100} y={20}>
+                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60">
+                  <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
+                  <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -753,88 +783,71 @@ function Index() {
         </section>
 
         {/* ============== TESTIMONIALS ============== */}
-        <section id="testimonials" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+        <section id="testimonials" className="py-20 sm:py-28 space-y-12 scroll-mt-24">
+          <Reveal className="text-center max-w-2xl mx-auto px-4 sm:px-6 space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Loved by creators</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Join <span className="text-gradient-brand">10,000+</span> creators growing on X
             </h2>
-          </div>
+            <p className="text-muted-foreground">Real reviews from founders, marketers, and indie creators on X.</p>
+          </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { q: "This tool 10x'd my reply game. Went from 20 likes to 200+ in weeks.", n: "Alex Chen", h: "techfounder", a: 12 },
-              { q: "The thread generator is insane. Gained 800 followers in 2 days.", n: "Sarah Patel", h: "growthwithai", a: 47 },
-              { q: "Replies feel natural, not robotic. My audience actually engages back.", n: "Mike Rivera", h: "marketingmike", a: 33 },
-              { q: "Saved me 2 hours a day. Now I enjoy replying to comments again.", n: "Chris Walker", h: "startupchris", a: 8 },
-              { q: "Went from lurker to 5k followers in a month. Pure gold.", n: "Jenna Lee", h: "jennabuilds", a: 25 },
-              { q: "Finally an AI that doesn't sound like ChatGPT. Worth every cent.", n: "Tom Becker", h: "tombuilds", a: 60 },
-            ].map((r, i) => (
-              <Card key={i} className="p-6 bg-card/50 border-border/60 hover:border-primary/40 transition-colors flex flex-col gap-4">
-                <div className="flex items-center gap-0.5 text-amber-400">
-                  {Array.from({length:5}).map((_,j)=>(<Star key={j} className="h-3.5 w-3.5 fill-current" />))}
-                </div>
-                <p className="text-sm leading-relaxed text-foreground/90">"{r.q}"</p>
-                <div className="flex items-center gap-3 mt-auto pt-3 border-t border-border/50">
-                  <img src={`https://i.pravatar.cc/64?img=${r.a}`} alt={r.n} loading="lazy"
-                       className="h-10 w-10 rounded-full object-cover" />
-                  <div>
-                    <div className="text-sm font-semibold">{r.n}</div>
-                    <div className="text-xs text-muted-foreground">@{r.h}</div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <Reveal y={28}>
+            <TestimonialsMarquee />
+          </Reveal>
         </section>
 
         {/* ============== PRICING ============== */}
         <section id="pricing" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Pricing</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Simple, honest pricing</h2>
             <p className="text-muted-foreground text-lg">Start free. Upgrade when you're ready to post like a machine.</p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <Card className="p-7 bg-card/50 border-border/60 flex flex-col gap-5">
-              <div>
-                <h3 className="text-xl font-semibold">Free</h3>
-                <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">$0</span>
-                <span className="text-sm text-muted-foreground">/ forever</span>
-              </div>
-              <ul className="space-y-2.5 text-sm flex-1">
-                {["10 generations per day","9 smart replies per tweet","Viral thread builder","All 12 tone presets","Local history"].map(f => (
-                  <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />{f}</li>
-                ))}
-              </ul>
-              <Button variant="outline" className="border-border/70" onClick={scrollToGenerator}>Get started free</Button>
-            </Card>
+            <Reveal y={24}>
+              <Card className="hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5">
+                <div>
+                  <h3 className="text-xl font-semibold">Free</h3>
+                  <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight">$0</span>
+                  <span className="text-sm text-muted-foreground">/ forever</span>
+                </div>
+                <ul className="space-y-2.5 text-sm flex-1">
+                  {["10 generations per day","9 smart replies per tweet","Viral thread builder","All 12 tone presets","Local history"].map(f => (
+                    <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />{f}</li>
+                  ))}
+                </ul>
+                <Button variant="outline" className="border-border/70" onClick={scrollToGenerator}>Get started free</Button>
+              </Card>
+            </Reveal>
 
-            <Card className="p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
-              <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
-                Most popular
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Pro</h3>
-                <p className="text-sm text-muted-foreground mt-1">For creators who post every day.</p>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">$19</span>
-                <span className="text-sm text-muted-foreground">/ month</span>
-              </div>
-              <ul className="space-y-2.5 text-sm flex-1">
-                {["Unlimited replies","Unlimited viral threads","Advanced AI tones","Faster generations","Priority support","Early access to new features"].map(f => (
-                  <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />{f}</li>
-                ))}
-              </ul>
-              <Button asChild className="bg-gradient-brand text-primary-foreground hover:opacity-95">
-                <Link to="/pricing">Upgrade to Pro</Link>
-              </Button>
-            </Card>
+            <Reveal y={24} delay={120}>
+              <Card className="hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
+                <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
+                  Most popular
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Pro</h3>
+                  <p className="text-sm text-muted-foreground mt-1">For creators who post every day.</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight">$19</span>
+                  <span className="text-sm text-muted-foreground">/ month</span>
+                </div>
+                <ul className="space-y-2.5 text-sm flex-1">
+                  {["Unlimited replies","Unlimited viral threads","Advanced AI tones","Faster generations","Priority support","Early access to new features"].map(f => (
+                    <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />{f}</li>
+                  ))}
+                </ul>
+                <Button asChild className="bg-gradient-brand text-primary-foreground hover:opacity-95">
+                  <Link to="/pricing">Upgrade to Pro</Link>
+                </Button>
+              </Card>
+            </Reveal>
           </div>
 
           <p className="text-center text-xs text-muted-foreground">Cancel anytime. No hidden fees.</p>
@@ -842,19 +855,21 @@ function Index() {
 
         {/* ============== CTA ============== */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 via-card/40 to-accent/15 p-10 sm:p-14 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to grow on X?</h2>
-            <p className="text-muted-foreground mt-3 max-w-md mx-auto">Generate your first 9 replies in under a minute. No credit card required.</p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg" onClick={scrollToGenerator}
-                className="h-12 px-6 bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold">
-                Try it free <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-12 px-6 border-border/70 bg-card/40 backdrop-blur">
-                <Link to="/pricing">View pricing</Link>
-              </Button>
+          <Reveal y={28}>
+            <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 via-card/40 to-accent/15 p-10 sm:p-14 text-center">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to grow on X?</h2>
+              <p className="text-muted-foreground mt-3 max-w-md mx-auto">Generate your first 9 replies in under a minute. No credit card required.</p>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <Button size="lg" onClick={scrollToGenerator}
+                  className="h-12 px-6 bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold transition-transform hover:-translate-y-0.5">
+                  Try it free <ArrowRight className="h-4 w-4" />
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-12 px-6 border-border/70 bg-card/40 backdrop-blur">
+                  <Link to="/pricing">View pricing</Link>
+                </Button>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ============== HISTORY (compact) ============== */}
