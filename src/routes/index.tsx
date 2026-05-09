@@ -116,9 +116,10 @@ function Index() {
   const chatbaseLoaded = useRef(false);
   const { user } = useAuth();
   const { isPro } = useSubscription();
-  const { count: usedToday, increment: incrementUsage, limit } = useDailyUsage();
+  const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
+  const [openingPortal, setOpeningPortal] = useState(false);
 
   useEffect(() => {
     if (search.checkout === "success") {
@@ -127,17 +128,25 @@ function Index() {
     }
   }, [search.checkout, navigate]);
 
-  const canGenerate = isPro || usedToday < limit;
-  const requireQuota = (): boolean => {
-    if (canGenerate) return true;
+  const requireAuth = (): boolean => {
     if (!user) {
-      toast.error("Daily free limit reached. Sign up to continue.");
-      navigate({ to: "/auth", search: { next: "/pricing" } });
-    } else {
-      toast.error("Daily free limit reached. Upgrade to Pro for unlimited.");
-      navigate({ to: "/pricing" });
+      toast.error("Sign in to generate.");
+      navigate({ to: "/auth", search: { next: "/" } });
+      return false;
     }
-    return false;
+    return true;
+  };
+
+  const openPortal = async () => {
+    setOpeningPortal(true);
+    try {
+      const res = await createPortalSession({ data: { environment: getPaddleEnvironment() } });
+      window.open(res.overviewUrl, "_blank", "noopener,noreferrer");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Could not open billing portal");
+    } finally {
+      setOpeningPortal(false);
+    }
   };
 
   const signOut = async () => {
