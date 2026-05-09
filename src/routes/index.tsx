@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2 } from "lucide-react";
+import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
