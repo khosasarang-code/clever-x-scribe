@@ -12,6 +12,7 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
+import { Testimonials } from "@/components/Testimonials";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
