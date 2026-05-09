@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { generateAI, TONES } from "@/lib/ai.functions";
+import { generateAI, TONES, PERSONA_PRESETS } from "@/lib/ai.functions";
 import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
