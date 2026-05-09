@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
         content:
           "Generate witty Twitter/X replies and viral threads in seconds with AI. Paste a tweet, get 9 smart replies. Drop an idea, get a full thread.",
       },
-      { property: "og:title", content: "SmartReply for X" },
+      { property: "og:title", content: "SmartReply AI" },
       {
         property: "og:description",
         content: "AI-powered replies and viral threads for X / Twitter.",
