@@ -345,7 +345,7 @@ function Index() {
           {/* Right: usage + auth */}
           <div className="flex items-center gap-3 shrink-0">
             {!isPro && (
-              <span className="hidden lg:inline text-[11px] text-muted-foreground">
+              <span className="hidden lg:inline text-[12px] font-bold" style={{ color: "#f7c948" }}>
                 {Math.max(0, FREE_DAILY_LIMIT - usedToday)}/{FREE_DAILY_LIMIT} left
               </span>
             )}
