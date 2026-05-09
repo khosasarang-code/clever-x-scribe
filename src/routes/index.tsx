@@ -329,7 +329,7 @@ function Index() {
                 SmartReply <span className="text-muted-foreground">AI X</span>
               </div>
               <div className="text-[11px] text-muted-foreground truncate hidden sm:block">
-                Write replies and threads that actually pop.
+                Write replies and threads that actually get engagement.
               </div>
             </div>
           </a>
