@@ -414,11 +414,11 @@ function Index() {
 
       <InstallBanner />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-24 sm:space-y-32">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <section className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
           {/* LEFT: Headline + trust + benefits */}
-          <div className="lg:col-span-5 space-y-7 lg:pt-4">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4">
             {/* Trust badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
@@ -439,7 +439,7 @@ function Index() {
             </div>
 
             <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95] animate-hero-in"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.02] sm:leading-[0.98] animate-hero-in"
               style={{ animationDelay: "80ms" }}
             >
               Smart Replies &{" "}
@@ -448,7 +448,7 @@ function Index() {
             </h1>
 
             <p
-              className="text-foreground/80 text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
+              className="text-foreground/80 text-base sm:text-lg lg:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
               The fastest way to write replies that get{" "}
@@ -564,7 +564,7 @@ function Index() {
                     size="lg"
                     onClick={runReplies}
                     disabled={loadingReplies}
-                    className="group relative w-full h-14 text-base bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] hover:shadow-[0_20px_60px_-10px_oklch(0.7_0.22_290/0.85)] transition-all duration-300 font-bold rounded-xl"
+                    className="btn-glow group relative w-full h-14 text-base bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] hover:shadow-[0_20px_60px_-10px_oklch(0.7_0.22_290/0.85)] transition-all duration-300 font-bold rounded-xl"
                   >
                     {loadingReplies ? (
                       <Loader2 className="h-5 w-5 animate-spin" />
@@ -693,7 +693,7 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
+                className="btn-glow bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                 {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
@@ -836,7 +836,7 @@ function Index() {
               <Button
                 size="lg"
                 onClick={() => toast.success("You're on the list! We'll email you when the extension launches.")}
-                className="w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
+                className="btn-glow w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
               >
                 <Chrome className="h-4 w-4" />
                 Get Chrome Extension
