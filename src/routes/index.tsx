@@ -122,7 +122,36 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
-  const { user, login, logout } = useFakeAuth();
+  const { user } = useAuth();
+  const { isPro } = useSubscription();
+  const { count: usedToday, increment: incrementUsage, limit } = useDailyUsage();
+  const navigate = useNavigate();
+  const search = useSearch({ from: "/" });
+
+  useEffect(() => {
+    if (search.checkout === "success") {
+      toast.success("Welcome to Pro! Unlimited generations unlocked.");
+      navigate({ to: "/", search: {}, replace: true });
+    }
+  }, [search.checkout, navigate]);
+
+  const canGenerate = isPro || usedToday < limit;
+  const requireQuota = (): boolean => {
+    if (canGenerate) return true;
+    if (!user) {
+      toast.error("Daily free limit reached. Sign up to continue.");
+      navigate({ to: "/auth", search: { next: "/pricing" } });
+    } else {
+      toast.error("Daily free limit reached. Upgrade to Pro for unlimited.");
+      navigate({ to: "/pricing" });
+    }
+    return false;
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    toast.success("Signed out");
+  };
 
   // Inject Chatbase floating bubble — deferred until browser is idle so it
   // never blocks first paint or interaction.
@@ -175,11 +204,13 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
+    if (!requireQuota()) return;
     setLoadingReplies(true);
     setReplies([]);
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
+      if (!isPro) incrementUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
         ...history,
@@ -188,6 +219,29 @@ function Index() {
       toast.error(e?.message ?? "Generation failed");
     } finally {
       setLoadingReplies(false);
+    }
+  };
+
+  const runThread = async () => {
+    if (!idea.trim()) {
+      toast.error("Drop a thread idea first");
+      return;
+    }
+    if (!requireQuota()) return;
+    setLoadingThread(true);
+    setThread([]);
+    try {
+      const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
+      setThread(res.items);
+      if (!isPro) incrementUsage();
+      save([
+        { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
+        ...history,
+      ]);
+    } catch (e: any) {
+      toast.error(e?.message ?? "Generation failed");
+    } finally {
+      setLoadingThread(false);
     }
   };
 
