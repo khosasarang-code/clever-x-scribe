@@ -118,7 +118,7 @@ function Index() {
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
   const { user } = useAuth();
-  const { isPro, subscription } = useSubscription();
+  const { isPro, subscription, refetch: refetchSub } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
@@ -127,9 +127,17 @@ function Index() {
   useEffect(() => {
     if (search.checkout === "success") {
       toast.success("Welcome to Pro! Unlimited generations unlocked.");
+      // Webhook may arrive after redirect — poll the subscription a few times.
+      let tries = 0;
+      const id = window.setInterval(async () => {
+        tries += 1;
+        await refetchSub();
+        if (tries >= 6) window.clearInterval(id);
+      }, 1500);
       navigate({ to: "/", search: {}, replace: true });
+      return () => window.clearInterval(id);
     }
-  }, [search.checkout, navigate]);
+  }, [search.checkout, navigate, refetchSub]);
 
   const requireAuth = (): boolean => {
     if (!user) {
