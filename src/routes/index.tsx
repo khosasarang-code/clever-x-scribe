@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut } from "lucide-react";
+import { z } from "zod";
+import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -11,9 +12,13 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
+import { useAuth } from "@/hooks/useAuth";
+import { useSubscription } from "@/hooks/useSubscription";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  validateSearch: z.object({ checkout: z.string().optional() }),
   head: () => ({
     meta: [
       { title: "SmartReply AI X — AI Replies & Viral Threads" },
