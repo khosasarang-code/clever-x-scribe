@@ -10,6 +10,7 @@ import { generateAI, TONES } from "@/lib/ai.functions";
 import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
+import { WelcomeDialog } from "@/components/WelcomeDialog";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -202,6 +203,7 @@ function Index() {
       <Toaster theme="dark" position="top-center" />
       <PWAEnhancements />
       <FloatingInstallButton />
+      <WelcomeDialog />
 
       {/* Header */}
       <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-30 bg-background/70">
