@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut } from "lucide-react";
+import { z } from "zod";
+import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -11,9 +12,13 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
+import { useAuth } from "@/hooks/useAuth";
+import { useSubscription } from "@/hooks/useSubscription";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  validateSearch: z.object({ checkout: z.string().optional() }),
   head: () => ({
     meta: [
       { title: "SmartReply AI X — AI Replies & Viral Threads" },
@@ -77,38 +82,34 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-const USER_KEY = "smartreply_user_v1";
-type FakeUser = { handle: string };
+const USAGE_KEY = "smartreply_usage_v1";
+const FREE_DAILY_LIMIT = 10;
 
-function useFakeAuth() {
-  const [user, setUser] = useState<FakeUser | null>(null);
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(USER_KEY);
-      if (raw) setUser(JSON.parse(raw));
-    } catch {}
-  }, []);
-  const login = () => {
-    const handles = ["builder", "shipfast", "indiehacker", "dev_curious", "growth_nerd", "tweetsmith"];
-    const u = { handle: handles[Math.floor(Math.random() * handles.length)] + Math.floor(Math.random() * 99) };
-    localStorage.setItem(USER_KEY, JSON.stringify(u));
-    setUser(u);
-    toast.success(`Signed in as @${u.handle}`);
-  };
-  const logout = () => {
-    localStorage.removeItem(USER_KEY);
-    setUser(null);
-    toast.success("Signed out");
-  };
-  return { user, login, logout };
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
 }
 
-function XLogo({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M18.244 2H21.5l-7.5 8.57L23 22h-6.844l-5.36-7.01L4.6 22H1.34l8.02-9.165L1 2h7.02l4.84 6.41L18.244 2zm-2.4 18h1.84L7.26 4h-1.96l10.544 16z" />
-    </svg>
-  );
+function useDailyUsage() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(USAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.day === todayKey()) setCount(parsed.count);
+      }
+    } catch {}
+  }, []);
+  const increment = () => {
+    setCount((c) => {
+      const next = c + 1;
+      try {
+        localStorage.setItem(USAGE_KEY, JSON.stringify({ day: todayKey(), count: next }));
+      } catch {}
+      return next;
+    });
+  };
+  return { count, increment, limit: FREE_DAILY_LIMIT };
 }
 
 function Index() {
@@ -121,7 +122,36 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
-  const { user, login, logout } = useFakeAuth();
+  const { user } = useAuth();
+  const { isPro } = useSubscription();
+  const { count: usedToday, increment: incrementUsage, limit } = useDailyUsage();
+  const navigate = useNavigate();
+  const search = useSearch({ from: "/" });
+
+  useEffect(() => {
+    if (search.checkout === "success") {
+      toast.success("Welcome to Pro! Unlimited generations unlocked.");
+      navigate({ to: "/", search: {}, replace: true });
+    }
+  }, [search.checkout, navigate]);
+
+  const canGenerate = isPro || usedToday < limit;
+  const requireQuota = (): boolean => {
+    if (canGenerate) return true;
+    if (!user) {
+      toast.error("Daily free limit reached. Sign up to continue.");
+      navigate({ to: "/auth", search: { next: "/pricing" } });
+    } else {
+      toast.error("Daily free limit reached. Upgrade to Pro for unlimited.");
+      navigate({ to: "/pricing" });
+    }
+    return false;
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    toast.success("Signed out");
+  };
 
   // Inject Chatbase floating bubble — deferred until browser is idle so it
   // never blocks first paint or interaction.
@@ -174,11 +204,13 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
+    if (!requireQuota()) return;
     setLoadingReplies(true);
     setReplies([]);
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
       setReplies(res.items);
+      if (!isPro) incrementUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
         ...history,
@@ -195,11 +227,13 @@ function Index() {
       toast.error("Drop a thread idea first");
       return;
     }
+    if (!requireQuota()) return;
     setLoadingThread(true);
     setThread([]);
     try {
       const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
       setThread(res.items);
+      if (!isPro) incrementUsage();
       save([
         { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
         ...history,
@@ -210,6 +244,7 @@ function Index() {
       setLoadingThread(false);
     }
   };
+
 
   const fullThreadText = thread.map((t, i) => `${i + 1}/ ${t}`).join("\n\n");
 
@@ -237,6 +272,16 @@ function Index() {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            {!isPro && (
+              <span className="hidden sm:inline text-[11px] text-muted-foreground">
+                {Math.max(0, FREE_DAILY_LIMIT - usedToday)}/{FREE_DAILY_LIMIT} left
+              </span>
+            )}
+            {isPro && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                <Crown className="h-3 w-3" /> Pro
+              </span>
+            )}
             <Link
               to="/pricing"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors px-2"
@@ -245,22 +290,23 @@ function Index() {
             </Link>
           {user ? (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:inline">@{user.handle}</span>
+              <span className="text-xs text-muted-foreground hidden sm:inline truncate max-w-[140px]">
+                {user.email}
+              </span>
               <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground">
-                {user.handle.slice(0, 1).toUpperCase()}
+                {(user.email ?? "U").slice(0, 1).toUpperCase()}
               </div>
-              <Button size="sm" variant="ghost" onClick={logout} title="Sign out">
+              <Button size="sm" variant="ghost" onClick={signOut} title="Sign out">
                 <LogOut className="h-3.5 w-3.5" />
               </Button>
             </div>
           ) : (
             <Button
+              asChild
               size="sm"
-              onClick={login}
               className="bg-foreground text-background hover:bg-foreground/90 shrink-0"
             >
-              <XLogo className="h-3.5 w-3.5" />
-              Login with X
+              <Link to="/auth">Sign in</Link>
             </Button>
           )}
           </div>
