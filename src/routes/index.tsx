@@ -123,7 +123,7 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
   const { isPro, subscription, refetch: refetchSub } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
