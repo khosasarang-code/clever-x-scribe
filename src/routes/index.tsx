@@ -202,6 +202,25 @@ function Index() {
             <h2 className="text-xl font-semibold">Smart Replies</h2>
           </div>
           <Card className="p-4 space-y-3 bg-card/60 border-border/70">
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground self-center mr-1">
+                Tone
+              </span>
+              {TONES.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTone(t)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                    tone === t
+                      ? "bg-gradient-brand text-primary-foreground border-transparent shadow-[var(--shadow-glow)]"
+                      : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
             <Textarea
               value={tweet}
               onChange={(e) => setTweet(e.target.value)}
