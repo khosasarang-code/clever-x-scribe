@@ -555,35 +555,39 @@ function Index() {
               { icon: TrendingUp, title: "Faster Audience Growth", desc: "Reply more, post more, grow more. Tested by 10,000+ creators." },
               { icon: Users, title: "Reply Like Top Creators", desc: "Mirror the voice of @naval, @levelsio, or save your own personal style." },
               { icon: Shield, title: "Private & Secure", desc: "We never train on your inputs. Your account, your voice, your data." },
-            ].map(f => (
-              <Card key={f.title} className="p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70 transition-all duration-300">
-                <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
-                  <f.icon className="h-5 w-5" />
-                </div>
-                <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </Card>
+            ].map((f, i) => (
+              <Reveal key={f.title} delay={i * 70} y={24}>
+                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70">
+                  <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
+                    <f.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ============== HOW IT WORKS ============== */}
         <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4 mb-14">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4 mb-14">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Workflow</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">From blank screen to posted in 30 seconds</h2>
-          </div>
+          </Reveal>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               { step: "01", title: "Paste a tweet or idea", desc: "Drop in any tweet you want to reply to, or a single thread idea." },
               { step: "02", title: "Pick your tone & voice", desc: "Choose from 12 tones and optional creator personas." },
               { step: "03", title: "Copy. Post. Grow.", desc: "Pick the reply you love, copy with one click, and ship it." },
-            ].map(s => (
-              <Card key={s.step} className="p-6 bg-card/50 border-border/60">
-                <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
-                <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              </Card>
+            ].map((s, i) => (
+              <Reveal key={s.step} delay={i * 100} y={20}>
+                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60">
+                  <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
+                  <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </section>
