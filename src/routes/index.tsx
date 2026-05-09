@@ -561,7 +561,7 @@ function Index() {
                   size="lg"
                   onClick={runReplies}
                   disabled={loadingReplies}
-                  className="group w-full h-12 text-sm bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] shadow-[var(--shadow-glow-sm)] transition-colors duration-200 font-medium rounded-lg"
+                  className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] transition-all duration-200 font-semibold rounded-lg"
                 >
                   {loadingReplies ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
