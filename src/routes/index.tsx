@@ -912,23 +912,60 @@ function Index() {
             </div>
 
             {[
-              { title: "Product", links: ["Features", "Pricing", "Changelog", "API"] },
-              { title: "Company", links: ["About", "Blog", "Careers", "Press"] },
-              { title: "Resources", links: ["Help Center", "Community", "Contact", "Status"] },
-              { title: "Legal", links: ["Privacy", "Terms", "Security", "Cookies"] },
+              {
+                title: "Product",
+                links: [
+                  { label: "Features", desc: "Explore all AI tools and capabilities" },
+                  { label: "Pricing", desc: "See plans and upgrade options" },
+                  { label: "Changelog", desc: "Latest updates and new features" },
+                  { label: "API", desc: "Integrate SmartReply AI into your apps" },
+                ],
+              },
+              {
+                title: "Company",
+                links: [
+                  { label: "About", desc: "Our story and mission" },
+                  { label: "Blog", desc: "Growth tips, guides and case studies" },
+                  { label: "Careers", desc: "Join the team" },
+                  { label: "Press", desc: "Media features and mentions" },
+                ],
+              },
+              {
+                title: "Resources",
+                links: [
+                  { label: "Help Center", desc: "Support, FAQs and tutorials" },
+                  { label: "Community", desc: "Connect with other creators" },
+                  { label: "Contact", desc: "Get in touch with us" },
+                  { label: "Status", desc: "Real-time system status" },
+                ],
+              },
+              {
+                title: "Legal",
+                links: [
+                  { label: "Privacy Policy", desc: "How we protect your data" },
+                  { label: "Terms of Service", desc: "Usage terms and conditions" },
+                  { label: "Security", desc: "Our security practices" },
+                  { label: "Cookies", desc: "Cookie policy and preferences" },
+                ],
+              },
             ].map((col) => (
-              <div key={col.title} className="space-y-3">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+              <div key={col.title} className="space-y-4">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
                   {col.title}
                 </h3>
-                <ul className="space-y-2.5">
+                <ul className="space-y-3.5">
                   {col.links.map((l) => (
-                    <li key={l}>
+                    <li key={l.label}>
                       <a
                         href="#"
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        className="group block -mx-2 px-2 py-1 rounded-md hover:bg-foreground/[0.03] transition-colors"
                       >
-                        {l}
+                        <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground transition-colors">
+                          {l.label}
+                        </div>
+                        <div className="text-[11px] leading-snug text-muted-foreground/80 group-hover:text-muted-foreground mt-0.5">
+                          {l.desc}
+                        </div>
                       </a>
                     </li>
                   ))}
