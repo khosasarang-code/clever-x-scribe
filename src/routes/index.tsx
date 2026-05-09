@@ -585,22 +585,22 @@ function Index() {
 
               {/* Trust signals below generator */}
               <div
-                className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground animate-hero-in"
+                className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px] text-muted-foreground animate-hero-in"
                 style={{ animationDelay: "320ms" }}
               >
                 <span className="flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-emerald-400" />
-                  No login required to try
+                  No login needed
                 </span>
                 <span className="h-1 w-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-emerald-400" />
-                  Helped generate <span className="font-semibold text-foreground">12,458+</span> replies
+                  <span className="font-semibold text-foreground">12k+</span> replies generated
                 </span>
                 <span className="h-1 w-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-emerald-400" />
-                  Used by creators &amp; founders
+                  Natural AI
                 </span>
               </div>
             </div>
