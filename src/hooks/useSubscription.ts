@@ -15,13 +15,18 @@ type Subscription = {
 };
 
 export function useSubscription() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
 
   const env = getPaddleEnvironment();
 
   const fetchSub = async () => {
+    if (authLoading) {
+      setLoading(true);
+      return;
+    }
+
     if (!user) {
       setSubscription(null);
       setLoading(false);
@@ -40,6 +45,8 @@ export function useSubscription() {
   };
 
   useEffect(() => {
+    if (authLoading) return;
+
     fetchSub();
     if (!user) return;
     const channel = supabase
@@ -54,7 +61,7 @@ export function useSubscription() {
       supabase.removeChannel(channel);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id]);
+  }, [authLoading, user?.id]);
 
   const isActive = Boolean(
     subscription &&
