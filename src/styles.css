@@ -354,10 +354,26 @@ html {
   background-size: 160px 160px;
 }
 
+/* Hero floating particles */
+@keyframes hero-particle-rise {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.5; }
+  100% { transform: translate3d(20px, -120vh, 0); opacity: 0; }
+}
+.hero-particle {
+  animation-name: hero-particle-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+  box-shadow: 0 0 6px oklch(0.7 0.2 295 / 0.6);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ambient-orb-1,
   .ambient-orb-2,
-  .ambient-orb-3 {
+  .ambient-orb-3,
+  .hero-particle {
     animation: none;
   }
 }
