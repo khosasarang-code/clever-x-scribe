@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -214,8 +214,15 @@ function Index() {
               </div>
             </div>
           </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              to="/pricing"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors px-2"
+            >
+              Pricing
+            </Link>
           {user ? (
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground hidden sm:inline">@{user.handle}</span>
               <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground">
                 {user.handle.slice(0, 1).toUpperCase()}
@@ -234,6 +241,7 @@ function Index() {
               Login with X
             </Button>
           )}
+          </div>
         </div>
       </header>
 
