@@ -265,9 +265,10 @@ html {
 
   body {
     background:
-      radial-gradient(900px 500px at 12% -10%, oklch(0.55 0.13 270 / 0.07), transparent 65%),
-      radial-gradient(800px 460px at 110% 4%, oklch(0.55 0.12 290 / 0.05), transparent 65%),
-      linear-gradient(180deg, oklch(0.17 0.008 260) 0%, oklch(0.145 0.006 260) 100%);
+      radial-gradient(900px 540px at 12% -10%, oklch(0.6 0.2 295 / 0.14), transparent 65%),
+      radial-gradient(820px 480px at 110% 6%, oklch(0.7 0.18 25 / 0.1), transparent 65%),
+      radial-gradient(700px 420px at 50% 100%, oklch(0.6 0.18 320 / 0.07), transparent 70%),
+      linear-gradient(180deg, oklch(0.185 0.014 295) 0%, oklch(0.155 0.01 295) 100%);
     color: var(--color-foreground);
     min-height: 100vh;
     min-height: 100dvh;
