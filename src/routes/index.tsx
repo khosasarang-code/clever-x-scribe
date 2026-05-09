@@ -214,14 +214,26 @@ function Index() {
               </div>
             </div>
           </div>
-          <a
-            href="https://x.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0"
-          >
-            Powered by AI
-          </a>
+          {user ? (
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-xs text-muted-foreground hidden sm:inline">@{user.handle}</span>
+              <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground">
+                {user.handle.slice(0, 1).toUpperCase()}
+              </div>
+              <Button size="sm" variant="ghost" onClick={logout} title="Sign out">
+                <LogOut className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          ) : (
+            <Button
+              size="sm"
+              onClick={login}
+              className="bg-foreground text-background hover:bg-foreground/90 shrink-0"
+            >
+              <XLogo className="h-3.5 w-3.5" />
+              Login with X
+            </Button>
+          )}
         </div>
       </header>
 
