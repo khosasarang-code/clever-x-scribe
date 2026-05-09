@@ -71,11 +71,22 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             loading="lazy"
             className="h-12 w-12 rounded-full object-cover ring-2 ring-primary/40"
           />
-          <BadgeCheck className="absolute -bottom-1 -right-1 h-4 w-4 text-primary fill-background" />
+          {t.verified && (
+            <BadgeCheck
+              className="absolute -bottom-1 -right-1 h-4 w-4 text-[#1d9bf0] fill-background"
+              aria-label="Verified"
+            />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1">
             <span className="text-sm font-semibold leading-tight truncate">{t.name}</span>
+            {t.verified && (
+              <BadgeCheck
+                className="h-3.5 w-3.5 text-[#1d9bf0] fill-[#1d9bf0]/15 shrink-0"
+                aria-label="Verified account"
+              />
+            )}
           </div>
           <div className="text-xs text-muted-foreground truncate">@{t.handle}</div>
         </div>
