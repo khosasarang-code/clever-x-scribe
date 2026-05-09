@@ -4,7 +4,8 @@ import { Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Tras
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { toast, Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 import { generateAI } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/")({
@@ -86,7 +87,6 @@ function Index() {
   useEffect(() => {
     if (chatbaseLoaded.current) return;
     chatbaseLoaded.current = true;
-    // @ts-expect-error - chatbase global
     (function () {
       // @ts-expect-error
       if (!window.chatbase || window.chatbase("getState") !== "initialized") {
