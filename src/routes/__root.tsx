@@ -71,21 +71,52 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5",
+      },
+      { title: "SmartReply for X" },
+      {
+        name: "description",
+        content: "AI-powered replies and viral threads for X / Twitter.",
+      },
+      { name: "author", content: "SmartReply" },
+      { name: "theme-color", content: "#101524" },
+      { name: "color-scheme", content: "dark" },
+      { name: "format-detection", content: "telephone=no" },
+      // iOS
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      {
+        name: "apple-mobile-web-app-status-bar-style",
+        content: "black-translucent",
+      },
+      { name: "apple-mobile-web-app-title", content: "SmartReply" },
+      // Open Graph
+      { property: "og:title", content: "SmartReply for X" },
+      {
+        property: "og:description",
+        content: "Write replies and threads that actually pop.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:image", content: "/app-icon.png" },
+      // Twitter
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "SmartReply for X" },
+      {
+        name: "twitter:description",
+        content: "AI replies and viral threads for X.",
+      },
+      { name: "twitter:image", content: "/app-icon.png" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.json" },
+      { rel: "icon", type: "image/png", href: "/app-icon.png" },
+      { rel: "apple-touch-icon", href: "/app-icon.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/app-icon.png" },
+      { rel: "mask-icon", href: "/app-icon.png", color: "#101524" },
     ],
   }),
   shellComponent: RootShell,
