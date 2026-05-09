@@ -464,7 +464,9 @@ function Index() {
             style={{ animationDelay: "200ms" }}
           >
             <div className="relative">
-              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/70 backdrop-blur border-border/60 shadow-[var(--shadow-elegant)] rounded-xl">
+              {/* Soft glow halo to make the generator pop */}
+              <div className="absolute -inset-3 sm:-inset-4 rounded-3xl bg-gradient-to-br from-primary/25 via-transparent to-accent/20 blur-2xl pointer-events-none opacity-80" />
+              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/80 backdrop-blur-xl border-border/70 shadow-[var(--shadow-elegant)] rounded-2xl">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
@@ -559,7 +561,7 @@ function Index() {
                   size="lg"
                   onClick={runReplies}
                   disabled={loadingReplies}
-                  className="group w-full h-12 text-sm bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] shadow-[var(--shadow-glow-sm)] transition-colors duration-200 font-medium rounded-lg"
+                  className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] transition-all duration-200 font-semibold rounded-lg"
                 >
                   {loadingReplies ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -687,7 +689,7 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] transition-colors duration-200 font-medium rounded-lg"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] transition-all duration-200 font-semibold rounded-lg"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                 {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
