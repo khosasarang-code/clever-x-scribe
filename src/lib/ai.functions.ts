@@ -41,7 +41,10 @@ export const generateAI = createServerFn({ method: "POST" })
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
 
-    const system = data.mode === "replies" ? SYSTEM_REPLIES : SYSTEM_THREAD;
+    let system = data.mode === "replies" ? SYSTEM_REPLIES : SYSTEM_THREAD;
+    if (data.mode === "replies" && data.tone) {
+      system += `\n\nPRIMARY TONE: ${data.tone}. ${TONE_GUIDANCE[data.tone]}\nAll 9 replies should lean into this tone while still varying in angle/length.`;
+    }
     const userMsg =
       data.mode === "replies"
         ? `Tweet to reply to:\n\n${data.prompt}`
