@@ -4,18 +4,18 @@ import { Card } from "@/components/ui/card";
 const STEPS = [
   {
     icon: ClipboardPaste,
-    title: "Paste a tweet",
-    desc: "Drop any tweet, link, or your own thread idea. No setup, no signup needed to try.",
+    title: "Paste a Tweet",
+    desc: "Drop any tweet URL or paste the text directly. No account setup, no learning curve — just paste and go.",
   },
   {
     icon: Wand2,
-    title: "Pick a tone & voice",
-    desc: "Choose Witty, Bold, Savage, Salesy — or reply like @naval, @levelsio, or in your own style.",
+    title: "Pick Your Tone & Voice",
+    desc: "Choose from 12 tones: Witty, Bold, Savage, Salesy and more. Or reply in the style of top X creators. Your voice, amplified.",
   },
   {
     icon: Send,
-    title: "Copy & post",
-    desc: "Get 9 ready-to-ship replies in seconds. Tap to copy, paste on X, watch engagement climb.",
+    title: "Copy & Post",
+    desc: "Get 9 reply options in under 10 seconds. Tap to copy, paste on X, and watch the likes roll in.",
   },
 ];
 

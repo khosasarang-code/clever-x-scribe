@@ -12,7 +12,7 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
-import { Testimonials } from "@/components/Testimonials";
+import { HeroParticles } from "@/components/HeroParticles";
 
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -423,9 +423,10 @@ function Index() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section id="features" className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
+        <section id="features" className="relative grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
+          <HeroParticles />
           {/* LEFT: Headline + trust + benefits */}
-          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4 relative">
             {/* Trust badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
@@ -449,17 +450,16 @@ function Index() {
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.02] sm:leading-[0.98] animate-hero-in"
               style={{ animationDelay: "80ms" }}
             >
-              Smart Replies &{" "}
-              <span className="text-gradient-brand">Viral Threads</span>{" "}
-              for X
+              Smart Replies & Viral Threads for X —{" "}
+              <span className="text-gradient-brand">That Actually Sound Like You</span>
             </h1>
 
             <p
               className="text-foreground/80 text-base sm:text-lg lg:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
-              The fastest way to write replies that get{" "}
-              <span className="text-gradient-brand font-semibold">likes, reposts and followers</span>.
+              Stop posting forgettable replies. SmartReply AI X writes{" "}
+              <span className="text-gradient-brand font-semibold">9 ready-to-post replies</span> in seconds — witty, bold, savage, or professional. Paste a tweet. Pick a tone. Watch your engagement explode.
             </p>
           </div>
 
@@ -834,7 +834,46 @@ function Index() {
           )}
         </section>
 
-        <Testimonials />
+        {/* Features grid */}
+        <section className="space-y-8">
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+              Everything You Need to <span className="text-gradient-brand">Win on X</span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: "💬", title: "9 Replies Instantly", desc: "Never stare at a blank reply box again. Get 9 options, pick your favorite, post in seconds." },
+              { icon: "🎭", title: "12 Tone Presets", desc: "From Witty to Savage to Intellectual — match your mood and your audience every time." },
+              { icon: "🧵", title: "Viral Thread Generator", desc: "Drop an idea, get a full structured thread ready to post. No writer's block, ever." },
+              { icon: "🎯", title: "Reply Like Top Creators", desc: "Generate replies in the style of @naval, @levelsio, or your own saved voice." },
+              { icon: "🧩", title: "Chrome Extension (Soon)", desc: "Generate replies directly on X without switching tabs. Stay in the flow." },
+              { icon: "🚀", title: "No Login to Try", desc: "Start generating in seconds. No credit card, no signup wall." },
+            ].map((f) => (
+              <Card key={f.title} className="p-5 bg-card/60 border-border/70 hover:border-primary/50 hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300">
+                <div className="text-2xl mb-3">{f.icon}</div>
+                <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Stats strip */}
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { icon: "🔥", value: "12,000+", label: "Replies Generated" },
+            { icon: "⚡", value: "~10 sec", label: "Average Generation Time" },
+            { icon: "🎯", value: "12", label: "Tone Presets Available" },
+            { icon: "🌍", value: "No login", label: "Needed to start" },
+          ].map((s) => (
+            <Card key={s.label} className="p-5 text-center bg-card/60 border-border/70 hover:border-primary/40 transition-colors">
+              <div className="text-2xl mb-2">{s.icon}</div>
+              <div className="text-2xl font-bold text-gradient-brand">{s.value}</div>
+              <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+            </Card>
+          ))}
+        </section>
 
         {/* Chrome Extension banner */}
         <section className="px-2">
@@ -850,10 +889,10 @@ function Index() {
                   Coming soon
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
-                  Want replies directly while using X?
+                  Stay on X. Still Win.
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Get our Chrome Extension and generate smart replies inline — without leaving your timeline.
+                  Our Chrome Extension lets you generate smart replies inline — right inside your timeline. No tab switching, no copy-pasting. Just click, generate, post.
                 </p>
               </div>
               <Button
@@ -862,7 +901,7 @@ function Index() {
                 className="btn-glow w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
               >
                 <Chrome className="h-4 w-4" />
-                Get Chrome Extension
+                Join the Waitlist
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
             </div>
@@ -872,7 +911,7 @@ function Index() {
 
       <footer className="border-t border-border/50 bg-background/40 mt-10">
         <div className="container max-w-6xl mx-auto px-4 py-12 sm:py-16">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
             <div className="col-span-2 space-y-4">
               <Link to="/" className="inline-flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
@@ -915,37 +954,22 @@ function Index() {
               {
                 title: "Product",
                 links: [
-                  { label: "Features", desc: "Explore all AI tools and capabilities" },
-                  { label: "Pricing", desc: "See plans and upgrade options" },
-                  { label: "Changelog", desc: "Latest updates and new features" },
-                  { label: "API", desc: "Integrate SmartReply AI into your apps" },
+                  { label: "Features", href: "#features" },
+                  { label: "Pricing", href: "/pricing" },
                 ],
               },
               {
-                title: "Company",
+                title: "Support",
                 links: [
-                  { label: "About", desc: "Our story and mission" },
-                  { label: "Blog", desc: "Growth tips, guides and case studies" },
-                  { label: "Careers", desc: "Join the team" },
-                  { label: "Press", desc: "Media features and mentions" },
-                ],
-              },
-              {
-                title: "Resources",
-                links: [
-                  { label: "Help Center", desc: "Support, FAQs and tutorials" },
-                  { label: "Community", desc: "Connect with other creators" },
-                  { label: "Contact", desc: "Get in touch with us" },
-                  { label: "Status", desc: "Real-time system status" },
+                  { label: "Contact", href: "mailto:hello@smartreplyaix.com" },
+                  { label: "Help", href: "#features" },
                 ],
               },
               {
                 title: "Legal",
                 links: [
-                  { label: "Privacy Policy", desc: "How we protect your data" },
-                  { label: "Terms of Service", desc: "Usage terms and conditions" },
-                  { label: "Security", desc: "Our security practices" },
-                  { label: "Cookies", desc: "Cookie policy and preferences" },
+                  { label: "Privacy Policy", href: "#" },
+                  { label: "Terms of Service", href: "#" },
                 ],
               },
             ].map((col) => (
@@ -953,19 +977,14 @@ function Index() {
                 <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
                   {col.title}
                 </h3>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {col.links.map((l) => (
                     <li key={l.label}>
                       <a
-                        href="#"
-                        className="group block -mx-2 px-2 py-1 rounded-md hover:bg-foreground/[0.03] transition-colors"
+                        href={l.href}
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground transition-colors">
-                          {l.label}
-                        </div>
-                        <div className="text-[11px] leading-snug text-muted-foreground/80 group-hover:text-muted-foreground mt-0.5">
-                          {l.desc}
-                        </div>
+                        {l.label}
                       </a>
                     </li>
                   ))}
