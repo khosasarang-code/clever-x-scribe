@@ -749,6 +749,39 @@ function Index() {
         </section>
 
         <Testimonials />
+
+        {/* Chrome Extension banner */}
+        <section className="px-2">
+          <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-card/60 to-accent/15 backdrop-blur p-6 sm:p-8">
+            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
+            <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+              <div className="h-14 w-14 shrink-0 rounded-2xl bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] animate-glow-pulse">
+                <Chrome className="h-7 w-7 text-primary-foreground" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider bg-primary/20 text-primary px-2 py-0.5 rounded-full mb-2">
+                  Coming soon
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
+                  Want replies directly while using X?
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Get our Chrome Extension and generate smart replies inline — without leaving your timeline.
+                </p>
+              </div>
+              <Button
+                size="lg"
+                onClick={() => toast.success("You're on the list! We'll email you when the extension launches.")}
+                className="w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
+              >
+                <Chrome className="h-4 w-4" />
+                Get Chrome Extension
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="py-10 text-center text-xs text-muted-foreground">
