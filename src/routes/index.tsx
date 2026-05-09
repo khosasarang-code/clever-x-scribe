@@ -464,10 +464,7 @@ function Index() {
             style={{ animationDelay: "200ms" }}
           >
             <div className="relative">
-              {/* Glow halo */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 blur-2xl pointer-events-none" />
-
-              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/80 backdrop-blur border-primary/20 shadow-[var(--shadow-elegant)] rounded-2xl">
+              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/70 backdrop-blur border-border/60 shadow-[var(--shadow-elegant)] rounded-xl">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
