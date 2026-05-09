@@ -13,6 +13,7 @@ import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { VantaHeroBackground } from "@/components/VantaHeroBackground";
+import { TypewriterLogo } from "@/components/TypewriterLogo";
 
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -325,9 +326,7 @@ function Index() {
             <div className="h-8 w-8 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
-            <div className="font-semibold tracking-tight text-sm sm:text-base leading-none">
-              SmartReply <span className="text-muted-foreground font-normal">AI X</span>
-            </div>
+            <TypewriterLogo />
           </a>
 
           {/* Center: Nav links */}
@@ -881,7 +880,39 @@ function Index() {
           ))}
         </section>
 
-        {/* Chrome Extension banner */}
+        {/* Reviews — single-line scrolling ticker */}
+        <section className="space-y-4">
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Loved by <span className="text-gradient-brand">creators on X</span>
+            </h2>
+          </div>
+          <div className="reviews-marquee relative overflow-hidden border-y border-border/50 bg-background/30 backdrop-blur py-4">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
+            <div className="reviews-marquee-track text-sm sm:text-base text-foreground/85">
+              {(() => {
+                const QUOTES = [
+                  { q: "This tool 10x'd my reply game.", who: "@techfounder" },
+                  { q: "The thread generator is insane.", who: "@growthwithai" },
+                  { q: "Replies feel natural, not robotic.", who: "@marketingmike" },
+                  { q: "Saved me 2 hours a day.", who: "@startupchris" },
+                  { q: "Went from lurker to 5k followers in a month.", who: "@jennabuilds" },
+                  { q: "Replaced 4 tools with this one.", who: "@kenjibuilds" },
+                ];
+                const loop = [...QUOTES, ...QUOTES];
+                return loop.map((r, i) => (
+                  <span key={i} className="inline-flex items-center gap-2">
+                    <span className="text-yellow-400">⭐</span>
+                    <span className="italic">"{r.q}"</span>
+                    <span className="text-muted-foreground">— {r.who}</span>
+                  </span>
+                ));
+              })()}
+            </div>
+          </div>
+        </section>
+
         <section className="px-2">
           <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-card/60 to-accent/15 backdrop-blur p-6 sm:p-8">
             <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
@@ -917,8 +948,9 @@ function Index() {
 
       <footer className="border-t border-border/50 bg-background/40 mt-10">
         <div className="container max-w-6xl mx-auto px-4 py-12 sm:py-16">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
-            <div className="col-span-2 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+            {/* Brand */}
+            <div className="lg:col-span-2 space-y-4">
               <Link to="/" className="inline-flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
                   <Sparkles className="h-4 w-4 text-primary-foreground" />
@@ -956,55 +988,112 @@ function Index() {
               </div>
             </div>
 
-            {[
-              {
-                title: "Product",
-                links: [
-                  { label: "Features", href: "#features" },
-                  { label: "Pricing", href: "/pricing" },
-                ],
-              },
-              {
-                title: "Support",
-                links: [
-                  { label: "Contact", href: "mailto:hello@smartreplyaix.com" },
-                  { label: "Help", href: "#features" },
-                ],
-              },
-              {
-                title: "Legal",
-                links: [
-                  { label: "Privacy Policy", href: "#" },
-                  { label: "Terms of Service", href: "#" },
-                ],
-              },
-            ].map((col) => (
-              <div key={col.title} className="space-y-4">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
-                  {col.title}
-                </h3>
-                <ul className="space-y-2.5">
-                  {col.links.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {l.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Product */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Product
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <a
+                    href="#features"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    to="/pricing"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Support
+              </h3>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <a
+                    href="mailto:hello@smartreplyaix.com"
+                    className="block text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Contact
+                  </a>
+                  <a
+                    href="tel:+14378558844"
+                    className="block text-xs text-muted-foreground/80 hover:text-foreground transition-colors mt-1"
+                  >
+                    +1 437 855 8844
+                  </a>
+                </li>
+                <li className="group relative inline-block">
+                  <button
+                    type="button"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Help
+                  </button>
+                  <div
+                    role="tooltip"
+                    className="pointer-events-none absolute left-0 bottom-full mb-2 w-64 rounded-md border border-border/70 bg-popover p-3 text-xs text-popover-foreground shadow-lg opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity z-20"
+                  >
+                    For help, email us at{" "}
+                    <a className="text-primary underline" href="mailto:hello@smartreplyaix.com">
+                      hello@smartreplyaix.com
+                    </a>{" "}
+                    or call{" "}
+                    <a className="text-primary underline" href="tel:+14378558844">
+                      +1 437 855 8844
+                    </a>
+                    . We typically respond within 24 hours.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                Legal
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="mt-12 pt-6 border-t border-border/50 text-center">
             <p className="text-xs text-muted-foreground">
-              © 2026 SmartReply AI X. All rights reserved.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Made with <span className="text-red-400">❤️</span> using Lovable
+              © 2026 SmartReply AI X. All rights reserved. ·{" "}
+              <a href="mailto:hello@smartreplyaix.com" className="hover:text-foreground transition-colors">
+                hello@smartreplyaix.com
+              </a>{" "}
+              ·{" "}
+              <a href="tel:+14378558844" className="hover:text-foreground transition-colors">
+                +1 437 855 8844
+              </a>
             </p>
           </div>
         </div>

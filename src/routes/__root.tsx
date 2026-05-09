@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { AmbientBackground } from "@/components/AmbientBackground";
+import { VideoBackground } from "@/components/VideoBackground";
 
 function NotFoundComponent() {
   return (
@@ -161,6 +162,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <VideoBackground />
       <AmbientBackground />
       <PaymentTestModeBanner />
       <Outlet />
