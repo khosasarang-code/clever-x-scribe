@@ -834,7 +834,46 @@ function Index() {
           )}
         </section>
 
-        <Testimonials />
+        {/* Features grid */}
+        <section className="space-y-8">
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+              Everything You Need to <span className="text-gradient-brand">Win on X</span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: "💬", title: "9 Replies Instantly", desc: "Never stare at a blank reply box again. Get 9 options, pick your favorite, post in seconds." },
+              { icon: "🎭", title: "12 Tone Presets", desc: "From Witty to Savage to Intellectual — match your mood and your audience every time." },
+              { icon: "🧵", title: "Viral Thread Generator", desc: "Drop an idea, get a full structured thread ready to post. No writer's block, ever." },
+              { icon: "🎯", title: "Reply Like Top Creators", desc: "Generate replies in the style of @naval, @levelsio, or your own saved voice." },
+              { icon: "🧩", title: "Chrome Extension (Soon)", desc: "Generate replies directly on X without switching tabs. Stay in the flow." },
+              { icon: "🚀", title: "No Login to Try", desc: "Start generating in seconds. No credit card, no signup wall." },
+            ].map((f) => (
+              <Card key={f.title} className="p-5 bg-card/60 border-border/70 hover:border-primary/50 hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300">
+                <div className="text-2xl mb-3">{f.icon}</div>
+                <h3 className="font-semibold text-base mb-1.5">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Stats strip */}
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { icon: "🔥", value: "12,000+", label: "Replies Generated" },
+            { icon: "⚡", value: "~10 sec", label: "Average Generation Time" },
+            { icon: "🎯", value: "12", label: "Tone Presets Available" },
+            { icon: "🌍", value: "No login", label: "Needed to start" },
+          ].map((s) => (
+            <Card key={s.label} className="p-5 text-center bg-card/60 border-border/70 hover:border-primary/40 transition-colors">
+              <div className="text-2xl mb-2">{s.icon}</div>
+              <div className="text-2xl font-bold text-gradient-brand">{s.value}</div>
+              <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+            </Card>
+          ))}
+        </section>
 
         {/* Chrome Extension banner */}
         <section className="px-2">
