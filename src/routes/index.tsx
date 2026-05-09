@@ -75,6 +75,7 @@ function CopyButton({ text }: { text: string }) {
 
 function Index() {
   const [tweet, setTweet] = useState("");
+  const [tone, setTone] = useState<(typeof TONES)[number]>("Witty");
   const [idea, setIdea] = useState("");
   const [replies, setReplies] = useState<string[]>([]);
   const [thread, setThread] = useState<string[]>([]);
