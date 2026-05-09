@@ -117,6 +117,7 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
+  const { user, login, logout } = useFakeAuth();
 
   // Inject Chatbase floating bubble
   useEffect(() => {
