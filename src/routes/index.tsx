@@ -321,8 +321,8 @@ function Index() {
             className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-all duration-200 hover:scale-[1.02]"
             aria-label="SmartReply AI X — Home"
           >
-            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-300 animate-glow-pulse">
-              <Sparkles className="h-4 w-4 text-primary-foreground drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]" />
+            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
+              <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
             <div className="min-w-0">
               <div className="font-semibold tracking-tight leading-tight">
@@ -464,10 +464,7 @@ function Index() {
             style={{ animationDelay: "200ms" }}
           >
             <div className="relative">
-              {/* Glow halo */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 blur-2xl pointer-events-none" />
-
-              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/80 backdrop-blur border-primary/20 shadow-[var(--shadow-elegant)] rounded-2xl">
+              <Card className="relative p-5 sm:p-6 space-y-4 bg-card/70 backdrop-blur border-border/60 shadow-[var(--shadow-elegant)] rounded-xl">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
@@ -489,10 +486,10 @@ function Index() {
                       key={t}
                       type="button"
                       onClick={() => setTone(t)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-150 ${
                         tone === t
-                          ? "bg-gradient-brand text-primary-foreground border-transparent shadow-[var(--shadow-glow-sm)] scale-105"
-                          : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
+                          ? "bg-primary/15 text-foreground border-primary/40"
+                          : "bg-transparent text-muted-foreground border-border/60 hover:text-foreground hover:border-border"
                       }`}
                     >
                       {t}
@@ -558,25 +555,22 @@ function Index() {
                   className="min-h-[160px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-primary"
                 />
 
-                <div className="relative">
-                  <div className="absolute -inset-1 rounded-xl bg-gradient-brand opacity-60 blur-lg animate-pulse pointer-events-none" />
-                  <Button
-                    size="lg"
-                    onClick={runReplies}
-                    disabled={loadingReplies}
-                    className="btn-glow group relative w-full h-14 text-base bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] hover:shadow-[0_20px_60px_-10px_oklch(0.7_0.22_290/0.85)] transition-all duration-300 font-bold rounded-xl"
-                  >
-                    {loadingReplies ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Sparkles className="h-5 w-5" />
-                    )}
-                    {loadingReplies ? "Crafting replies…" : "Generate Smart Replies — Free"}
-                    {!loadingReplies && (
-                      <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  size="lg"
+                  onClick={runReplies}
+                  disabled={loadingReplies}
+                  className="group w-full h-12 text-sm bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] shadow-[var(--shadow-glow-sm)] transition-colors duration-200 font-medium rounded-lg"
+                >
+                  {loadingReplies ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="h-4 w-4" />
+                  )}
+                  {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
+                  {!loadingReplies && (
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  )}
+                </Button>
 
                 <p className="text-[11px] text-center text-muted-foreground">
                   No login needed · Results in ~10 seconds
@@ -693,7 +687,7 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="btn-glow bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] transition-colors duration-200 font-medium rounded-lg"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                 {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
