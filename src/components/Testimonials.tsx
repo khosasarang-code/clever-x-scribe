@@ -46,7 +46,9 @@ const PRESS_LOGOS = [
 
 function useLiveCounter(base: number, perSecond: number) {
   const [n, setN] = useState(base);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+    setMounted(true);
     const start = performance.now();
     const id = window.setInterval(() => {
       const elapsed = (performance.now() - start) / 1000;
@@ -54,7 +56,7 @@ function useLiveCounter(base: number, perSecond: number) {
     }, 1200);
     return () => window.clearInterval(id);
   }, [base, perSecond]);
-  return n;
+  return mounted ? n : base;
 }
 
 // Duplicate the list so the marquee loops seamlessly.
