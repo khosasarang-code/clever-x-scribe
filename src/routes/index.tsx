@@ -241,6 +241,7 @@ function Index() {
               Login with X
             </Button>
           )}
+          </div>
         </div>
       </header>
 
