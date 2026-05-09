@@ -693,7 +693,7 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
+                className="btn-glow bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                 {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
