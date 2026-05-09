@@ -314,6 +314,28 @@ function Index() {
         </div>
       </header>
 
+      {subscription && subscription.status === "past_due" && (
+        <div className="w-full bg-red-100 border-b border-red-300 px-4 py-2 text-center text-sm text-red-800">
+          Your last payment failed. Please update your payment method to keep Pro access.{" "}
+          <button onClick={openPortal} className="underline font-medium">Update payment</button>
+        </div>
+      )}
+      {subscription && subscription.status === "canceled" && subscription.current_period_end &&
+        new Date(subscription.current_period_end) > new Date() && (
+          <div className="w-full bg-amber-100 border-b border-amber-300 px-4 py-2 text-center text-sm text-amber-900">
+            Your Pro plan ends on {new Date(subscription.current_period_end).toLocaleDateString()}.{" "}
+            <Link to="/pricing" className="underline font-medium">Resubscribe</Link>
+          </div>
+        )}
+      {subscription && subscription.cancel_at_period_end && subscription.status !== "canceled" &&
+        subscription.current_period_end && (
+          <div className="w-full bg-amber-100 border-b border-amber-300 px-4 py-2 text-center text-sm text-amber-900">
+            Pro will not renew. Access continues until{" "}
+            {new Date(subscription.current_period_end).toLocaleDateString()}.{" "}
+            <button onClick={openPortal} className="underline font-medium">Manage</button>
+          </div>
+        )}
+
       <InstallBanner />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
