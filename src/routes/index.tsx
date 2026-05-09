@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import {
   Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2,
-  LogOut, Crown, Wand2, ArrowRight, Zap, TrendingUp, Users, Clock, Shield,
+  LogOut, Crown, Wand2, ArrowRight, TrendingUp, Users, Shield,
   Star, Twitter,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
