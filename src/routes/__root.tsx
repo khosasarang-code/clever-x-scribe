@@ -10,8 +10,6 @@ import {
 
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import { AmbientBackground } from "@/components/AmbientBackground";
-import { VideoBackground } from "@/components/VideoBackground";
 
 function NotFoundComponent() {
   return (
@@ -123,16 +121,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/app-icon.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/app-icon.png" },
       { rel: "mask-icon", href: "/app-icon.png", color: "#101524" },
-      {
-        rel: "preload",
-        href: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
-        as: "script",
-      },
-      {
-        rel: "preload",
-        href: "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js",
-        as: "script",
-      },
     ],
   }),
   shellComponent: RootShell,
@@ -146,8 +134,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
       </head>
       <body>
         {children}
@@ -162,8 +148,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <VideoBackground />
-      <AmbientBackground />
       <PaymentTestModeBanner />
       <Outlet />
     </QueryClientProvider>
