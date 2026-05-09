@@ -122,10 +122,34 @@ function useDailyUsage(enabled: boolean) {
 
 /* ---------- Static product preview (TweetHunter-style mock) ---------- */
 function ProductPreview() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = wrapRef.current;
+    const inner = innerRef.current;
+    if (!el || !inner) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    inner.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) translateZ(0)`;
+  };
+  const onLeave = () => {
+    if (innerRef.current) innerRef.current.style.transform = "rotateX(0) rotateY(0)";
+  };
+
   return (
-    <div className="relative">
+    <div
+      ref={wrapRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="tilt-wrap relative float-soft-slow"
+    >
       <div className="absolute -inset-6 bg-gradient-to-br from-primary/20 via-transparent to-accent/15 blur-3xl opacity-60 pointer-events-none" />
-      <div className="relative rounded-2xl border border-border/70 bg-card/80 backdrop-blur-xl shadow-[var(--shadow-elegant)] overflow-hidden">
+      <div
+        ref={innerRef}
+        className="tilt-inner relative rounded-2xl border border-border/70 bg-card/80 backdrop-blur-xl shadow-[var(--shadow-elegant)] overflow-hidden"
+      >
         {/* window chrome */}
         <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border/60 bg-background/40">
           <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
