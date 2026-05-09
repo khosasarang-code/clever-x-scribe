@@ -423,7 +423,7 @@ function Index() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
+        <section id="features" className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
           {/* LEFT: Headline + trust + benefits */}
           <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4">
             {/* Trust badge */}
