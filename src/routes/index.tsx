@@ -165,18 +165,25 @@ function Index() {
 
       {/* Header */}
       <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-30 bg-background/70">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)]">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)]">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold tracking-tight">SmartReply <span className="text-muted-foreground">for X</span></span>
+            <div className="min-w-0">
+              <div className="font-semibold tracking-tight leading-tight">
+                SmartReply <span className="text-muted-foreground">for X</span>
+              </div>
+              <div className="text-[11px] text-muted-foreground truncate hidden sm:block">
+                Write replies and threads that actually pop.
+              </div>
+            </div>
           </div>
           <a
             href="https://x.com"
             target="_blank"
             rel="noreferrer"
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0"
           >
             Powered by AI
           </a>
@@ -373,7 +380,7 @@ function Index() {
       </main>
 
       <footer className="py-10 text-center text-xs text-muted-foreground">
-        Built with care · SmartReply for X
+        Made with <span className="text-red-400">❤️</span> using Lovable
       </footer>
     </div>
   );
