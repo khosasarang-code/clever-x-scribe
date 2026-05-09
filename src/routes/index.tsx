@@ -319,14 +319,30 @@ function Index() {
               {replies.map((r, i) => (
                 <Card
                   key={i}
-                  className="p-4 bg-card/60 border-border/70 hover:border-primary/40 transition-colors flex flex-col gap-3"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    navigator.clipboard.writeText(r);
+                    toast.success("Reply copied to clipboard");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      navigator.clipboard.writeText(r);
+                      toast.success("Reply copied to clipboard");
+                    }
+                  }}
+                  className="p-4 bg-card/60 border-border/70 hover:border-primary/40 hover:bg-card/80 transition-colors flex flex-col gap-3 cursor-pointer active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  title="Tap to copy"
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{r}</p>
                   <div className="flex items-center justify-between mt-auto pt-2 border-t border-border/50">
                     <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                      Reply {i + 1} · {r.length} chars
+                      Reply {i + 1} · {r.length} chars · tap to copy
                     </span>
-                    <CopyButton text={r} />
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <CopyButton text={r} />
+                    </div>
                   </div>
                 </Card>
               ))}
