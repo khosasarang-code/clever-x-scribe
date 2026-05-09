@@ -880,7 +880,39 @@ function Index() {
           ))}
         </section>
 
-        {/* Chrome Extension banner */}
+        {/* Reviews — single-line scrolling ticker */}
+        <section className="space-y-4">
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Loved by <span className="text-gradient-brand">creators on X</span>
+            </h2>
+          </div>
+          <div className="reviews-marquee relative overflow-hidden border-y border-border/50 bg-background/30 backdrop-blur py-4">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
+            <div className="reviews-marquee-track text-sm sm:text-base text-foreground/85">
+              {(() => {
+                const QUOTES = [
+                  { q: "This tool 10x'd my reply game.", who: "@techfounder" },
+                  { q: "The thread generator is insane.", who: "@growthwithai" },
+                  { q: "Replies feel natural, not robotic.", who: "@marketingmike" },
+                  { q: "Saved me 2 hours a day.", who: "@startupchris" },
+                  { q: "Went from lurker to 5k followers in a month.", who: "@jennabuilds" },
+                  { q: "Replaced 4 tools with this one.", who: "@kenjibuilds" },
+                ];
+                const loop = [...QUOTES, ...QUOTES];
+                return loop.map((r, i) => (
+                  <span key={i} className="inline-flex items-center gap-2">
+                    <span className="text-yellow-400">⭐</span>
+                    <span className="italic">"{r.q}"</span>
+                    <span className="text-muted-foreground">— {r.who}</span>
+                  </span>
+                ));
+              })()}
+            </div>
+          </div>
+        </section>
+
         <section className="px-2">
           <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 via-card/60 to-accent/15 backdrop-blur p-6 sm:p-8">
             <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
