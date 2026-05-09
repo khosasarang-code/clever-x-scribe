@@ -542,13 +542,30 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-90 shadow-[var(--shadow-glow)]"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
-                Generate Viral Thread
+                {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
               </Button>
             </div>
           </Card>
+
+          {loadingThread && thread.length === 0 && (
+            <div className="space-y-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Card key={i} className="p-4 bg-card/40 border-border/60 relative overflow-hidden">
+                  <div className="absolute inset-0 shimmer-bg" />
+                  <div className="flex gap-3 relative">
+                    <div className="h-7 w-7 rounded-full bg-muted/60" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-3 rounded bg-muted/60 w-full" />
+                      <div className="h-3 rounded bg-muted/60 w-4/5" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
 
           {thread.length > 0 && (
             <div className="space-y-3">
@@ -556,8 +573,12 @@ function Index() {
                 <CopyButton text={fullThreadText} />
               </div>
               {thread.map((t, i) => (
-                <Card key={i} className="p-4 bg-card/60 border-border/70 flex gap-3">
-                  <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-brand grid place-items-center text-xs font-semibold text-primary-foreground">
+                <Card
+                  key={i}
+                  style={{ animationDelay: `${i * 60}ms` }}
+                  className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/40 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300 flex gap-3"
+                >
+                  <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-brand grid place-items-center text-xs font-semibold text-primary-foreground shadow-[var(--shadow-glow-sm)]">
                     {i + 1}
                   </div>
                   <div className="flex-1 space-y-2">
