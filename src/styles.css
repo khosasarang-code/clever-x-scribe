@@ -398,10 +398,11 @@ html {
 
 /* Primary nav links — bold electric blue */
 .primary-nav a {
-  font-weight: 700;
+  font-weight: 800;
   color: #4f8ef7;
   font-size: 15px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 }
 .primary-nav a:hover {
   color: #ffffff;
