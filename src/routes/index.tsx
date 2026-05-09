@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { z } from "zod";
 import {
   Sparkles, Copy, Check, Loader2, MessageSquareText, Flame, History, Trash2,
