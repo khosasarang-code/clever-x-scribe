@@ -13,6 +13,7 @@ import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { VantaHeroBackground } from "@/components/VantaHeroBackground";
+import { TypewriterLogo } from "@/components/TypewriterLogo";
 
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { HowItWorks } from "@/components/HowItWorks";
