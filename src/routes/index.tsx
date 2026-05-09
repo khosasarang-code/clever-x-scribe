@@ -414,11 +414,14 @@ function Index() {
 
       <InstallBanner />
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-20 sm:space-y-28">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-24 sm:space-y-32">
         {/* Hero */}
         <section className="text-center space-y-7">
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90">
+          <div
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
+            style={{ animationDelay: "0ms" }}
+          >
             <span className="flex -space-x-1.5">
               {[12, 47, 33, 8].map((id) => (
                 <img
@@ -433,19 +436,28 @@ function Index() {
             <span>Used by <span className="font-semibold text-gradient-brand">10,000+ creators</span></span>
           </div>
 
-          <h1 className="text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tight leading-[0.9]">
+          <h1
+            className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight leading-[0.95] animate-hero-in"
+            style={{ animationDelay: "80ms" }}
+          >
             Smart Replies & <br />
             <span className="text-gradient-brand">Viral Threads</span>
             <br className="sm:hidden" />
             <span className="sm:ml-4">for X</span>
           </h1>
-          <p className="text-foreground/80 max-w-2xl mx-auto text-lg sm:text-2xl leading-relaxed font-medium">
+          <p
+            className="text-foreground/80 max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
+            style={{ animationDelay: "160ms" }}
+          >
             Paste any tweet → Get <span className="text-gradient-brand font-semibold">9 intelligent replies</span> in seconds.
             Turn one idea into a full <span className="text-gradient-brand font-semibold">viral thread</span>.
           </p>
 
           {/* Glowing CTA */}
-          <div className="flex flex-col items-center gap-4 pt-2">
+          <div
+            className="flex flex-col items-center gap-4 pt-2 animate-hero-in"
+            style={{ animationDelay: "240ms" }}
+          >
             <Button
               size="lg"
               onClick={() => {
@@ -455,10 +467,11 @@ function Index() {
                   document.querySelector<HTMLTextAreaElement>("textarea")?.focus();
                 }, 500);
               }}
-              className="h-14 px-8 text-base sm:text-lg bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.03] active:scale-[0.98] shadow-[var(--shadow-glow)] animate-glow-pulse transition-all duration-300 font-semibold rounded-full"
+              className="group h-14 px-8 text-base sm:text-lg bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.03] active:scale-[0.98] shadow-[var(--shadow-glow)] animate-glow-pulse transition-all duration-300 font-semibold rounded-full"
             >
               <Sparkles className="h-5 w-5" />
               Try it Free
+              <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
             <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
@@ -473,7 +486,10 @@ function Index() {
           </div>
 
           {/* Social proof row */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1 animate-hero-in"
+            style={{ animationDelay: "320ms" }}
+          >
             <span className="flex items-center gap-1.5">
               <span className="text-amber-400">★★★★★</span>
               <span>4.9 / 5 from 1,200+ reviews</span>
@@ -485,7 +501,7 @@ function Index() {
           </div>
 
           {/* Animated demo */}
-          <div className="pt-4">
+          <div className="pt-4 animate-hero-in" style={{ animationDelay: "400ms" }}>
             <HeroDemo />
           </div>
         </section>
