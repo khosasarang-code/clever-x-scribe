@@ -100,7 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Write replies and threads that actually pop.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/app-icon.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/605d0d91-f06f-4274-a7a4-94250f23be0b" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "SmartReply for X" },
@@ -108,7 +108,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "twitter:description",
         content: "AI replies and viral threads for X.",
       },
-      { name: "twitter:image", content: "/app-icon.png" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/605d0d91-f06f-4274-a7a4-94250f23be0b" },
+      { name: "description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
+      { property: "og:description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
+      { name: "twitter:description", content: "SmartReply for X instantly writes smart, engaging replies and viral threads for your tweets. Choose your tone and get 9+ options in seconds. Perfect for creator" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
