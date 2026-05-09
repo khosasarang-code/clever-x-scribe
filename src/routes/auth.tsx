@@ -92,11 +92,12 @@ function AuthPage() {
   const google = async () => {
     setBusy(true);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: { redirectTo: `${window.location.origin}${next}` },
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: `${window.location.origin}${next}`,
       });
-      if (error) throw error;
+      if (result.error) throw result.error;
+      if (result.redirected) return;
+      navigate({ to: next });
     } catch (e: any) {
       toast.error(e?.message ?? "Google sign-in failed");
       setBusy(false);
