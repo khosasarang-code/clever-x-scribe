@@ -12,7 +12,7 @@ import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
-import { HeroParticles } from "@/components/HeroParticles";
+import { VantaHeroBackground } from "@/components/VantaHeroBackground";
 
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -423,10 +423,15 @@ function Index() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-20 space-y-20 sm:space-y-28 lg:space-y-32">
         {/* Hero */}
-        <section id="features" className="relative grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start scroll-mt-24">
-          <HeroParticles />
+        <section
+          id="vanta-hero"
+          className="relative isolate overflow-hidden rounded-[28px] border border-border/50 min-h-[100vh] scroll-mt-24"
+        >
+          <VantaHeroBackground />
+          <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,oklch(0.08_0.01_260/0.18)_0%,oklch(0.08_0.01_260/0.38)_55%,oklch(0.08_0.01_260/0.62)_100%)]" />
+          <div className="relative z-20 grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
           {/* LEFT: Headline + trust + benefits */}
-          <div className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4 relative">
+          <div id="features" className="lg:col-span-5 space-y-6 sm:space-y-7 lg:pt-4 relative">
             {/* Trust badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90 animate-hero-in"
@@ -627,6 +632,7 @@ function Index() {
                 </span>
               </div>
             </div>
+          </div>
           </div>
         </section>
 

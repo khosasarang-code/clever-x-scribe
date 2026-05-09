@@ -369,6 +369,18 @@ html {
   box-shadow: 0 0 6px oklch(0.7 0.2 295 / 0.6);
 }
 
+#vanta-hero {
+  background: transparent !important;
+}
+
+#vanta-hero > canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ambient-orb-1,
   .ambient-orb-2,
