@@ -911,7 +911,7 @@ function Index() {
 
       <footer className="border-t border-border/50 bg-background/40 mt-10">
         <div className="container max-w-6xl mx-auto px-4 py-12 sm:py-16">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
             <div className="col-span-2 space-y-4">
               <Link to="/" className="inline-flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
