@@ -799,51 +799,55 @@ function Index() {
 
         {/* ============== PRICING ============== */}
         <section id="pricing" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Pricing</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Simple, honest pricing</h2>
             <p className="text-muted-foreground text-lg">Start free. Upgrade when you're ready to post like a machine.</p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <Card className="p-7 bg-card/50 border-border/60 flex flex-col gap-5">
-              <div>
-                <h3 className="text-xl font-semibold">Free</h3>
-                <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">$0</span>
-                <span className="text-sm text-muted-foreground">/ forever</span>
-              </div>
-              <ul className="space-y-2.5 text-sm flex-1">
-                {["10 generations per day","9 smart replies per tweet","Viral thread builder","All 12 tone presets","Local history"].map(f => (
-                  <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />{f}</li>
-                ))}
-              </ul>
-              <Button variant="outline" className="border-border/70" onClick={scrollToGenerator}>Get started free</Button>
-            </Card>
+            <Reveal y={24}>
+              <Card className="hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5">
+                <div>
+                  <h3 className="text-xl font-semibold">Free</h3>
+                  <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight">$0</span>
+                  <span className="text-sm text-muted-foreground">/ forever</span>
+                </div>
+                <ul className="space-y-2.5 text-sm flex-1">
+                  {["10 generations per day","9 smart replies per tweet","Viral thread builder","All 12 tone presets","Local history"].map(f => (
+                    <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />{f}</li>
+                  ))}
+                </ul>
+                <Button variant="outline" className="border-border/70" onClick={scrollToGenerator}>Get started free</Button>
+              </Card>
+            </Reveal>
 
-            <Card className="p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
-              <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
-                Most popular
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Pro</h3>
-                <p className="text-sm text-muted-foreground mt-1">For creators who post every day.</p>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">$19</span>
-                <span className="text-sm text-muted-foreground">/ month</span>
-              </div>
-              <ul className="space-y-2.5 text-sm flex-1">
-                {["Unlimited replies","Unlimited viral threads","Advanced AI tones","Faster generations","Priority support","Early access to new features"].map(f => (
-                  <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />{f}</li>
-                ))}
-              </ul>
-              <Button asChild className="bg-gradient-brand text-primary-foreground hover:opacity-95">
-                <Link to="/pricing">Upgrade to Pro</Link>
-              </Button>
-            </Card>
+            <Reveal y={24} delay={120}>
+              <Card className="hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
+                <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
+                  Most popular
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Pro</h3>
+                  <p className="text-sm text-muted-foreground mt-1">For creators who post every day.</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold tracking-tight">$19</span>
+                  <span className="text-sm text-muted-foreground">/ month</span>
+                </div>
+                <ul className="space-y-2.5 text-sm flex-1">
+                  {["Unlimited replies","Unlimited viral threads","Advanced AI tones","Faster generations","Priority support","Early access to new features"].map(f => (
+                    <li key={f} className="flex items-start gap-2"><Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />{f}</li>
+                  ))}
+                </ul>
+                <Button asChild className="bg-gradient-brand text-primary-foreground hover:opacity-95">
+                  <Link to="/pricing">Upgrade to Pro</Link>
+                </Button>
+              </Card>
+            </Reveal>
           </div>
 
           <p className="text-center text-xs text-muted-foreground">Cancel anytime. No hidden fees.</p>
@@ -851,19 +855,21 @@ function Index() {
 
         {/* ============== CTA ============== */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 via-card/40 to-accent/15 p-10 sm:p-14 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to grow on X?</h2>
-            <p className="text-muted-foreground mt-3 max-w-md mx-auto">Generate your first 9 replies in under a minute. No credit card required.</p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg" onClick={scrollToGenerator}
-                className="h-12 px-6 bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold">
-                Try it free <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-12 px-6 border-border/70 bg-card/40 backdrop-blur">
-                <Link to="/pricing">View pricing</Link>
-              </Button>
+          <Reveal y={28}>
+            <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 via-card/40 to-accent/15 p-10 sm:p-14 text-center">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to grow on X?</h2>
+              <p className="text-muted-foreground mt-3 max-w-md mx-auto">Generate your first 9 replies in under a minute. No credit card required.</p>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <Button size="lg" onClick={scrollToGenerator}
+                  className="h-12 px-6 bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold transition-transform hover:-translate-y-0.5">
+                  Try it free <ArrowRight className="h-4 w-4" />
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-12 px-6 border-border/70 bg-card/40 backdrop-blur">
+                  <Link to="/pricing">View pricing</Link>
+                </Button>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ============== HISTORY (compact) ============== */}
