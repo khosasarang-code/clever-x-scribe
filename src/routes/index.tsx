@@ -836,7 +836,7 @@ function Index() {
               <Button
                 size="lg"
                 onClick={() => toast.success("You're on the list! We'll email you when the extension launches.")}
-                className="w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
+                className="btn-glow w-full sm:w-auto shrink-0 bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold group"
               >
                 <Chrome className="h-4 w-4" />
                 Get Chrome Extension
