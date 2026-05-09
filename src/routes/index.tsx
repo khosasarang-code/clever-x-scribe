@@ -587,6 +587,8 @@ function Index() {
             </div>
           )}
         </section>
+
+        <Testimonials />
       </main>
 
       <footer className="py-10 text-center text-xs text-muted-foreground">
