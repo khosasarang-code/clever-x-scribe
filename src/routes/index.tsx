@@ -231,7 +231,7 @@ function Index() {
       toast.error("Checking your session…");
       return;
     }
-    if (!requireAuth()) return;
+
     setLoadingReplies(true);
     setReplies([]);
     try {
@@ -264,7 +264,7 @@ function Index() {
       toast.error("Checking your session…");
       return;
     }
-    if (!requireAuth()) return;
+
     setLoadingThread(true);
     setThread([]);
     try {
