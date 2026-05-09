@@ -79,7 +79,7 @@ export function PWAEnhancements() {
               <Download className="h-4 w-4 text-primary-foreground" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold leading-tight">Install SmartReply</div>
+              <div className="text-sm font-semibold leading-tight">Install SmartReply AI</div>
               <div className="text-[11px] text-muted-foreground truncate">
                 Add to your home screen for one-tap access.
               </div>
