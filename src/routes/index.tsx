@@ -314,34 +314,45 @@ function Index() {
       <WelcomeDialog />
 
       {/* Header */}
-      <header className="border-b border-border/60 backdrop-blur-md sticky top-0 z-30 bg-background/70 transition-all duration-300">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+      <header className="border-b border-border/50 backdrop-blur-xl sticky top-0 z-30 bg-background/60 transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          {/* Left: Logo */}
           <a
             href="/"
-            className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-all duration-200 hover:scale-[1.02]"
+            className="flex items-center gap-2.5 min-w-0 hover:opacity-90 transition-all duration-200"
             aria-label="SmartReply AI X — Home"
           >
-            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
+            <div className="h-8 w-8 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
-            <div className="min-w-0">
-              <div className="font-semibold tracking-tight leading-tight">
-                SmartReply <span className="text-muted-foreground">AI X</span>
-              </div>
-              <div className="text-[11px] text-muted-foreground truncate hidden sm:block">
-                Write replies and threads that actually get engagement.
-              </div>
+            <div className="font-semibold tracking-tight text-sm sm:text-base leading-none">
+              SmartReply <span className="text-muted-foreground font-normal">AI X</span>
             </div>
           </a>
-          <div className="flex items-center gap-2 shrink-0">
+
+          {/* Center: Nav links */}
+          <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+              Features
+            </a>
+            <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+              How it Works
+            </a>
+            <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-foreground/5">
+              Pricing
+            </Link>
+          </nav>
+
+          {/* Right: usage + auth */}
+          <div className="flex items-center gap-3 shrink-0">
             {!isPro && (
-              <span className="hidden sm:inline text-[11px] text-muted-foreground transition-colors">
+              <span className="hidden lg:inline text-[11px] text-muted-foreground">
                 {Math.max(0, FREE_DAILY_LIMIT - usedToday)}/{FREE_DAILY_LIMIT} left
               </span>
             )}
             {isPro && (
               <>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
                   <Crown className="h-3 w-3" /> Pro
                 </span>
                 <Button
@@ -349,43 +360,39 @@ function Index() {
                   variant="ghost"
                   onClick={openPortal}
                   disabled={openingPortal}
-                  className="text-xs transition-colors duration-200"
+                  className="text-xs h-8 px-2 text-muted-foreground hover:text-foreground"
                   title="Manage billing"
                 >
                   {openingPortal ? <Loader2 className="h-3 w-3 animate-spin" /> : "Billing"}
                 </Button>
               </>
             )}
-            <Link
-              to="/pricing"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 px-2"
-            >
-              Pricing
-            </Link>
-          {user ? (
-            <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
-              <div className="hidden sm:flex flex-col items-end leading-tight">
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Signed in as</span>
-                <span className="text-xs font-medium text-foreground truncate max-w-[160px]">
-                  {(user.user_metadata?.full_name as string | undefined) || user.email}
-                </span>
+            {user ? (
+              <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
+                <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground ring-2 ring-background">
+                  {(user.email ?? "U").slice(0, 1).toUpperCase()}
+                </div>
+                <Button size="sm" variant="ghost" onClick={signOut} title="Sign out" className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground">
+                  <LogOut className="h-3.5 w-3.5" />
+                </Button>
               </div>
-              <div className="h-7 w-7 rounded-full bg-gradient-brand grid place-items-center text-[11px] font-semibold text-primary-foreground ring-2 ring-background transition-transform duration-200 hover:scale-110">
-                {(user.email ?? "U").slice(0, 1).toUpperCase()}
-              </div>
-              <Button size="sm" variant="ghost" onClick={signOut} title="Sign out" className="transition-colors duration-200">
-                <LogOut className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-          ) : (
-            <Button
-              asChild
-              size="sm"
-              className="bg-foreground text-background hover:bg-foreground/90 shrink-0"
-            >
-              <Link to="/auth">Sign in</Link>
-            </Button>
-          )}
+            ) : (
+              <>
+                <Link
+                  to="/auth"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-block"
+                >
+                  Sign in
+                </Link>
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-9 px-4 bg-gradient-brand text-primary-foreground hover:opacity-95 border-0 shadow-[var(--shadow-glow-sm)] hover:shadow-[var(--shadow-glow)] transition-all"
+                >
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </header>
