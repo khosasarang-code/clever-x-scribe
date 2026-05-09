@@ -63,7 +63,7 @@ export const generateAI = createServerFn({ method: "POST" })
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
 
-    const { supabase, userId } = context;
+    const { userId } = context;
 
     let isPro = false;
     {
@@ -185,7 +185,7 @@ export const rewriteAI = createServerFn({ method: "POST" })
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
 
-    const { supabase, userId } = context;
+    const { userId } = context;
     let isPro = false;
     {
       const env = data.environment ?? "live";
@@ -214,8 +214,9 @@ export const rewriteAI = createServerFn({ method: "POST" })
     };
 
     try {
+      const style = data.style as (typeof REWRITE_STYLES)[number];
       const system = `You rewrite Twitter/X replies. Keep the original intent but transform the style.
-STYLE: ${data.style}. ${REWRITE_GUIDANCE[data.style]}
+STYLE: ${style}. ${REWRITE_GUIDANCE[style]}
 Rules:
 - Keep under 270 characters.
 - No hashtags. No "As an AI". No markdown. No quotes around the reply.
