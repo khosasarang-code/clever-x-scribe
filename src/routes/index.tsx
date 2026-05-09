@@ -145,14 +145,8 @@ function Index() {
     }
   }, [search.checkout, navigate, refetchSub]);
 
-  const requireAuth = (): boolean => {
-    if (!user) {
-      toast.error("Sign in to save generations and unlock Pro.");
-      navigate({ to: "/auth", search: { next: "/" } });
-      return false;
-    }
-    return true;
-  };
+  // Guests can use the app without signing in. Sign-in is only nudged when
+  // they hit the free daily limit or try to manage billing.
 
   const openPortal = async () => {
     if (!user) {
