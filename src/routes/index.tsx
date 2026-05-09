@@ -315,8 +315,8 @@ function Index() {
             className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-all duration-200 hover:scale-[1.02]"
             aria-label="SmartReply AI X — Home"
           >
-            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-200">
-              <Sparkles className="h-4 w-4 text-primary-foreground" />
+            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-300 animate-glow-pulse">
+              <Sparkles className="h-4 w-4 text-primary-foreground drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]" />
             </div>
             <div className="min-w-0">
               <div className="font-semibold tracking-tight leading-tight">
