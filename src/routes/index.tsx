@@ -689,7 +689,7 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.99] transition-colors duration-200 font-medium rounded-lg"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] shadow-[var(--shadow-glow)] transition-all duration-200 font-semibold rounded-lg"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                 {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
