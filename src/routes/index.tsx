@@ -125,7 +125,7 @@ function ProductPreview() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     const el = wrapRef.current;
     const inner = innerRef.current;
     if (!el || !inner) return;
