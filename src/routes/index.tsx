@@ -863,8 +863,82 @@ function Index() {
         </section>
       </main>
 
-      <footer className="py-10 text-center text-xs text-muted-foreground">
-        Made with <span className="text-red-400">❤️</span> using Lovable
+      <footer className="border-t border-border/50 bg-background/40 mt-10">
+        <div className="container max-w-6xl mx-auto px-4 py-12 sm:py-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10">
+            <div className="col-span-2 space-y-4">
+              <Link to="/" className="inline-flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
+                  <Sparkles className="h-4 w-4 text-primary-foreground" />
+                </div>
+                <span className="text-base font-semibold tracking-tight">
+                  SmartReply <span className="text-muted-foreground">AI X</span>
+                </span>
+              </Link>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+                The premium AI tool for crafting smart replies and viral threads on X.
+              </p>
+              <div className="flex items-center gap-2 pt-1">
+                <a
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="X (Twitter)"
+                  className="h-9 w-9 grid place-items-center rounded-md border border-border/60 bg-background/40 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-background/70 transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="h-9 w-9 grid place-items-center rounded-md border border-border/60 bg-background/40 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-background/70 transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {[
+              { title: "Product", links: ["Features", "Pricing", "Changelog", "API"] },
+              { title: "Company", links: ["About", "Blog", "Careers", "Press"] },
+              { title: "Resources", links: ["Help Center", "Community", "Contact", "Status"] },
+              { title: "Legal", links: ["Privacy", "Terms", "Security", "Cookies"] },
+            ].map((col) => (
+              <div key={col.title} className="space-y-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                  {col.title}
+                </h3>
+                <ul className="space-y-2.5">
+                  {col.links.map((l) => (
+                    <li key={l}>
+                      <a
+                        href="#"
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {l}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">
+              © 2026 SmartReply AI X. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Made with <span className="text-red-400">❤️</span> using Lovable
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
