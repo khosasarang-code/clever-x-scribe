@@ -62,11 +62,11 @@ export function FloatingInstallButton() {
     <button
       onClick={handleInstall}
       aria-label="Install app"
-      className="sm:hidden fixed right-4 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-brand text-primary-foreground text-sm font-medium pl-4 pr-5 py-3 shadow-[var(--shadow-glow)] hover:opacity-90 active:scale-95 transition"
-      style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+      className="sm:hidden fixed right-3 z-40 inline-flex items-center gap-1.5 rounded-full bg-card/70 backdrop-blur-md border border-border/50 text-foreground/80 text-[11px] font-medium pl-2.5 pr-3 py-1.5 shadow-sm hover:text-foreground hover:bg-card/90 active:scale-95 transition"
+      style={{ bottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
     >
-      <Download className="h-4 w-4" />
-      Install App
+      <Download className="h-3 w-3 text-primary" />
+      Install
     </button>
   );
 }
