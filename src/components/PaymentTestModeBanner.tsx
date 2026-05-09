@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { getPaddleEnvironment } from "@/lib/paddle";
 
 function isPreviewEnvironment() {
@@ -12,6 +13,10 @@ function isPreviewEnvironment() {
 }
 
 export function PaymentTestModeBanner() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
   if (getPaddleEnvironment() !== "sandbox") return null;
   if (!isPreviewEnvironment()) return null;
 
