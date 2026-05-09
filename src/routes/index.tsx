@@ -456,17 +456,36 @@ function Index() {
                 size="lg"
                 onClick={runReplies}
                 disabled={loadingReplies}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-90 shadow-[var(--shadow-glow)]"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingReplies ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <Sparkles className="h-4 w-4" />
                 )}
-                Generate Smart Replies
+                {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
               </Button>
             </div>
           </Card>
+
+          {loadingReplies && replies.length === 0 && (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Card
+                  key={i}
+                  className="p-4 bg-card/40 border-border/60 h-32 overflow-hidden relative"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <div className="absolute inset-0 shimmer-bg" />
+                  <div className="space-y-2 relative">
+                    <div className="h-3 rounded bg-muted/60 w-5/6" />
+                    <div className="h-3 rounded bg-muted/60 w-full" />
+                    <div className="h-3 rounded bg-muted/60 w-2/3" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
 
           {replies.length > 0 && (
             <div className="grid sm:grid-cols-2 gap-3">
@@ -475,6 +494,7 @@ function Index() {
                   key={i}
                   role="button"
                   tabIndex={0}
+                  style={{ animationDelay: `${i * 50}ms` }}
                   onClick={() => {
                     navigator.clipboard.writeText(r);
                     toast.success("Reply copied to clipboard");
@@ -486,7 +506,7 @@ function Index() {
                       toast.success("Reply copied to clipboard");
                     }
                   }}
-                  className="p-4 bg-card/60 border-border/70 hover:border-primary/40 hover:bg-card/80 transition-colors flex flex-col gap-3 cursor-pointer active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/50 hover:bg-card/80 hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300 flex flex-col gap-3 cursor-pointer active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   title="Tap to copy"
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{r}</p>
