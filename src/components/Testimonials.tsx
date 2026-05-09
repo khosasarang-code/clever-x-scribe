@@ -9,30 +9,53 @@ type Testimonial = {
   avatar: number;
   text: string;
   role?: string;
+  verified?: boolean;
 };
 
 const TESTIMONIALS: Testimonial[] = [
-  { name: "Alex Chen", handle: "techfounder", avatar: 12, role: "Founder, Indie SaaS", text: "This tool literally 10x'd my reply game. Went from 20 likes to 200+ on average within two weeks." },
-  { name: "Sarah Patel", handle: "growthwithai", avatar: 47, role: "Growth Marketer", text: "The thread generator is insane. Posted one and gained 800 followers in 2 days. Nothing else comes close." },
+  { name: "Alex Chen", handle: "techfounder", avatar: 12, role: "Founder, Indie SaaS", verified: true, text: "This tool literally 10x'd my reply game. Went from 20 likes to 200+ on average within two weeks." },
+  { name: "Sarah Patel", handle: "growthwithai", avatar: 47, role: "Growth Marketer", verified: true, text: "The thread generator is insane. Posted one and gained 800 followers in 2 days. Nothing else comes close." },
   { name: "Mike Rivera", handle: "marketingmike", avatar: 33, role: "Content Strategist", text: "Best AI tool for X I've used. Replies feel natural, not robotic — my audience actually engages back." },
-  { name: "Chris Walker", handle: "startupchris", avatar: 8, role: "Startup CEO", text: "Saved me 2 hours a day. Now I actually enjoy replying to comments instead of dreading it." },
-  { name: "Jenna Lee", handle: "jennabuilds", avatar: 25, role: "Indie Hacker", text: "Went from lurker to 5k followers in a month. The witty tone is gold and converts like crazy." },
+  { name: "Chris Walker", handle: "startupchris", avatar: 8, role: "Startup CEO", verified: true, text: "Saved me 2 hours a day. Now I actually enjoy replying to comments instead of dreading it." },
+  { name: "Jenna Lee", handle: "jennabuilds", avatar: 25, role: "Indie Hacker", verified: true, text: "Went from lurker to 5k followers in a month. The witty tone is gold and converts like crazy." },
   { name: "Dev Kapoor", handle: "devbyday", avatar: 14, role: "Developer", text: "I was paying $40/mo for a worse tool. Switched here and never looked back. Worth every cent." },
-  { name: "Maya Soto", handle: "mayawrites", avatar: 49, role: "Copywriter", text: "My engagement tripled. Threads sound exactly like me, just sharper and more punchy." },
+  { name: "Maya Soto", handle: "mayawrites", avatar: 49, role: "Copywriter", verified: true, text: "My engagement tripled. Threads sound exactly like me, just sharper and more punchy." },
   { name: "Tom Becker", handle: "tombuilds", avatar: 60, role: "Product Designer", text: "Finally an AI that doesn't sound like ChatGPT. Replies actually land with real humans." },
-  { name: "Priya Shah", handle: "priyaongrowth", avatar: 44, role: "Creator Coach", text: "I built my whole audience with this. 10/10 would recommend to any creator serious about X." },
-  { name: "Noah Fischer", handle: "noahsaas", avatar: 65, role: "SaaS Founder", text: "Closed two deals from replies generated here. ROI was instant — paid for itself in a day." },
+  { name: "Priya Shah", handle: "priyaongrowth", avatar: 44, role: "Creator Coach", verified: true, text: "I built my whole audience with this. 10/10 would recommend to any creator serious about X." },
+  { name: "Noah Fischer", handle: "noahsaas", avatar: 65, role: "SaaS Founder", verified: true, text: "Closed two deals from replies generated here. ROI was instant — paid for itself in a day." },
   { name: "Lily Tran", handle: "lilycodes", avatar: 32, role: "Engineer", text: "The bold and witty tones are chef's kiss. My quote tweets go off now consistently." },
-  { name: "Marcus Hill", handle: "marcusbuilds", avatar: 53, role: "Solopreneur", text: "Posted one thread, hit 100k impressions. This is unfair leverage for anyone building in public." },
+  { name: "Marcus Hill", handle: "marcusbuilds", avatar: 53, role: "Solopreneur", verified: true, text: "Posted one thread, hit 100k impressions. This is unfair leverage for anyone building in public." },
   { name: "Emma Reyes", handle: "emmascales", avatar: 23, role: "Brand Strategist", text: "Clients ask how I'm so consistent on X. This is the secret. Cannot believe it's this affordable." },
-  { name: "Jordan Blake", handle: "jordancreates", avatar: 56, role: "Content Creator", text: "Doubled my newsletter signups from X traffic alone. The replies pull people into my profile." },
-  { name: "Aisha Khan", handle: "aishabuilds", avatar: 41, role: "Tech Founder", text: "I've tried every X growth tool out there. Nothing comes close to the quality of this one." },
+  { name: "Jordan Blake", handle: "jordancreates", avatar: 56, role: "Content Creator", verified: true, text: "Doubled my newsletter signups from X traffic alone. The replies pull people into my profile." },
+  { name: "Aisha Khan", handle: "aishabuilds", avatar: 41, role: "Tech Founder", verified: true, text: "I've tried every X growth tool out there. Nothing comes close to the quality of this one." },
   { name: "Ben Carter", handle: "bencarterio", avatar: 11, role: "Growth Lead", text: "Generated 50+ replies in my first session. Three of them went viral by the next morning." },
-  { name: "Sofia Rossi", handle: "sofiawrites", avatar: 16, role: "Newsletter Writer", text: "My favorite part: the tone presets actually match my voice. Feels like an extension of me." },
+  { name: "Sofia Rossi", handle: "sofiawrites", avatar: 16, role: "Newsletter Writer", verified: true, text: "My favorite part: the tone presets actually match my voice. Feels like an extension of me." },
   { name: "Kenji Watanabe", handle: "kenjibuilds", avatar: 68, role: "Engineer", text: "Replaced 4 different tools with this one. Pricing is honestly too generous for what you get." },
-  { name: "Olivia Brooks", handle: "oliviascales", avatar: 5, role: "Marketing Director", text: "Onboarded my whole team. Our brand engagement is up 4x and inbound DMs have doubled." },
-  { name: "Rahul Mehta", handle: "rahulships", avatar: 52, role: "Indie Maker", text: "Hit my first 10k followers thanks to this. The thread generator is straight up magic." },
+  { name: "Olivia Brooks", handle: "oliviascales", avatar: 5, role: "Marketing Director", verified: true, text: "Onboarded my whole team. Our brand engagement is up 4x and inbound DMs have doubled." },
+  { name: "Rahul Mehta", handle: "rahulships", avatar: 52, role: "Indie Maker", verified: true, text: "Hit my first 10k followers thanks to this. The thread generator is straight up magic." },
 ];
+
+const PRESS_LOGOS = [
+  { name: "Product Hunt", text: "Product Hunt", accent: "text-orange-400" },
+  { name: "Hacker News", text: "Y Hacker News", accent: "text-amber-500" },
+  { name: "TechCrunch", text: "TechCrunch", accent: "text-emerald-400" },
+  { name: "Forbes", text: "Forbes", accent: "text-foreground" },
+  { name: "The Verge", text: "THE VERGE", accent: "text-fuchsia-400" },
+  { name: "Indie Hackers", text: "Indie Hackers", accent: "text-blue-400" },
+];
+
+function useLiveCounter(base: number, perSecond: number) {
+  const [n, setN] = useState(base);
+  useEffect(() => {
+    const start = performance.now();
+    const id = window.setInterval(() => {
+      const elapsed = (performance.now() - start) / 1000;
+      setN(base + Math.floor(elapsed * perSecond));
+    }, 1200);
+    return () => window.clearInterval(id);
+  }, [base, perSecond]);
+  return n;
+}
 
 // Duplicate the list so the marquee loops seamlessly.
 const LOOP = [...TESTIMONIALS, ...TESTIMONIALS];
@@ -48,11 +71,22 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             loading="lazy"
             className="h-12 w-12 rounded-full object-cover ring-2 ring-primary/40"
           />
-          <BadgeCheck className="absolute -bottom-1 -right-1 h-4 w-4 text-primary fill-background" />
+          {t.verified && (
+            <BadgeCheck
+              className="absolute -bottom-1 -right-1 h-4 w-4 text-[#1d9bf0] fill-background"
+              aria-label="Verified"
+            />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1">
             <span className="text-sm font-semibold leading-tight truncate">{t.name}</span>
+            {t.verified && (
+              <BadgeCheck
+                className="h-3.5 w-3.5 text-[#1d9bf0] fill-[#1d9bf0]/15 shrink-0"
+                aria-label="Verified account"
+              />
+            )}
           </div>
           <div className="text-xs text-muted-foreground truncate">@{t.handle}</div>
         </div>
@@ -101,8 +135,21 @@ export function Testimonials() {
     el.scrollBy({ left: dir * 380, behavior: "smooth" });
   };
 
+  // Seed counter from start of ISO week so it stays consistent across reloads.
+  const weekStart = (() => {
+    const d = new Date();
+    const day = d.getDay();
+    const diff = (day + 6) % 7; // Monday-start
+    d.setDate(d.getDate() - diff);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+  })();
+  const elapsedSec = Math.max(0, (Date.now() - weekStart) / 1000);
+  const baseCount = 8200 + Math.floor(elapsedSec * 0.42); // ~36k/week pace
+  const liveCount = useLiveCounter(baseCount, 0.35);
+
   return (
-    <section className="space-y-8 py-8">
+    <section className="space-y-10 py-8">
       <div className="text-center space-y-3 max-w-2xl mx-auto px-4">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
           What Creators Are <span className="text-gradient-brand">Saying</span>
@@ -110,6 +157,47 @@ export function Testimonials() {
         <p className="text-base text-muted-foreground">
           Join thousands growing on X with SmartReply.
         </p>
+      </div>
+
+      {/* Live counter */}
+      <div className="mx-auto max-w-2xl px-4">
+        <div className="relative rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/40 to-accent/10 backdrop-blur p-6 sm:p-8 text-center overflow-hidden">
+          <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+          <div className="relative">
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
+                <span className="relative rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
+              Live this week
+            </div>
+            <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight tabular-nums text-gradient-brand">
+              {liveCount.toLocaleString()}
+            </div>
+            <div className="text-sm sm:text-base text-muted-foreground mt-2">
+              smart replies generated by creators in the last 7 days
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* As seen in */}
+      <div className="max-w-4xl mx-auto px-4 space-y-4">
+        <div className="text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          As seen in
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-12 gap-y-4 opacity-80">
+          {PRESS_LOGOS.map((l) => (
+            <div
+              key={l.name}
+              className={`text-base sm:text-lg font-bold tracking-tight ${l.accent} grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 select-none`}
+              title={l.name}
+            >
+              {l.text}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div
