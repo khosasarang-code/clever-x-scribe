@@ -133,14 +133,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         as: "script",
       },
     ],
-    scripts: [
-      {
-        src: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
-      },
-      {
-        src: "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js",
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -153,6 +145,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
       </head>
       <body>
         {children}
