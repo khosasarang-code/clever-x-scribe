@@ -65,6 +65,25 @@ function AuthPage() {
     }
   };
 
+  const forgotPassword = async () => {
+    if (!email) {
+      toast.error("Enter your email above first");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      toast.success("Password reset email sent. Check your inbox.");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Could not send reset email");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const google = async () => {
     setBusy(true);
     try {
