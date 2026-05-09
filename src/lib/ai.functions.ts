@@ -10,8 +10,17 @@ const inputSchema = z.object({
   prompt: z.string().min(1).max(8000),
   mode: z.enum(["replies", "thread"]),
   tone: z.enum(TONES).optional(),
+  persona: z.string().max(80).optional(),
   environment: z.enum(["sandbox", "live"]).optional(),
 });
+
+export const PERSONA_PRESETS: { handle: string; label: string; style: string }[] = [
+  { handle: "@naval", label: "Naval Ravikant", style: "first-principles, calm, aphoristic, deeply thoughtful, often paradoxical one-liners about wealth, happiness, leverage" },
+  { handle: "@levelsio", label: "Pieter Levels", style: "indie hacker, blunt, numbers-driven, ship-fast energy, casual lowercase, occasional emoji, real talk about building" },
+  { handle: "@shreyas", label: "Shreyas Doshi", style: "PM frameworks, structured thinking, bullet-style clarity, named concepts (LNO, high-agency), executive crispness" },
+  { handle: "@garyvee", label: "Gary Vaynerchuk", style: "high-energy, motivational, blunt, hustle-mindset, attention-economy takes, short punchy sentences, occasional caps" },
+  { handle: "in my own style", label: "In my own style", style: "Match the writer's natural voice from the original tweet — mirror their cadence, vocabulary, formatting, and emoji habits." },
+];
 
 const TONE_GUIDANCE: Record<(typeof TONES)[number], string> = {
   Witty: "Sharp, clever, playful wordplay. Quick punchlines.",
@@ -90,6 +99,14 @@ export const generateAI = createServerFn({ method: "POST" })
       if (data.mode === "replies" && data.tone) {
         const tone = data.tone as (typeof TONES)[number];
         system += `\n\nPRIMARY TONE: ${tone}. ${TONE_GUIDANCE[tone]}\nAll 9 replies should lean into this tone while still varying in angle/length.`;
+      }
+      if (data.mode === "replies" && data.persona && data.persona.trim()) {
+        const p = data.persona.trim();
+        const preset = PERSONA_PRESETS.find((x) => x.handle.toLowerCase() === p.toLowerCase());
+        const styleNote = preset
+          ? `Write in the voice of ${preset.label} (${preset.handle}): ${preset.style}.`
+          : `Write in the voice/style of "${p}". Mirror their known cadence, vocabulary, and worldview if recognizable; otherwise interpret it as a stylistic instruction.`;
+        system += `\n\nVOICE: ${styleNote}\nAll 9 replies should consistently sound like this voice while still varying in angle.`;
       }
       const userMsg =
         data.mode === "replies"
