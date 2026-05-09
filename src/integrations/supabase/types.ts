@@ -88,6 +88,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      decrement_daily_usage: { Args: { _user_id: string }; Returns: undefined }
       has_active_subscription: {
         Args: { check_env?: string; user_uuid: string }
         Returns: boolean

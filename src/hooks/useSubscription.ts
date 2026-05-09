@@ -66,5 +66,5 @@ export function useSubscription() {
           new Date(subscription.current_period_end) > new Date())),
   );
 
-  return { subscription, isPro: isActive, loading };
+  return { subscription, isPro: isActive, loading, refetch: fetchSub };
 }

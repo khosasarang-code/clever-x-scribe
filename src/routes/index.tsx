@@ -90,7 +90,10 @@ function useDailyUsage(enabled: boolean) {
   const [count, setCount] = useState(0);
   const [limit, setLimit] = useState(FREE_DAILY_LIMIT);
   const refresh = async () => {
-    if (!enabled) return;
+    if (!enabled) {
+      setCount(0);
+      return;
+    }
     try {
       const res = await getDailyUsage();
       setCount(res.count);
@@ -115,7 +118,7 @@ function Index() {
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
   const { user } = useAuth();
-  const { isPro, subscription } = useSubscription();
+  const { isPro, subscription, refetch: refetchSub } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
@@ -124,9 +127,17 @@ function Index() {
   useEffect(() => {
     if (search.checkout === "success") {
       toast.success("Welcome to Pro! Unlimited generations unlocked.");
+      // Webhook may arrive after redirect — poll the subscription a few times.
+      let tries = 0;
+      const id = window.setInterval(async () => {
+        tries += 1;
+        await refetchSub();
+        if (tries >= 6) window.clearInterval(id);
+      }, 1500);
       navigate({ to: "/", search: {}, replace: true });
+      return () => window.clearInterval(id);
     }
-  }, [search.checkout, navigate]);
+  }, [search.checkout, navigate, refetchSub]);
 
   const requireAuth = (): boolean => {
     if (!user) {
@@ -209,7 +220,7 @@ function Index() {
     setLoadingReplies(true);
     setReplies([]);
     try {
-      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone } });
+      const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, environment: getPaddleEnvironment() } });
       setReplies(res.items);
       if (!isPro) refreshUsage();
       save([
@@ -232,7 +243,7 @@ function Index() {
     setLoadingThread(true);
     setThread([]);
     try {
-      const res = await generateAI({ data: { prompt: idea, mode: "thread" } });
+      const res = await generateAI({ data: { prompt: idea, mode: "thread", environment: getPaddleEnvironment() } });
       setThread(res.items);
       if (!isPro) refreshUsage();
       save([
