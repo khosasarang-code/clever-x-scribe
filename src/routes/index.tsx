@@ -279,9 +279,21 @@ function Index() {
               </span>
             )}
             {isPro && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
-                <Crown className="h-3 w-3" /> Pro
-              </span>
+              <>
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider bg-gradient-brand text-primary-foreground px-2 py-1 rounded-full">
+                  <Crown className="h-3 w-3" /> Pro
+                </span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={openPortal}
+                  disabled={openingPortal}
+                  className="text-xs"
+                  title="Manage billing"
+                >
+                  {openingPortal ? <Loader2 className="h-3 w-3 animate-spin" /> : "Billing"}
+                </Button>
+              </>
             )}
             <Link
               to="/pricing"
