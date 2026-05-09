@@ -82,34 +82,26 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-const USAGE_KEY = "smartreply_usage_v1";
-const FREE_DAILY_LIMIT = 10;
+import { getDailyUsage, FREE_DAILY_LIMIT } from "@/utils/usage.functions";
+import { createPortalSession } from "@/utils/payments.functions";
+import { getPaddleEnvironment } from "@/lib/paddle";
 
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function useDailyUsage() {
+function useDailyUsage(enabled: boolean) {
   const [count, setCount] = useState(0);
-  useEffect(() => {
+  const [limit, setLimit] = useState(FREE_DAILY_LIMIT);
+  const refresh = async () => {
+    if (!enabled) return;
     try {
-      const raw = localStorage.getItem(USAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed.day === todayKey()) setCount(parsed.count);
-      }
+      const res = await getDailyUsage();
+      setCount(res.count);
+      setLimit(res.limit);
     } catch {}
-  }, []);
-  const increment = () => {
-    setCount((c) => {
-      const next = c + 1;
-      try {
-        localStorage.setItem(USAGE_KEY, JSON.stringify({ day: todayKey(), count: next }));
-      } catch {}
-      return next;
-    });
   };
-  return { count, increment, limit: FREE_DAILY_LIMIT };
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled]);
+  return { count, limit, refresh };
 }
 
 function Index() {
