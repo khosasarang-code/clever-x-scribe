@@ -7,13 +7,13 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — SmartReply for X" },
+      { title: "Pricing — SmartReply AI" },
       {
         name: "description",
         content:
-          "Simple pricing for SmartReply for X. Start free with 10 generations a day, or go Pro for unlimited replies and viral threads.",
+          "Simple pricing for SmartReply AI. Start free with 10 generations a day, or go Pro for unlimited replies and viral threads.",
       },
-      { property: "og:title", content: "Pricing — SmartReply for X" },
+      { property: "og:title", content: "Pricing — SmartReply AI" },
       {
         property: "og:description",
         content: "Free 10/day or Pro $19/mo unlimited.",
