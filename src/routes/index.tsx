@@ -451,45 +451,34 @@ function Index() {
               className="text-foreground/80 text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
-              Paste any tweet → Get <span className="text-gradient-brand font-semibold">9 intelligent replies</span> in seconds.
-              Turn one idea into a full <span className="text-gradient-brand font-semibold">viral thread</span>.
+              Paste any tweet and get{" "}
+              <span className="text-gradient-brand font-semibold">9 intelligent replies</span>{" "}
+              instantly. Or turn one idea into a full{" "}
+              <span className="text-gradient-brand font-semibold">viral thread</span>.
             </p>
-
-            {/* Benefits */}
-            <ul
-              className="space-y-2.5 animate-hero-in"
-              style={{ animationDelay: "240ms" }}
-            >
-              {[
-                "9 reply variations in under 10 seconds",
-                "Match any voice — Witty, Bold, Savage, Salesy",
-                "Reply like @naval, @levelsio, or your own style",
-                "No login needed to try",
-              ].map((b) => (
-                <li key={b} className="flex items-start gap-2.5 text-sm sm:text-base text-foreground/85">
-                  <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
-                    <Check className="h-3 w-3 text-primary-foreground" />
-                  </span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
 
             {/* Trust signals */}
             <div
-              className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground pt-1 animate-hero-in"
-              style={{ animationDelay: "320ms" }}
+              className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground pt-1 animate-hero-in"
+              style={{ animationDelay: "240ms" }}
             >
               <span className="flex items-center gap-1.5">
-                <span className="text-amber-400">★★★★★</span>
-                <span>4.9 / 5 · 1,200+ reviews</span>
+                <Check className="h-4 w-4 text-emerald-400" />
+                No login needed to try
               </span>
               <span className="h-1 w-1 rounded-full bg-border" />
-              <span>2M+ replies generated</span>
+              <span className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-emerald-400" />
+                Thousands of creators
+              </span>
               <span className="h-1 w-1 rounded-full bg-border" />
-              <span>Featured on Product Hunt</span>
+              <span className="flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-emerald-400" />
+                Natural &amp; engaging replies
+              </span>
             </div>
           </div>
+
 
           {/* RIGHT: Smart Replies generator */}
           <div
