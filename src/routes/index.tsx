@@ -123,11 +123,13 @@ function Index() {
   const chatbaseLoaded = useRef(false);
   const { user, login, logout } = useFakeAuth();
 
-  // Inject Chatbase floating bubble
+  // Inject Chatbase floating bubble — deferred until browser is idle so it
+  // never blocks first paint or interaction.
   useEffect(() => {
     if (chatbaseLoaded.current) return;
-    chatbaseLoaded.current = true;
-    (function () {
+    const load = () => {
+      if (chatbaseLoaded.current) return;
+      chatbaseLoaded.current = true;
       // @ts-expect-error
       if (!window.chatbase || window.chatbase("getState") !== "initialized") {
         // @ts-expect-error
@@ -148,10 +150,22 @@ function Index() {
       const script = document.createElement("script");
       script.src = "https://www.chatbase.co/embed.min.js";
       script.id = "Bu3haMN8YOvxWTktdugqJ";
+      script.async = true;
+      script.defer = true;
       // @ts-expect-error custom attr
       script.domain = "www.chatbase.co";
       document.body.appendChild(script);
-    })();
+    };
+    // @ts-expect-error requestIdleCallback may not exist on Safari
+    const ric = window.requestIdleCallback as undefined | ((cb: () => void, opts?: { timeout: number }) => number);
+    const id = ric
+      ? ric(load, { timeout: 4000 })
+      : (window.setTimeout(load, 2500) as unknown as number);
+    return () => {
+      // @ts-expect-error
+      if (window.cancelIdleCallback) window.cancelIdleCallback(id);
+      else window.clearTimeout(id);
+    };
   }, []);
 
   const runReplies = async () => {
