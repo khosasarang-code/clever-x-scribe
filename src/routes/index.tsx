@@ -387,7 +387,8 @@ function Index() {
                 <Button
                   asChild
                   size="sm"
-                  className="h-9 px-4 bg-gradient-brand text-primary-foreground hover:opacity-95 border-0 shadow-[var(--shadow-glow-sm)] hover:shadow-[var(--shadow-glow)] transition-all"
+                  className="h-9 px-4 font-bold text-white border-0 hover:opacity-95 transition-all"
+                  style={{ backgroundColor: "#4f8ef7" }}
                 >
                   <Link to="/auth">Get Started</Link>
                 </Button>
