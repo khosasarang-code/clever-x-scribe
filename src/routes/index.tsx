@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { generateAI } from "@/lib/ai.functions";
+import { generateAI, TONES } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
