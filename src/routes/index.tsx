@@ -414,7 +414,7 @@ function Index() {
 
       <InstallBanner />
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-24 sm:space-y-32">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-24 sm:space-y-32">
         {/* Hero */}
         <section className="text-center space-y-7">
           {/* Trust badge */}
