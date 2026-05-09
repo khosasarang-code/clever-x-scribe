@@ -479,24 +479,44 @@ function Index() {
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground self-center mr-1">
+                <div className="space-y-2">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
                     Tone
                   </span>
-                  {TONES.map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setTone(t)}
-                      className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-150 ${
-                        tone === t
-                          ? "bg-primary/15 text-foreground border-primary/40"
-                          : "bg-transparent text-muted-foreground border-border/60 hover:text-foreground hover:border-border"
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
+                  <div className="flex gap-2 overflow-x-auto pb-1.5 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x">
+                    {TONES.map((t) => {
+                      const emoji: Record<string, string> = {
+                        Witty: "😏",
+                        Helpful: "❤️",
+                        Professional: "💼",
+                        Viral: "🔥",
+                        Funny: "😂",
+                        Savage: "💀",
+                        Controversial: "🌶️",
+                        Intellectual: "🧠",
+                        Bold: "💪",
+                        Empathetic: "🤗",
+                        Roast: "🔥",
+                        Salesy: "💰",
+                      };
+                      const active = tone === t;
+                      return (
+                        <button
+                          key={t}
+                          type="button"
+                          onClick={() => setTone(t)}
+                          className={`shrink-0 snap-start inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-medium border transition-all duration-200 ${
+                            active
+                              ? "bg-gradient-brand text-primary-foreground border-transparent shadow-[var(--shadow-glow-sm)] scale-[1.02]"
+                              : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40 hover:bg-background/60"
+                          }`}
+                        >
+                          <span className="text-sm leading-none">{emoji[t] ?? "✨"}</span>
+                          <span>{t}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Reply like ... */}
