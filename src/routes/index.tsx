@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { generateAI, TONES } from "@/lib/ai.functions";
 import { PWAEnhancements } from "@/components/PWAEnhancements";
+import { InstallBanner } from "@/components/InstallBanner";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -259,7 +260,7 @@ function Index() {
           </p>
         </section>
 
-        {/* Replies */}
+        <InstallBanner />
         <section className="space-y-4">
           <div className="flex items-center gap-2">
             <MessageSquareText className="h-5 w-5 text-primary" />
