@@ -451,32 +451,9 @@ function Index() {
               className="text-foreground/80 text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
-              Paste any tweet and get{" "}
-              <span className="text-gradient-brand font-semibold">9 intelligent replies</span>{" "}
-              instantly. Or turn one idea into a full{" "}
-              <span className="text-gradient-brand font-semibold">viral thread</span>.
+              The fastest way to write replies that get{" "}
+              <span className="text-gradient-brand font-semibold">likes, reposts and followers</span>.
             </p>
-
-            {/* Trust signals */}
-            <div
-              className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground pt-1 animate-hero-in"
-              style={{ animationDelay: "240ms" }}
-            >
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                No login needed to try
-              </span>
-              <span className="h-1 w-1 rounded-full bg-border" />
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                Thousands of creators
-              </span>
-              <span className="h-1 w-1 rounded-full bg-border" />
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4 text-emerald-400" />
-                Natural &amp; engaging replies
-              </span>
-            </div>
           </div>
 
 
