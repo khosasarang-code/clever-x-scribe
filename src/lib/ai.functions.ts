@@ -38,10 +38,44 @@ Rules:
 Return ONLY a JSON array of strings (one per tweet). No commentary, no markdown fences.`;
 
 export const generateAI = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => inputSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("Missing LOVABLE_API_KEY");
+
+    const { supabase, userId } = context;
+
+    // Check Pro status using the security-definer helper (defaults to live env;
+    // pass sandbox when in test).
+    const env =
+      (process.env.PADDLE_ENVIRONMENT as "sandbox" | "live" | undefined) ?? "live";
+    const { data: proRow } = await supabase.rpc("has_active_subscription", {
+      user_uuid: userId,
+      check_env: env,
+    });
+    // Also check sandbox so test-mode previews unlock unlimited.
+    let isPro = Boolean(proRow);
+    if (!isPro) {
+      const { data: sandboxRow } = await supabase.rpc("has_active_subscription", {
+        user_uuid: userId,
+        check_env: "sandbox",
+      });
+      isPro = Boolean(sandboxRow);
+    }
+
+    // Atomically check + increment daily usage.
+    const { data: usageRows, error: usageErr } = await supabase.rpc(
+      "increment_daily_usage",
+      { _user_id: userId, _limit: FREE_DAILY_LIMIT, _is_pro: isPro },
+    );
+    if (usageErr) throw new Error(usageErr.message);
+    const usage = Array.isArray(usageRows) ? usageRows[0] : usageRows;
+    if (!usage?.allowed) {
+      throw new Error(
+        `Daily free limit of ${FREE_DAILY_LIMIT} reached. Upgrade to Pro for unlimited generations.`,
+      );
+    }
 
     let system = data.mode === "replies" ? SYSTEM_REPLIES : SYSTEM_THREAD;
     if (data.mode === "replies" && data.tone) {
