@@ -326,9 +326,7 @@ function Index() {
             <div className="h-8 w-8 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
               <Sparkles className="h-4 w-4 text-primary-foreground" />
             </div>
-            <div className="font-semibold tracking-tight text-sm sm:text-base leading-none">
-              SmartReply <span className="text-muted-foreground font-normal">AI X</span>
-            </div>
+            <TypewriterLogo />
           </a>
 
           {/* Center: Nav links */}
