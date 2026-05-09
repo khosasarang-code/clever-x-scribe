@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { optionalSupabaseAuth } from "@/integrations/supabase/optional-auth";
 
 export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny"] as const;
 export const FREE_DAILY_LIMIT = 10;
