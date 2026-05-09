@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { optionalSupabaseAuth } from "@/integrations/supabase/optional-auth";
 
-export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny"] as const;
+export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny", "Savage", "Controversial", "Intellectual", "Bold", "Empathetic", "Roast", "Salesy"] as const;
 export const FREE_DAILY_LIMIT = 10;
 
 const inputSchema = z.object({
@@ -18,6 +18,13 @@ const TONE_GUIDANCE: Record<(typeof TONES)[number], string> = {
   Professional: "Polished, credible, articulate. No slang. Industry-aware.",
   Viral: "Bold hooks, contrarian takes, pattern interrupts. Built for engagement.",
   Funny: "Actually funny. Absurd, self-aware, meme-literate. Land the joke.",
+  Savage: "Brutally honest, no-filter. Cutting but clever, never cruel for no reason.",
+  Controversial: "Spicy hot takes that challenge consensus. Provoke debate without being toxic.",
+  Intellectual: "Thoughtful, nuanced, well-reasoned. Reference ideas, frameworks, or first principles.",
+  Bold: "Confident, assertive, declarative. Strong opinions stated with conviction.",
+  Empathetic: "Warm, validating, emotionally intelligent. Make the reader feel seen.",
+  Roast: "Playful burns and witty jabs. Punch up, keep it fun, never mean-spirited.",
+  Salesy: "Persuasive and benefit-driven. Hook attention, tease value, soft CTA.",
 };
 
 const SYSTEM_REPLIES = `You are SmartReply, an expert at writing engaging, witty, human-sounding Twitter/X replies.
