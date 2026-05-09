@@ -439,7 +439,7 @@ function Index() {
             </div>
 
             <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95] animate-hero-in"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.02] sm:leading-[0.98] animate-hero-in"
               style={{ animationDelay: "80ms" }}
             >
               Smart Replies &{" "}
@@ -448,7 +448,7 @@ function Index() {
             </h1>
 
             <p
-              className="text-foreground/80 text-lg sm:text-xl leading-relaxed font-medium animate-hero-in"
+              className="text-foreground/80 text-base sm:text-lg lg:text-xl leading-relaxed font-medium animate-hero-in"
               style={{ animationDelay: "160ms" }}
             >
               The fastest way to write replies that get{" "}
