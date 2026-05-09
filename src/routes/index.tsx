@@ -119,6 +119,8 @@ function useDailyUsage(enabled: boolean) {
 function Index() {
   const [tweet, setTweet] = useState("");
   const [tone, setTone] = useState<(typeof TONES)[number]>("Witty");
+  const [persona, setPersona] = useState("");
+  const [personaOpen, setPersonaOpen] = useState(false);
   const [idea, setIdea] = useState("");
   const [replies, setReplies] = useState<string[]>([]);
   const [thread, setThread] = useState<string[]>([]);
