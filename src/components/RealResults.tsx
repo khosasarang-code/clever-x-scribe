@@ -85,10 +85,10 @@ export function RealResults() {
           <TrendingUp className="h-3 w-3" /> Real results
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-          Before vs. <span className="text-gradient-brand">after SmartReply</span>
+          Same Tweet. <span className="text-gradient-brand">Completely Different Results.</span>
         </h2>
         <p className="text-base text-muted-foreground">
-          Same tweets. Same audience. One sentence rewritten by AI.
+          One sentence rewritten by AI. The difference in engagement speaks for itself.
         </p>
       </div>
 
