@@ -881,33 +881,39 @@ function Index() {
           ))}
         </section>
 
-        {/* Reviews — single-line scrolling ticker */}
-        <section className="space-y-4">
+        {/* Reviews — auto-scrolling card carousel */}
+        <section className="space-y-6">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Loved by <span className="text-gradient-brand">creators on X</span>
             </h2>
           </div>
-          <div className="reviews-marquee relative overflow-hidden border-y border-border/50 bg-background/30 backdrop-blur py-4">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
-            <div className="reviews-marquee-track text-sm sm:text-base text-foreground/85">
+          <div className="marquee-wrapper">
+            <div className="marquee-track">
               {(() => {
-                const QUOTES = [
-                  { q: "This tool 10x'd my reply game.", who: "@techfounder" },
-                  { q: "The thread generator is insane.", who: "@growthwithai" },
-                  { q: "Replies feel natural, not robotic.", who: "@marketingmike" },
-                  { q: "Saved me 2 hours a day.", who: "@startupchris" },
-                  { q: "Went from lurker to 5k followers in a month.", who: "@jennabuilds" },
-                  { q: "Replaced 4 tools with this one.", who: "@kenjibuilds" },
+                const REVIEWS = [
+                  { q: "This tool 10x'd my reply game. Went from 20 likes to 200+.", name: "Alex Chen", handle: "techfounder", avatar: 12 },
+                  { q: "The thread generator is insane. 800 followers in 2 days.", name: "Sarah Patel", handle: "growthwithai", avatar: 47 },
+                  { q: "Replies feel natural, not robotic. My audience engages back.", name: "Mike Rivera", handle: "marketingmike", avatar: 33 },
+                  { q: "Saved me 2 hours a day. Now I enjoy replying to comments.", name: "Chris Walker", handle: "startupchris", avatar: 8 },
+                  { q: "Went from lurker to 5k followers in a month. Pure gold.", name: "Jenna Lee", handle: "jennabuilds", avatar: 25 },
+                  { q: "I was paying $40/mo for a worse tool. Worth every cent.", name: "Dev Kapoor", handle: "devbyday", avatar: 14 },
+                  { q: "My engagement tripled. Threads sound exactly like me.", name: "Maya Soto", handle: "mayawrites", avatar: 49 },
+                  { q: "Finally an AI that doesn't sound like ChatGPT.", name: "Tom Becker", handle: "tombuilds", avatar: 60 },
+                  { q: "Closed two deals from replies generated here. Instant ROI.", name: "Noah Fischer", handle: "noahsaas", avatar: 65 },
+                  { q: "Replaced 4 different tools with this one.", name: "Kenji Watanabe", handle: "kenjibuilds", avatar: 68 },
                 ];
-                const loop = [...QUOTES, ...QUOTES];
+                const loop = [...REVIEWS, ...REVIEWS];
                 return loop.map((r, i) => (
-                  <span key={i} className="inline-flex items-center gap-2">
-                    <span className="text-yellow-400">⭐</span>
-                    <span className="italic">"{r.q}"</span>
-                    <span className="text-muted-foreground">— {r.who}</span>
-                  </span>
+                  <div className="review-card" key={i}>
+                    <img src={`https://i.pravatar.cc/120?img=${r.avatar}`} alt={r.name} loading="lazy" />
+                    <div style={{ color: "#fbbf24", letterSpacing: "2px" }}>★★★★★</div>
+                    <p className="quote">"{r.q}"</p>
+                    <div>
+                      <div className="name">{r.name}</div>
+                      <div className="handle">@{r.handle}</div>
+                    </div>
+                  </div>
                 ));
               })()}
             </div>
