@@ -10,9 +10,25 @@
   "theme_color": "#101524",
   "categories": ["productivity", "social", "utilities"],
   "icons": [
-    { "src": "/app-icon.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
-    { "src": "/app-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/app-icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/app-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/app-icon.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
     { "src": "/app-icon.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Smart Replies",
+      "short_name": "Replies",
+      "description": "Generate witty replies to any tweet",
+      "url": "/?action=replies",
+      "icons": [{ "src": "/app-icon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Viral Thread",
+      "short_name": "Thread",
+      "description": "Turn an idea into a viral thread",
+      "url": "/?action=thread",
+      "icons": [{ "src": "/app-icon.png", "sizes": "192x192" }]
+    }
   ]
 }
