@@ -14,6 +14,8 @@ import { FloatingInstallButton } from "@/components/FloatingInstallButton";
 import { WelcomeDialog } from "@/components/WelcomeDialog";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroDemo } from "@/components/HeroDemo";
+import { RewriteDialog } from "@/components/RewriteDialog";
+import { Wand2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
