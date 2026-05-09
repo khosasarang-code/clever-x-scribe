@@ -315,8 +315,8 @@ function Index() {
             className="flex items-center gap-3 min-w-0 hover:opacity-90 transition-all duration-200 hover:scale-[1.02]"
             aria-label="SmartReply AI X — Home"
           >
-            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-200">
-              <Sparkles className="h-4 w-4 text-primary-foreground" />
+            <div className="h-9 w-9 shrink-0 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow)] transition-transform duration-300 animate-glow-pulse">
+              <Sparkles className="h-4 w-4 text-primary-foreground drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]" />
             </div>
             <div className="min-w-0">
               <div className="font-semibold tracking-tight leading-tight">
@@ -411,11 +411,11 @@ function Index() {
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
         {/* Hero */}
         <section className="text-center space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.05]">
             Write replies and threads <br />
             that <span className="text-gradient-brand">actually pop.</span>
           </h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
             Paste any tweet to get 9 smart reply options. Drop an idea to get a full viral thread. No fluff.
           </p>
         </section>
@@ -456,17 +456,36 @@ function Index() {
                 size="lg"
                 onClick={runReplies}
                 disabled={loadingReplies}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-90 shadow-[var(--shadow-glow)]"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingReplies ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <Sparkles className="h-4 w-4" />
                 )}
-                Generate Smart Replies
+                {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
               </Button>
             </div>
           </Card>
+
+          {loadingReplies && replies.length === 0 && (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Card
+                  key={i}
+                  className="p-4 bg-card/40 border-border/60 h-32 overflow-hidden relative"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <div className="absolute inset-0 shimmer-bg" />
+                  <div className="space-y-2 relative">
+                    <div className="h-3 rounded bg-muted/60 w-5/6" />
+                    <div className="h-3 rounded bg-muted/60 w-full" />
+                    <div className="h-3 rounded bg-muted/60 w-2/3" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
 
           {replies.length > 0 && (
             <div className="grid sm:grid-cols-2 gap-3">
@@ -475,6 +494,7 @@ function Index() {
                   key={i}
                   role="button"
                   tabIndex={0}
+                  style={{ animationDelay: `${i * 50}ms` }}
                   onClick={() => {
                     navigator.clipboard.writeText(r);
                     toast.success("Reply copied to clipboard");
@@ -486,7 +506,7 @@ function Index() {
                       toast.success("Reply copied to clipboard");
                     }
                   }}
-                  className="p-4 bg-card/60 border-border/70 hover:border-primary/40 hover:bg-card/80 transition-colors flex flex-col gap-3 cursor-pointer active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/50 hover:bg-card/80 hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300 flex flex-col gap-3 cursor-pointer active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   title="Tap to copy"
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{r}</p>
@@ -522,13 +542,30 @@ function Index() {
                 size="lg"
                 onClick={runThread}
                 disabled={loadingThread}
-                className="bg-gradient-brand text-primary-foreground hover:opacity-90 shadow-[var(--shadow-glow)]"
+                className="bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-[var(--shadow-glow)] hover:shadow-[0_15px_50px_-10px_oklch(0.7_0.22_290/0.7)] transition-all duration-300 font-semibold"
               >
                 {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
-                Generate Viral Thread
+                {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
               </Button>
             </div>
           </Card>
+
+          {loadingThread && thread.length === 0 && (
+            <div className="space-y-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Card key={i} className="p-4 bg-card/40 border-border/60 relative overflow-hidden">
+                  <div className="absolute inset-0 shimmer-bg" />
+                  <div className="flex gap-3 relative">
+                    <div className="h-7 w-7 rounded-full bg-muted/60" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-3 rounded bg-muted/60 w-full" />
+                      <div className="h-3 rounded bg-muted/60 w-4/5" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
 
           {thread.length > 0 && (
             <div className="space-y-3">
@@ -536,8 +573,12 @@ function Index() {
                 <CopyButton text={fullThreadText} />
               </div>
               {thread.map((t, i) => (
-                <Card key={i} className="p-4 bg-card/60 border-border/70 flex gap-3">
-                  <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-brand grid place-items-center text-xs font-semibold text-primary-foreground">
+                <Card
+                  key={i}
+                  style={{ animationDelay: `${i * 60}ms` }}
+                  className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/40 hover:shadow-[var(--shadow-glow-sm)] transition-all duration-300 flex gap-3"
+                >
+                  <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-brand grid place-items-center text-xs font-semibold text-primary-foreground shadow-[var(--shadow-glow-sm)]">
                     {i + 1}
                   </div>
                   <div className="flex-1 space-y-2">
