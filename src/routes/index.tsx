@@ -416,7 +416,7 @@ function Index() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-16">
         {/* Hero */}
-        <section className="text-center space-y-6">
+        <section className="text-center space-y-7">
           {/* Trust badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-foreground/90">
             <span className="flex -space-x-1.5">
@@ -433,13 +433,44 @@ function Index() {
             <span>Used by <span className="font-semibold text-gradient-brand">10,000+ creators</span></span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight leading-[0.95]">
+          <h1 className="text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tight leading-[0.9]">
             Smart Replies & <br />
-            <span className="text-gradient-brand">Viral Threads</span> for X
+            <span className="text-gradient-brand">Viral Threads</span>
+            <br className="sm:hidden" />
+            <span className="sm:ml-4">for X</span>
           </h1>
-          <p className="text-muted-foreground max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
-            Paste any tweet to get 9 smart reply options. Drop an idea to get a full viral thread. No fluff.
+          <p className="text-foreground/80 max-w-2xl mx-auto text-lg sm:text-2xl leading-relaxed font-medium">
+            Paste any tweet → Get <span className="text-gradient-brand font-semibold">9 intelligent replies</span> in seconds.
+            Turn one idea into a full <span className="text-gradient-brand font-semibold">viral thread</span>.
           </p>
+
+          {/* Glowing CTA */}
+          <div className="flex flex-col items-center gap-4 pt-2">
+            <Button
+              size="lg"
+              onClick={() => {
+                const el = document.getElementById("smart-replies");
+                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                setTimeout(() => {
+                  document.querySelector<HTMLTextAreaElement>("textarea")?.focus();
+                }, 500);
+              }}
+              className="h-14 px-8 text-base sm:text-lg bg-gradient-brand text-primary-foreground hover:opacity-95 hover:scale-[1.03] active:scale-[0.98] shadow-[var(--shadow-glow)] animate-glow-pulse transition-all duration-300 font-semibold rounded-full"
+            >
+              <Sparkles className="h-5 w-5" />
+              Try it Free
+            </Button>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                No login needed
+              </span>
+              <span className="h-1 w-1 rounded-full bg-border" />
+              <span>Thousands of creators</span>
+              <span className="h-1 w-1 rounded-full bg-border" />
+              <span>Natural sounding replies</span>
+            </div>
+          </div>
 
           {/* Social proof row */}
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
@@ -459,7 +490,7 @@ function Index() {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section id="smart-replies" className="space-y-4 scroll-mt-20">
           <div className="flex items-center gap-2">
             <MessageSquareText className="h-5 w-5 text-primary" />
             <h2 className="text-xl font-semibold">Smart Replies</h2>
