@@ -1,42 +1,23 @@
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
+import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 
-export const Route = createRootRoute({
-  component: RootLayout,
-});
+import { routeTree } from "./routeTree.gen";
 
-function RootLayout() {
-  return (
-    <>
-      {/* ✅ FULLSCREEN VIDEO BACKGROUND — covers entire page */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1,
-          opacity: 0.15,
-          pointerEvents: "none",
-        }}
-      >
-        <source
-          src="https://cdn.coverr.co/videos/coverr-typing-on-a-phone-1584/1080p.mp4"
-          type="video/mp4"
-        />
-        <source
-          src="https://www.pexels.com/video/3931604/download/"
-          type="video/mp4"
-        />
-      </video>
+export function createRouter() {
+  const queryClient = new QueryClient();
 
-      {/* Page content renders on top */}
-      <Outlet />
-    </>
-  );
+  const router = createTanStackRouter({
+    routeTree,
+    context: { queryClient },
+    defaultPreload: "intent",
+    scrollRestoration: true,
+  });
+
+  return router;
+}
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: ReturnType<typeof createRouter>;
+  }
 }
