@@ -770,7 +770,7 @@ function Index() {
           )}
         </section>
 
-        <div className="animate-reveal-up">
+        <div id="how-it-works" className="animate-reveal-up scroll-mt-24">
           <HowItWorks />
         </div>
 
