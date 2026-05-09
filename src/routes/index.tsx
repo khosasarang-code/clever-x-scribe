@@ -16,16 +16,16 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "SmartReply AI — AI Replies & Viral Threads" },
+      { title: "SmartReply AI X — AI Replies & Viral Threads" },
       {
         name: "description",
         content:
-          "Generate witty Twitter/X replies and viral threads in seconds with AI. Paste a tweet, get 9 smart replies. Drop an idea, get a full thread.",
+          "SmartReply AI X — Generate witty Twitter/X replies and viral threads in seconds with AI. Paste a tweet, get 9 smart replies. Drop an idea, get a full thread.",
       },
-      { property: "og:title", content: "SmartReply AI" },
+      { property: "og:title", content: "SmartReply AI X" },
       {
         property: "og:description",
-        content: "AI-powered replies and viral threads for X / Twitter.",
+        content: "SmartReply AI X — AI-powered replies and viral threads for X / Twitter.",
       },
     ],
   }),
