@@ -90,7 +90,10 @@ function useDailyUsage(enabled: boolean) {
   const [count, setCount] = useState(0);
   const [limit, setLimit] = useState(FREE_DAILY_LIMIT);
   const refresh = async () => {
-    if (!enabled) return;
+    if (!enabled) {
+      setCount(0);
+      return;
+    }
     try {
       const res = await getDailyUsage();
       setCount(res.count);
