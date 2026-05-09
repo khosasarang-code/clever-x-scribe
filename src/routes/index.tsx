@@ -123,7 +123,7 @@ function Index() {
   const [loadingThread, setLoadingThread] = useState(false);
   const { history, save } = useHistory();
   const chatbaseLoaded = useRef(false);
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
   const { isPro, subscription, refetch: refetchSub } = useSubscription();
   const { count: usedToday, limit, refresh: refreshUsage } = useDailyUsage(Boolean(user) && !isPro);
   const navigate = useNavigate();
@@ -145,14 +145,8 @@ function Index() {
     }
   }, [search.checkout, navigate, refetchSub]);
 
-  const requireAuth = (): boolean => {
-    if (!user) {
-      toast.error("Sign in to save generations and unlock Pro.");
-      navigate({ to: "/auth", search: { next: "/" } });
-      return false;
-    }
-    return true;
-  };
+  // Guests can use the app without signing in. Sign-in is only nudged when
+  // they hit the free daily limit or try to manage billing.
 
   const openPortal = async () => {
     if (!user) {
@@ -233,11 +227,7 @@ function Index() {
       toast.error("Paste a tweet first");
       return;
     }
-    if (authLoading) {
-      toast.error("Checking your session…");
-      return;
-    }
-    if (!requireAuth()) return;
+
     setLoadingReplies(true);
     setReplies([]);
     try {
@@ -266,11 +256,7 @@ function Index() {
       toast.error("Drop a thread idea first");
       return;
     }
-    if (authLoading) {
-      toast.error("Checking your session…");
-      return;
-    }
-    if (!requireAuth()) return;
+
     setLoadingThread(true);
     setThread([]);
     try {
