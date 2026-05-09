@@ -137,17 +137,19 @@ export function Testimonials() {
     el.scrollBy({ left: dir * 380, behavior: "smooth" });
   };
 
-  // Seed counter from start of ISO week so it stays consistent across reloads.
-  const weekStart = (() => {
+  // Compute counter only after mount to avoid SSR/CSR hydration mismatch.
+  const [counterReady, setCounterReady] = useState(false);
+  const [baseCount, setBaseCount] = useState(0);
+  useEffect(() => {
     const d = new Date();
     const day = d.getDay();
     const diff = (day + 6) % 7; // Monday-start
     d.setDate(d.getDate() - diff);
     d.setHours(0, 0, 0, 0);
-    return d.getTime();
-  })();
-  const elapsedSec = Math.max(0, (Date.now() - weekStart) / 1000);
-  const baseCount = 8200 + Math.floor(elapsedSec * 0.42); // ~36k/week pace
+    const elapsedSec = Math.max(0, (Date.now() - d.getTime()) / 1000);
+    setBaseCount(8200 + Math.floor(elapsedSec * 0.42));
+    setCounterReady(true);
+  }, []);
   const liveCount = useLiveCounter(baseCount, 0.35);
 
   return (
