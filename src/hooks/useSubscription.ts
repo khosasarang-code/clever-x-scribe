@@ -56,14 +56,15 @@ export function useSubscription() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
-  const isActive =
-    !!subscription &&
-    ((["active", "trialing", "past_due"].includes(subscription.status) &&
-      (!subscription.current_period_end ||
-        new Date(subscription.current_period_end) > new Date())) ||
-      (subscription.status === "canceled" &&
-        subscription.current_period_end &&
-        new Date(subscription.current_period_end) > new Date()));
+  const isActive = Boolean(
+    subscription &&
+      ((["active", "trialing", "past_due"].includes(subscription.status) &&
+        (!subscription.current_period_end ||
+          new Date(subscription.current_period_end) > new Date())) ||
+        (subscription.status === "canceled" &&
+          subscription.current_period_end &&
+          new Date(subscription.current_period_end) > new Date())),
+  );
 
   return { subscription, isPro: isActive, loading };
 }
