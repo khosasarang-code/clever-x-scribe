@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const TONES = ["Witty", "Helpful", "Professional", "Viral", "Funny"] as const;
+export const FREE_DAILY_LIMIT = 10;
 
 const inputSchema = z.object({
   prompt: z.string().min(1).max(8000),
