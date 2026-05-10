@@ -15,7 +15,7 @@ import { generateAI, TONES, PERSONA_PRESETS } from "@/lib/ai.functions";
 import { PWAEnhancements } from "@/components/PWAEnhancements";
 import { InstallBanner } from "@/components/InstallBanner";
 import { FloatingInstallButton } from "@/components/FloatingInstallButton";
-import { WelcomeDialog } from "@/components/WelcomeDialog";
+
 import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
@@ -383,7 +383,6 @@ function Index() {
       <Toaster theme="dark" position="top-center" />
       <PWAEnhancements />
       <FloatingInstallButton />
-      <WelcomeDialog />
 
       {/* Header */}
       <header className="border-b border-border/40 backdrop-blur-xl sticky top-0 z-30 bg-background/70">
