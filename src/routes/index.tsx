@@ -599,12 +599,12 @@ function Index() {
 
                   <div className="space-y-2 relative">
                     <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Tone</span>
-                    <div className="flex gap-2 overflow-x-auto pb-1.5 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="flex flex-wrap gap-1.5 pb-1">
                       {TONES.map(t => {
                         const active = tone === t;
                         return (
                           <button key={t} type="button" onClick={() => setTone(t)}
-                            className={`shrink-0 h-8 px-3 rounded-full text-xs font-medium border transition-all ${
+                            className={`h-7 px-2.5 rounded-full text-[11px] font-medium border transition-all ${
                               active
                                 ? "bg-gradient-brand text-primary-foreground border-transparent"
                                 : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
