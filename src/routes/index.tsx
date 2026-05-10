@@ -340,8 +340,8 @@ function Index() {
     return false;
   };
 
-  const repliesResultsRef = React.useRef<HTMLDivElement | null>(null);
-  const threadResultsRef = React.useRef<HTMLDivElement | null>(null);
+  const repliesResultsRef = useRef<HTMLDivElement | null>(null);
+  const threadResultsRef = useRef<HTMLDivElement | null>(null);
 
   const runReplies = async () => {
     if (!tweet.trim()) { toast.error("Paste a tweet first"); return; }
