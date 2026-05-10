@@ -1078,10 +1078,10 @@ function Index() {
           </div>
 
           <div className="mt-10 pt-6 border-t border-border/50 flex flex-col gap-4 items-center justify-between text-xs text-muted-foreground sm:flex-row">
-            <p className="flex flex-wrap items-center justify-center gap-2 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
               <span>💡 Love the tool? Share your experience!</span>
               <ReviewForm trigger={<button className="font-semibold text-primary hover:underline">Write a Review</button>} />
-            </p>
+            </div>
           </div>
 
           <div className="mt-6 pt-6 border-t border-border/50 flex flex-col sm:flex-row gap-2 items-center justify-between text-xs text-muted-foreground">
