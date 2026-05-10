@@ -538,6 +538,8 @@ function Index() {
           </div>
         </section>
 
+        <TrustBar />
+
         {/* ============== FEATURES ============== */}
         <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-16 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto space-y-4">
