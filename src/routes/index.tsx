@@ -21,6 +21,7 @@ import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { UserReviews, ReviewForm } from "@/components/UserReviews";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
