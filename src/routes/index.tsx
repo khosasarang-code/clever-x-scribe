@@ -373,9 +373,11 @@ function Index() {
     if (!requireSignIn()) return;
     setLoadingThread(true);
     setThread([]);
+    requestAnimationFrame(() => threadResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     try {
       const res = await generateAI({ data: { prompt: idea, mode: "thread", environment: getPaddleEnvironment() } });
       setThread(res.items);
+      requestAnimationFrame(() => threadResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
