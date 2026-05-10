@@ -603,7 +603,7 @@ function Index() {
                 </Card>
 
                 {(loadingReplies || replies.length > 0) && (
-                  <div className="space-y-3">
+                  <div ref={repliesResultsRef} className="space-y-3 scroll-mt-24">
                     {loadingReplies && replies.length === 0 && (
                       <div className="grid sm:grid-cols-2 gap-3">
                         {Array.from({ length: 4 }).map((_, i) => (
@@ -680,7 +680,7 @@ function Index() {
                 </Card>
 
                 {loadingThread && thread.length === 0 && (
-                  <div className="space-y-3">
+                  <div ref={threadResultsRef} className="space-y-3 scroll-mt-24">
                     {Array.from({ length: 3 }).map((_, i) => (
                       <Card key={i} className="p-4 bg-card/40 border-border/60 relative overflow-hidden">
                         <div className="absolute inset-0 shimmer-bg" />
@@ -697,7 +697,7 @@ function Index() {
                 )}
 
                 {thread.length > 0 && (
-                  <div className="space-y-3">
+                  <div ref={threadResultsRef} className="space-y-3 scroll-mt-24">
                     <div className="flex justify-end"><CopyButton text={fullThreadText} /></div>
                     {thread.map((t, i) => (
                       <Card key={i} style={{ animationDelay: `${i * 60}ms` }}
