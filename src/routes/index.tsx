@@ -23,6 +23,7 @@ import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
+import { CountUp } from "@/components/CountUp";
 import { ExamplePrompts } from "@/components/ExamplePrompts";
 import { FAQSection } from "@/components/FAQSection";
 import { useAuth } from "@/hooks/useAuth";
