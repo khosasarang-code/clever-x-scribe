@@ -276,6 +276,45 @@ html {
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
   }
+
+  /* Animated gradient frame around the entire viewport */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    padding: 2px;
+    border-radius: 0;
+    background: linear-gradient(
+      var(--frame-angle, 270deg),
+      oklch(0.62 0.2 290),
+      oklch(0.7 0.17 25),
+      oklch(0.66 0.18 220),
+      oklch(0.62 0.2 290)
+    );
+    background-size: 300% 300%;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+    animation: page-frame-shift 12s linear infinite;
+  }
+
+  @keyframes page-frame-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
+  }
 }
 
 @utility text-gradient-brand {
