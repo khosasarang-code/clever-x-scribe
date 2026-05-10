@@ -21,6 +21,7 @@ import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { UserReviews, ReviewForm } from "@/components/UserReviews";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
@@ -909,6 +910,9 @@ function Index() {
           </Reveal>
         </section>
 
+        {/* ============== USER REVIEWS ============== */}
+        <UserReviews />
+
         {/* ============== PRICING ============== */}
         <section id="pricing" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto space-y-4">
@@ -1057,6 +1061,7 @@ function Index() {
                 <li><a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a></li>
                 <li><a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it works</a></li>
                 <li><a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimonials</a></li>
+                <li><a href="#user-reviews" className="text-muted-foreground hover:text-foreground transition-colors">User reviews</a></li>
                 <li><Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link></li>
               </ul>
             </div>
@@ -1072,7 +1077,14 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-border/50 flex flex-col sm:flex-row gap-2 items-center justify-between text-xs text-muted-foreground">
+          <div className="mt-10 pt-6 border-t border-border/50 flex flex-col gap-4 items-center justify-between text-xs text-muted-foreground sm:flex-row">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
+              <span>💡 Love the tool? Share your experience!</span>
+              <ReviewForm trigger={<button className="font-semibold text-primary hover:underline">Write a Review</button>} />
+            </div>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-border/50 flex flex-col sm:flex-row gap-2 items-center justify-between text-xs text-muted-foreground">
             <p>© 2026 SmartReply AI X. All rights reserved.</p>
             <p>
               <a href="mailto:hello@smartreplyaix.com" className="hover:text-foreground transition-colors">hello@smartreplyaix.com</a>
