@@ -21,7 +21,7 @@ import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
-import { UserReviews, ReviewForm } from "@/components/UserReviews";
+
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
@@ -542,7 +542,7 @@ function Index() {
           }}
         >
           <HeroVideoBackground />
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-10 sm:pb-14">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-6 sm:pb-8">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
               <div className="animate-hero-in space-y-6 text-center lg:text-left hero-parallax">
                 <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur px-3 py-1 text-xs text-foreground/90">
@@ -838,7 +838,7 @@ function Index() {
         <TrustBar />
 
         {/* ============== FEATURES ============== */}
-        <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-16 scroll-mt-24">
+        <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-10 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Features</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -872,8 +872,8 @@ function Index() {
         </section>
 
         {/* ============== HOW IT WORKS ============== */}
-        <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 scroll-mt-24">
-          <Reveal className="text-center max-w-2xl mx-auto space-y-4 mb-14">
+        <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 scroll-mt-24">
+          <Reveal className="text-center max-w-2xl mx-auto space-y-4 mb-8">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Workflow</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">From blank screen to posted in 30 seconds</h2>
           </Reveal>
@@ -896,7 +896,7 @@ function Index() {
 
 
         {/* ============== TESTIMONIALS ============== */}
-        <section id="testimonials" className="py-20 sm:py-28 space-y-12 scroll-mt-24">
+        <section id="testimonials" className="py-12 sm:py-16 space-y-8 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto px-4 sm:px-6 space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Loved by creators</div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
@@ -910,11 +910,8 @@ function Index() {
           </Reveal>
         </section>
 
-        {/* ============== USER REVIEWS ============== */}
-        <UserReviews />
-
         {/* ============== PRICING ============== */}
-        <section id="pricing" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-12 scroll-mt-24">
+        <section id="pricing" className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">Pricing</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Simple, honest pricing</h2>
@@ -973,7 +970,7 @@ function Index() {
         <FAQSection />
 
         {/* ============== CTA ============== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
           <Reveal y={28}>
             <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/15 via-card/40 to-accent/15 p-10 sm:p-14 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to grow on X?</h2>
@@ -1077,14 +1074,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-border/50 flex flex-col gap-4 items-center justify-between text-xs text-muted-foreground sm:flex-row">
-            <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
-              <span>💡 Love the tool? Share your experience!</span>
-              <ReviewForm trigger={<button className="font-semibold text-primary hover:underline">Write a Review</button>} />
-            </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-border/50 flex flex-col sm:flex-row gap-2 items-center justify-between text-xs text-muted-foreground">
+          <div className="mt-8 pt-6 border-t border-border/50 flex flex-col sm:flex-row gap-2 items-center justify-between text-xs text-muted-foreground">
             <p>© 2026 SmartReply AI X. All rights reserved.</p>
             <p>
               <a href="mailto:hello@smartreplyaix.com" className="hover:text-foreground transition-colors">hello@smartreplyaix.com</a>
