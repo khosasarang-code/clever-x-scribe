@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
+import { PageTransition } from "@/components/PageTransition";
 
 function NotFoundComponent() {
   return (
@@ -149,7 +150,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PaymentTestModeBanner />
-      <Outlet />
+      <PageTransition>
+        <Outlet />
+      </PageTransition>
     </QueryClientProvider>
   );
 }

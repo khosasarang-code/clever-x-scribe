@@ -20,6 +20,8 @@ import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { HeroVideoBackground } from "@/components/HeroVideoBackground";
+import { TrustBar } from "@/components/TrustBar";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -471,6 +473,7 @@ function Index() {
       <main>
         {/* ============== HERO ============== */}
         <section className="relative overflow-hidden">
+          <HeroVideoBackground />
           <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16 sm:pb-20">
             <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               <div className="lg:col-span-6 space-y-7 animate-hero-in">
@@ -535,6 +538,8 @@ function Index() {
           </div>
         </section>
 
+        <TrustBar />
+
         {/* ============== FEATURES ============== */}
         <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 space-y-16 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto space-y-4">
@@ -557,7 +562,7 @@ function Index() {
               { icon: Shield, title: "Private & Secure", desc: "We never train on your inputs. Your account, your voice, your data." },
             ].map((f, i) => (
               <Reveal key={f.title} delay={i * 70} y={24}>
-                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70">
+                <Card className="glow-border hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70 rounded-xl">
                   <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
                     <f.icon className="h-5 w-5" />
                   </div>
@@ -582,7 +587,7 @@ function Index() {
               { step: "03", title: "Copy. Post. Grow.", desc: "Pick the reply you love, copy with one click, and ship it." },
             ].map((s, i) => (
               <Reveal key={s.step} delay={i * 100} y={20}>
-                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60">
+                <Card className="glow-border hover-lift h-full p-6 bg-card/50 border-border/60 rounded-xl">
                   <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
                   <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
@@ -807,7 +812,7 @@ function Index() {
 
           <div className="grid md:grid-cols-2 gap-5">
             <Reveal y={24}>
-              <Card className="hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5">
+              <Card className="glow-border hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5 rounded-2xl">
                 <div>
                   <h3 className="text-xl font-semibold">Free</h3>
                   <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
@@ -826,7 +831,7 @@ function Index() {
             </Reveal>
 
             <Reveal y={24} delay={120}>
-              <Card className="hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
+              <Card className="glow-border glow-border-always hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)] rounded-2xl">
                 <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
                   Most popular
                 </div>
