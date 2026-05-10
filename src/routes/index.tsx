@@ -21,7 +21,10 @@ import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
+import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
+import { ExamplePrompts } from "@/components/ExamplePrompts";
+import { FAQSection } from "@/components/FAQSection";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
@@ -417,6 +420,7 @@ function Index() {
             <a href="#features" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Features</a>
             <a href="#how-it-works" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">How it works</a>
             <a href="#testimonials" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Testimonials</a>
+            <a href="#faq" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">FAQ</a>
             <Link to="/pricing" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Pricing</Link>
           </nav>
 
@@ -489,27 +493,71 @@ function Index() {
 
       <main>
         {/* ============== HERO ============== */}
-        <section className="relative overflow-hidden">
+        <section
+          className="relative overflow-hidden"
+          onMouseMove={(e) => {
+            const el = e.currentTarget;
+            const r = el.getBoundingClientRect();
+            const px = ((e.clientX - r.left) / r.width - 0.5) * 2;
+            const py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+            el.style.setProperty("--px", String(px));
+            el.style.setProperty("--py", String(py));
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.setProperty("--px", "0");
+            e.currentTarget.style.setProperty("--py", "0");
+          }}
+        >
           <HeroVideoBackground />
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-6 sm:pb-8 text-center">
-            <div className="animate-hero-in space-y-5 max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 backdrop-blur px-3 py-1 text-xs text-foreground/80">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                Trusted by 10,000+ creators on X
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-10 sm:pb-14">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+              <div className="animate-hero-in space-y-6 text-center lg:text-left hero-parallax">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur px-3 py-1 text-xs text-foreground/90">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
+                    <span className="relative rounded-full h-2 w-2 bg-emerald-400" />
+                  </span>
+                  <span className="font-medium">Trusted by 10,000+ creators · 1.2M+ replies generated</span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.02]">
+                  Grow on X with replies that{" "}
+                  <span className="text-gradient-brand">actually go viral</span>.
+                </h1>
+
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
+                  SmartReply AI X writes scroll-stopping replies and viral threads in your voice — in under 12 seconds. No prompts. No fluff. Just engagement.
+                </p>
+
+                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 pt-2">
+                  <Button
+                    size="lg"
+                    onClick={scrollToGenerator}
+                    className="btn-glow h-12 px-7 text-sm bg-gradient-brand text-primary-foreground hover:opacity-100 shadow-[var(--shadow-glow)] font-semibold rounded-lg transition-transform hover:-translate-y-0.5"
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    Try Demo — Free
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-6 border-border/70 bg-card/40 backdrop-blur"
+                  >
+                    <Link to="/pricing">View pricing</Link>
+                  </Button>
+                </div>
+
+                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
+                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No credit card</span>
+                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> 10 free / day</span>
+                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
+                </div>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-                Write replies people <span className="text-gradient-brand">actually engage</span> with.
-              </h1>
-
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                Generate smart replies and viral threads in seconds — written in your voice. Try it right below.
-              </p>
-
-              <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
-                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No credit card required</span>
-                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> 10 free replies / day</span>
-                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
+              <div className="hero-parallax-strong">
+                <HeroDemo />
               </div>
             </div>
           </div>
@@ -517,7 +565,19 @@ function Index() {
 
         {/* ============== MAIN GENERATORS (side-by-side) ============== */}
         <section id="try-it" className="relative scroll-mt-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16 space-y-6">
+            <Reveal>
+              <ExamplePrompts
+                onPickReply={(t) => {
+                  setTweet(t);
+                  document.getElementById("try-it")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                onPickThread={(t) => {
+                  setIdea(t);
+                  document.getElementById("try-it")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              />
+            </Reveal>
             <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
               {/* ===== Smart Replies (left/top) ===== */}
               <div className="space-y-4">
@@ -593,7 +653,7 @@ function Index() {
                     className="min-h-[140px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-primary relative" />
 
                   <Button size="lg" onClick={runReplies} disabled={loadingReplies}
-                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    className="btn-glow group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-100 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
                     {loadingReplies ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
                     {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
                     {!loadingReplies && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
@@ -670,7 +730,7 @@ function Index() {
                     className="min-h-[260px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-accent relative" />
 
                   <Button size="lg" onClick={runThread} disabled={loadingThread}
-                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    className="btn-glow group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-100 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
                     {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                     {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
                     {!loadingThread && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
@@ -870,6 +930,9 @@ function Index() {
 
           <p className="text-center text-xs text-muted-foreground">Cancel anytime. No hidden fees.</p>
         </section>
+
+        {/* ============== FAQ ============== */}
+        <FAQSection />
 
         {/* ============== CTA ============== */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
