@@ -92,7 +92,7 @@ export function RewriteDialog({ initialText = "", trigger }: Props) {
           <div className="space-y-2">
             <div className="text-xs uppercase tracking-wider text-muted-foreground">Make it</div>
             <div className="flex flex-wrap gap-2">
-              {REWRITE_STYLES.map((s) => (
+              {REWRITE_STYLES.map((s: (typeof REWRITE_STYLES)[number]) => (
                 <button
                   key={s}
                   type="button"
