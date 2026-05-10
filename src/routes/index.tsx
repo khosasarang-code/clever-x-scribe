@@ -333,10 +333,8 @@ function Index() {
 
   const requireSignIn = () => {
     if (user) return true;
-    toast.error("Sign in (free) to generate replies", {
-      action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
-      duration: 6000,
-    });
+    toast.info("Create a free account to generate — it takes 10 seconds.");
+    navigate({ to: "/auth", search: { next: "/" } });
     return false;
   };
 
