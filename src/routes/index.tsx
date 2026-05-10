@@ -930,6 +930,9 @@ function Index() {
           <p className="text-center text-xs text-muted-foreground">Cancel anytime. No hidden fees.</p>
         </section>
 
+        {/* ============== FAQ ============== */}
+        <FAQSection />
+
         {/* ============== CTA ============== */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
           <Reveal y={28}>
