@@ -331,8 +331,18 @@ function Index() {
     };
   }, []);
 
+  const requireSignIn = () => {
+    if (user) return true;
+    toast.error("Sign in (free) to generate replies", {
+      action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
+      duration: 6000,
+    });
+    return false;
+  };
+
   const runReplies = async () => {
     if (!tweet.trim()) { toast.error("Paste a tweet first"); return; }
+    if (!requireSignIn()) return;
     setLoadingReplies(true);
     setReplies([]);
     try {
@@ -346,14 +356,16 @@ function Index() {
     } catch (e: any) {
       const message = e?.message ?? "Generation failed";
       if (String(message).toLowerCase().includes("unauthorized")) {
-        toast.error("Please sign in again and retry.");
-        navigate({ to: "/auth", search: { next: "/" } });
+        toast.error("Your session expired — please sign in again.", {
+          action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
+        });
       } else { toast.error(message); }
     } finally { setLoadingReplies(false); }
   };
 
   const runThread = async () => {
     if (!idea.trim()) { toast.error("Drop a thread idea first"); return; }
+    if (!requireSignIn()) return;
     setLoadingThread(true);
     setThread([]);
     try {
@@ -367,8 +379,9 @@ function Index() {
     } catch (e: any) {
       const message = e?.message ?? "Generation failed";
       if (String(message).toLowerCase().includes("unauthorized")) {
-        toast.error("Please sign in again and retry.");
-        navigate({ to: "/auth", search: { next: "/" } });
+        toast.error("Your session expired — please sign in again.", {
+          action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
+        });
       } else { toast.error(message); }
     } finally { setLoadingThread(false); }
   };
