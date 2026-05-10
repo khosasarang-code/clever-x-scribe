@@ -587,7 +587,7 @@ function Index() {
               { step: "03", title: "Copy. Post. Grow.", desc: "Pick the reply you love, copy with one click, and ship it." },
             ].map((s, i) => (
               <Reveal key={s.step} delay={i * 100} y={20}>
-                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60">
+                <Card className="glow-border hover-lift h-full p-6 bg-card/50 border-border/60 rounded-xl">
                   <div className="text-xs font-mono text-primary mb-3">{s.step}</div>
                   <h3 className="font-semibold text-lg mb-1.5">{s.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
