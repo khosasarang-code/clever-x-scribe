@@ -812,7 +812,7 @@ function Index() {
 
           <div className="grid md:grid-cols-2 gap-5">
             <Reveal y={24}>
-              <Card className="hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5">
+              <Card className="glow-border hover-lift h-full p-7 bg-card/50 border-border/60 flex flex-col gap-5 rounded-2xl">
                 <div>
                   <h3 className="text-xl font-semibold">Free</h3>
                   <p className="text-sm text-muted-foreground mt-1">For casual posters trying it out.</p>
