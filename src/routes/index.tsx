@@ -340,14 +340,19 @@ function Index() {
     return false;
   };
 
+  const repliesResultsRef = useRef<HTMLDivElement | null>(null);
+  const threadResultsRef = useRef<HTMLDivElement | null>(null);
+
   const runReplies = async () => {
     if (!tweet.trim()) { toast.error("Paste a tweet first"); return; }
     if (!requireSignIn()) return;
     setLoadingReplies(true);
     setReplies([]);
+    requestAnimationFrame(() => repliesResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, persona: persona.trim() || undefined, environment: getPaddleEnvironment() } });
       setReplies(res.items);
+      requestAnimationFrame(() => repliesResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
@@ -368,9 +373,11 @@ function Index() {
     if (!requireSignIn()) return;
     setLoadingThread(true);
     setThread([]);
+    requestAnimationFrame(() => threadResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     try {
       const res = await generateAI({ data: { prompt: idea, mode: "thread", environment: getPaddleEnvironment() } });
       setThread(res.items);
+      requestAnimationFrame(() => threadResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "thread", prompt: idea, items: res.items, createdAt: Date.now() },
@@ -596,7 +603,7 @@ function Index() {
                 </Card>
 
                 {(loadingReplies || replies.length > 0) && (
-                  <div className="space-y-3">
+                  <div ref={repliesResultsRef} className="space-y-3 scroll-mt-24">
                     {loadingReplies && replies.length === 0 && (
                       <div className="grid sm:grid-cols-2 gap-3">
                         {Array.from({ length: 4 }).map((_, i) => (
@@ -673,7 +680,7 @@ function Index() {
                 </Card>
 
                 {loadingThread && thread.length === 0 && (
-                  <div className="space-y-3">
+                  <div ref={threadResultsRef} className="space-y-3 scroll-mt-24">
                     {Array.from({ length: 3 }).map((_, i) => (
                       <Card key={i} className="p-4 bg-card/40 border-border/60 relative overflow-hidden">
                         <div className="absolute inset-0 shimmer-bg" />
@@ -690,7 +697,7 @@ function Index() {
                 )}
 
                 {thread.length > 0 && (
-                  <div className="space-y-3">
+                  <div ref={threadResultsRef} className="space-y-3 scroll-mt-24">
                     <div className="flex justify-end"><CopyButton text={fullThreadText} /></div>
                     {thread.map((t, i) => (
                       <Card key={i} style={{ animationDelay: `${i * 60}ms` }}
