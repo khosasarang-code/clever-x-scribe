@@ -31,8 +31,8 @@ const FAQS = [
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="max-w-3xl mx-auto px-4 sm:px-6 py-20 sm:py-28 scroll-mt-24">
-      <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
+    <section id="faq" className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16 scroll-mt-24">
+      <div className="text-center max-w-2xl mx-auto space-y-4 mb-8">
         <div className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-primary">FAQ</div>
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Questions, answered.</h2>
       </div>
