@@ -345,9 +345,48 @@ function Index() {
   const repliesResultsRef = useRef<HTMLDivElement | null>(null);
   const threadResultsRef = useRef<HTMLDivElement | null>(null);
 
+  const ensureFreshSession = async (): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data.session) {
+        toast.error("Your session expired — please sign in again.", {
+          duration: 8000,
+          action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
+        });
+        return false;
+      }
+      // Refresh if it's about to expire within 60s.
+      const expiresAt = data.session.expires_at ? data.session.expires_at * 1000 : 0;
+      if (expiresAt && expiresAt - Date.now() < 60_000) {
+        await supabase.auth.refreshSession();
+      }
+      return true;
+    } catch (err) {
+      console.error("[auth] session check failed", err);
+      return true; // don't block on transient failures; the server will 401 if needed
+    }
+  };
+
+  const handleGenError = (e: any, kind: "replies" | "thread") => {
+    const message = e?.message ?? `Generation failed`;
+    console.error(`[${kind}] generation error:`, e);
+    const lower = String(message).toLowerCase();
+    if (lower.includes("unauthorized") || lower.includes("401")) {
+      toast.error("Your session expired — please sign in again.", {
+        duration: 8000,
+        action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
+      });
+    } else if (lower.includes("daily free limit")) {
+      toast.error(message, { duration: 8000 });
+    } else {
+      toast.error(message, { duration: 8000 });
+    }
+  };
+
   const runReplies = async () => {
     if (!tweet.trim()) { toast.error("Paste a tweet first"); return; }
     if (!requireSignIn()) return;
+    if (!(await ensureFreshSession())) return;
     setLoadingReplies(true);
     setReplies([]);
     requestAnimationFrame(() => repliesResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
@@ -361,18 +400,14 @@ function Index() {
         ...history,
       ]);
     } catch (e: any) {
-      const message = e?.message ?? "Generation failed";
-      if (String(message).toLowerCase().includes("unauthorized")) {
-        toast.error("Your session expired — please sign in again.", {
-          action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
-        });
-      } else { toast.error(message); }
+      handleGenError(e, "replies");
     } finally { setLoadingReplies(false); }
   };
 
   const runThread = async () => {
     if (!idea.trim()) { toast.error("Drop a thread idea first"); return; }
     if (!requireSignIn()) return;
+    if (!(await ensureFreshSession())) return;
     setLoadingThread(true);
     setThread([]);
     requestAnimationFrame(() => threadResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
@@ -386,12 +421,7 @@ function Index() {
         ...history,
       ]);
     } catch (e: any) {
-      const message = e?.message ?? "Generation failed";
-      if (String(message).toLowerCase().includes("unauthorized")) {
-        toast.error("Your session expired — please sign in again.", {
-          action: { label: "Sign in", onClick: () => navigate({ to: "/auth", search: { next: "/" } }) },
-        });
-      } else { toast.error(message); }
+      handleGenError(e, "thread");
     } finally { setLoadingThread(false); }
   };
 
