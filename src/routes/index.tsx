@@ -474,48 +474,233 @@ function Index() {
         {/* ============== HERO ============== */}
         <section className="relative overflow-hidden">
           <HeroVideoBackground />
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-10">
-            <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              <div className="lg:col-span-6 space-y-7 animate-hero-in">
-                <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 backdrop-blur px-3 py-1 text-xs text-foreground/80">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Trusted by 10,000+ creators on X
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-bold tracking-tight leading-[1.05]">
-                  Write replies people <span className="text-gradient-brand">actually engage</span> with.
-                </h1>
-
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                  SmartReply AI X helps creators, founders and marketers grow on X.
-                  Generate smart replies and viral threads in seconds — written in your voice,
-                  not corporate AI mush.
-                </p>
-
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button size="lg" onClick={scrollToGenerator}
-                    className="h-12 px-6 text-sm font-semibold bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)]">
-                    Try it free <ArrowRight className="h-4 w-4" />
-                  </Button>
-                  <Button asChild size="lg" variant="outline"
-                    className="h-12 px-6 text-sm font-semibold border-border/70 bg-card/40 backdrop-blur hover:bg-card/70">
-                    <Link to="/pricing">See pricing</Link>
-                  </Button>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
-                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No credit card required</span>
-                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> 10 free replies / day</span>
-                  <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
-                </div>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-6 sm:pb-8 text-center">
+            <div className="animate-hero-in space-y-5 max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 backdrop-blur px-3 py-1 text-xs text-foreground/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Trusted by 10,000+ creators on X
               </div>
 
-              <div className="lg:col-span-6 animate-hero-in" style={{ animationDelay: "120ms" }}>
-                <ProductPreview />
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+                Write replies people <span className="text-gradient-brand">actually engage</span> with.
+              </h1>
+
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Generate smart replies and viral threads in seconds — written in your voice. Try it right below.
+              </p>
+
+              <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-1">
+                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No credit card required</span>
+                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> 10 free replies / day</span>
+                <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============== MAIN GENERATORS (side-by-side) ============== */}
+        <section id="try-it" className="relative scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
+            <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
+              {/* ===== Smart Replies (left/top) ===== */}
+              <div className="space-y-4">
+                <Card className="p-5 sm:p-7 space-y-5 bg-card/70 backdrop-blur-xl border-border/70 shadow-[var(--shadow-elegant)] rounded-2xl glow-border-always relative overflow-hidden">
+                  <div className="absolute -top-20 -right-20 h-48 w-48 bg-primary/20 blur-3xl rounded-full pointer-events-none" />
+                  <div className="flex items-center justify-between relative">
+                    <div className="flex items-center gap-2.5">
+                      <div className="h-10 w-10 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
+                        <MessageSquareText className="h-5 w-5 text-primary-foreground" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg sm:text-xl font-bold tracking-tight">Smart Replies</h2>
+                        <p className="text-xs text-muted-foreground">9 ready-to-post replies in your voice</p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full font-semibold">Free</span>
+                  </div>
+
+                  <div className="space-y-2 relative">
+                    <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Tone</span>
+                    <div className="flex gap-2 overflow-x-auto pb-1.5 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                      {TONES.map(t => {
+                        const active = tone === t;
+                        return (
+                          <button key={t} type="button" onClick={() => setTone(t)}
+                            className={`shrink-0 h-8 px-3 rounded-full text-xs font-medium border transition-all ${
+                              active
+                                ? "bg-gradient-brand text-primary-foreground border-transparent"
+                                : "bg-background/40 text-muted-foreground border-border/60 hover:text-foreground hover:border-primary/40"
+                            }`}>
+                            {t}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 relative">
+                    <span className="text-[11px] uppercase tracking-wider text-muted-foreground mr-1">Reply like</span>
+                    <div className="relative flex-1 min-w-[180px]">
+                      <input type="text" value={persona}
+                        onChange={(e) => setPersona(e.target.value)}
+                        onFocus={() => setPersonaOpen(true)}
+                        onBlur={() => setTimeout(() => setPersonaOpen(false), 150)}
+                        placeholder="@naval, @levelsio, or 'in my own style'…"
+                        className="w-full h-9 px-3 rounded-md text-sm bg-input/40 border border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground/70" />
+                      {personaOpen && (
+                        <div className="absolute z-20 left-0 right-0 mt-1 rounded-md border border-border/70 bg-popover shadow-lg overflow-hidden">
+                          {PERSONA_PRESETS.filter(p =>
+                            persona.trim() === ""
+                              ? true
+                              : p.handle.toLowerCase().includes(persona.toLowerCase()) ||
+                                p.label.toLowerCase().includes(persona.toLowerCase()),
+                          ).map(p => (
+                            <button key={p.handle} type="button"
+                              onMouseDown={(e) => { e.preventDefault(); setPersona(p.handle); setPersonaOpen(false); }}
+                              className="w-full text-left px-3 py-2 text-sm hover:bg-primary/10 transition-colors flex items-center justify-between gap-3">
+                              <span className="font-medium">{p.handle}</span>
+                              <span className="text-xs text-muted-foreground truncate">{p.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    {persona && (
+                      <button type="button" onClick={() => setPersona("")}
+                        className="text-xs text-muted-foreground hover:text-foreground transition-colors">Clear</button>
+                    )}
+                  </div>
+
+                  <Textarea value={tweet} onChange={(e) => setTweet(e.target.value)}
+                    placeholder="Paste any tweet text or link here…"
+                    className="min-h-[140px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-primary relative" />
+
+                  <Button size="lg" onClick={runReplies} disabled={loadingReplies}
+                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    {loadingReplies ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+                    {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
+                    {!loadingReplies && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
+                  </Button>
+                </Card>
+
+                {(loadingReplies || replies.length > 0) && (
+                  <div className="space-y-3">
+                    {loadingReplies && replies.length === 0 && (
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <Card key={i} className="p-4 bg-card/40 border-border/60 h-28 overflow-hidden relative">
+                            <div className="absolute inset-0 shimmer-bg" />
+                            <div className="space-y-2 relative">
+                              <div className="h-3 rounded bg-muted/60 w-5/6" />
+                              <div className="h-3 rounded bg-muted/60 w-full" />
+                              <div className="h-3 rounded bg-muted/60 w-2/3" />
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                    {replies.length > 0 && (
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {replies.map((r, i) => (
+                          <Card key={i} role="button" tabIndex={0}
+                            style={{ animationDelay: `${i * 50}ms` }}
+                            onClick={() => { navigator.clipboard.writeText(r); toast.success("Reply copied"); }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                navigator.clipboard.writeText(r);
+                                toast.success("Reply copied");
+                              }
+                            }}
+                            className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/50 hover:bg-card/80 transition-all flex flex-col gap-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                            title="Tap to copy">
+                            <p className="text-sm leading-relaxed whitespace-pre-wrap">{r}</p>
+                            <div className="flex items-center justify-between mt-auto pt-2 border-t border-border/50">
+                              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Reply {i + 1} · {r.length} chars</span>
+                              <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                                <RewriteDialog initialText={r}
+                                  trigger={<Button size="sm" variant="ghost" className="gap-1.5 text-xs h-8"><Wand2 className="h-3.5 w-3.5" /> Rewrite</Button>} />
+                                <CopyButton text={r} />
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* ===== Viral Thread (right/bottom) ===== */}
+              <div className="space-y-4">
+                <Card className="p-5 sm:p-7 space-y-5 bg-card/70 backdrop-blur-xl border-border/70 shadow-[var(--shadow-elegant)] rounded-2xl glow-border-always relative overflow-hidden">
+                  <div className="absolute -top-20 -left-20 h-48 w-48 bg-accent/20 blur-3xl rounded-full pointer-events-none" />
+                  <div className="flex items-center justify-between relative">
+                    <div className="flex items-center gap-2.5">
+                      <div className="h-10 w-10 rounded-lg bg-gradient-brand grid place-items-center shadow-[var(--shadow-glow-sm)]">
+                        <Flame className="h-5 w-5 text-primary-foreground" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg sm:text-xl font-bold tracking-tight">Viral Thread Generator</h2>
+                        <p className="text-xs text-muted-foreground">One idea → engagement-ready thread</p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full font-semibold">Free</span>
+                  </div>
+
+                  <Textarea value={idea} onChange={(e) => setIdea(e.target.value)}
+                    placeholder="Drop one idea, topic, or rough outline… e.g. 'why most startups fail at distribution'"
+                    className="min-h-[260px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-accent relative" />
+
+                  <Button size="lg" onClick={runThread} disabled={loadingThread}
+                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
+                    {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
+                    {!loadingThread && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
+                  </Button>
+                </Card>
+
+                {loadingThread && thread.length === 0 && (
+                  <div className="space-y-3">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <Card key={i} className="p-4 bg-card/40 border-border/60 relative overflow-hidden">
+                        <div className="absolute inset-0 shimmer-bg" />
+                        <div className="flex gap-3 relative">
+                          <div className="h-7 w-7 rounded-full bg-muted/60" />
+                          <div className="flex-1 space-y-2">
+                            <div className="h-3 rounded bg-muted/60 w-full" />
+                            <div className="h-3 rounded bg-muted/60 w-4/5" />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+
+                {thread.length > 0 && (
+                  <div className="space-y-3">
+                    <div className="flex justify-end"><CopyButton text={fullThreadText} /></div>
+                    {thread.map((t, i) => (
+                      <Card key={i} style={{ animationDelay: `${i * 60}ms` }}
+                        className="animate-card-in p-4 bg-card/60 border-border/70 hover:border-primary/40 transition-all flex gap-3">
+                        <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-brand grid place-items-center text-xs font-semibold text-primary-foreground">
+                          {i + 1}
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">{t}</p>
+                          <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{t.length} chars</span>
+                            <CopyButton text={t} />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="mt-16">
+            <div className="mt-10">
               <CreatorStrip />
             </div>
           </div>
