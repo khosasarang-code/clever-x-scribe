@@ -831,7 +831,7 @@ function Index() {
             </Reveal>
 
             <Reveal y={24} delay={120}>
-              <Card className="hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)]">
+              <Card className="glow-border glow-border-always hover-lift h-full p-7 bg-card/60 border-primary/40 flex flex-col gap-5 relative shadow-[var(--shadow-glow)] rounded-2xl">
                 <div className="absolute -top-3 left-7 text-[10px] font-semibold tracking-wider uppercase bg-gradient-brand text-primary-foreground px-2.5 py-1 rounded-full">
                   Most popular
                 </div>
