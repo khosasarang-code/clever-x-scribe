@@ -420,6 +420,7 @@ function Index() {
             <a href="#features" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Features</a>
             <a href="#how-it-works" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">How it works</a>
             <a href="#testimonials" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Testimonials</a>
+            <a href="#faq" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">FAQ</a>
             <Link to="/pricing" className="px-3 py-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-foreground/5 transition-colors">Pricing</Link>
           </nav>
 
