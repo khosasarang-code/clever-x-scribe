@@ -1061,6 +1061,7 @@ function Index() {
                 <li><a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a></li>
                 <li><a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it works</a></li>
                 <li><a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimonials</a></li>
+                <li><a href="#user-reviews" className="text-muted-foreground hover:text-foreground transition-colors">User reviews</a></li>
                 <li><Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link></li>
               </ul>
             </div>
