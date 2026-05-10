@@ -473,6 +473,7 @@ function Index() {
       <main>
         {/* ============== HERO ============== */}
         <section className="relative overflow-hidden">
+          <HeroVideoBackground />
           <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16 sm:pb-20">
             <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               <div className="lg:col-span-6 space-y-7 animate-hero-in">
