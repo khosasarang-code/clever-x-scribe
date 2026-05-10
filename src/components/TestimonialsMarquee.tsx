@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star, BadgeCheck } from "lucide-react";
 
 type T = { q: string; n: string; h: string; a: number };
 
@@ -33,7 +33,10 @@ function Card({ t }: { t: T }) {
           className="h-11 w-11 rounded-full object-cover ring-2 ring-border/40"
         />
         <div className="min-w-0">
-          <div className="text-sm font-semibold leading-none truncate">{t.n}</div>
+          <div className="text-sm font-semibold leading-none truncate flex items-center gap-1">
+            {t.n}
+            <BadgeCheck className="h-3.5 w-3.5 text-sky-400 shrink-0" aria-label="Verified" />
+          </div>
           <div className="text-xs text-muted-foreground mt-1 truncate">@{t.h}</div>
         </div>
         <div className="ml-auto flex items-center gap-0.5 text-amber-400">

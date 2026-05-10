@@ -23,6 +23,7 @@ import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import { HeroDemo } from "@/components/HeroDemo";
 import { TrustBar } from "@/components/TrustBar";
+import { CountUp } from "@/components/CountUp";
 import { ExamplePrompts } from "@/components/ExamplePrompts";
 import { FAQSection } from "@/components/FAQSection";
 import { useAuth } from "@/hooks/useAuth";
@@ -785,7 +786,7 @@ function Index() {
 
         {/* ============== STATS STRIP ============== */}
         <section className="border-y border-border/40 bg-card/20 backdrop-blur">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { v: "10,000+", l: "Active creators" },
               { v: "1.2M+", l: "Replies generated" },
@@ -793,8 +794,10 @@ function Index() {
               { v: "4.9 / 5", l: "Average rating" },
             ].map((s, i) => (
               <Reveal key={s.l} delay={i * 80}>
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-gradient-brand">{s.v}</div>
-                <div className="text-xs sm:text-sm text-muted-foreground mt-1">{s.l}</div>
+                <div className="text-3xl sm:text-4xl font-bold tracking-tight text-gradient-brand tabular-nums">
+                  <CountUp value={s.v} />
+                </div>
+                <div className="text-xs sm:text-sm text-muted-foreground mt-1.5 font-medium">{s.l}</div>
               </Reveal>
             ))}
           </div>
