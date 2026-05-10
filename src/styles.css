@@ -224,6 +224,51 @@ html {
 @utility btn-glow {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
+}
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    oklch(1 0 0 / 0.35) 50%,
+    transparent 75%
+  );
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+  transition: transform 0.7s var(--transition-smooth);
+}
+.btn-glow:hover::after {
+  transform: translateX(220%) skewX(-20deg);
+}
+.btn-glow:hover {
+  box-shadow:
+    0 0 0 0 oklch(0.7 0.22 290 / 0.0),
+    0 12px 40px -10px oklch(0.7 0.22 295 / 0.6),
+    0 0 30px oklch(0.7 0.22 295 / 0.35);
+}
+
+/* Hero parallax — JS sets --px / --py from -1..1 */
+.hero-parallax {
+  transform: translate3d(
+    calc(var(--px, 0) * 8px),
+    calc(var(--py, 0) * 8px),
+    0
+  );
+  transition: transform 0.4s var(--transition-smooth);
+}
+.hero-parallax-strong {
+  transform: translate3d(
+    calc(var(--px, 0) * 18px),
+    calc(var(--py, 0) * 18px),
+    0
+  );
+  transition: transform 0.4s var(--transition-smooth);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax, .hero-parallax-strong { transform: none; }
 }
 
 html {
