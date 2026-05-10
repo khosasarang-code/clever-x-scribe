@@ -20,6 +20,8 @@ import { TypewriterLogo } from "@/components/TypewriterLogo";
 import { RewriteDialog } from "@/components/RewriteDialog";
 import { Reveal } from "@/components/Reveal";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { HeroVideoBackground } from "@/components/HeroVideoBackground";
+import { TrustBar } from "@/components/TrustBar";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
