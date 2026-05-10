@@ -631,7 +631,7 @@ function Index() {
                   <div className="space-y-2 relative">
                     <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Tone</span>
                     <div className="flex flex-wrap gap-1.5 pb-1">
-                      {TONES.map(t => {
+                      {TONES.map((t: (typeof TONES)[number]) => {
                         const active = tone === t;
                         return (
                           <button key={t} type="button" onClick={() => setTone(t)}
@@ -658,12 +658,12 @@ function Index() {
                         className="w-full h-9 px-3 rounded-md text-sm bg-input/40 border border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary placeholder:text-muted-foreground/70" />
                       {personaOpen && (
                         <div className="absolute z-20 left-0 right-0 mt-1 rounded-md border border-border/70 bg-popover shadow-lg overflow-hidden">
-                          {PERSONA_PRESETS.filter(p =>
+                          {PERSONA_PRESETS.filter((p: (typeof PERSONA_PRESETS)[number]) =>
                             persona.trim() === ""
                               ? true
                               : p.handle.toLowerCase().includes(persona.toLowerCase()) ||
                                 p.label.toLowerCase().includes(persona.toLowerCase()),
-                          ).map(p => (
+                          ).map((p: (typeof PERSONA_PRESETS)[number]) => (
                             <button key={p.handle} type="button"
                               onMouseDown={(e) => { e.preventDefault(); setPersona(p.handle); setPersonaOpen(false); }}
                               className="w-full text-left px-3 py-2 text-sm hover:bg-primary/10 transition-colors flex items-center justify-between gap-3">
