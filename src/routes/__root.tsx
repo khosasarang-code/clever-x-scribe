@@ -7,11 +7,47 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { PageTransition } from "@/components/PageTransition";
 import { BackgroundVideo } from "@/components/BackgroundVideo";
+
+// Auto-recover from stale chunk errors after a new deploy. Without this, clicking
+// a button that triggers a route navigation can silently fail because the browser
+// still references hashed JS files that no longer exist on the server.
+function useChunkReloadGuard() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const KEY = "__chunk_reload_at";
+    const isChunkError = (msg: unknown) => {
+      const s = String(msg ?? "");
+      return (
+        s.includes("Failed to fetch dynamically imported module") ||
+        s.includes("Importing a module script failed") ||
+        s.includes("error loading dynamically imported module") ||
+        (s.includes("ChunkLoadError") || s.includes("Loading chunk"))
+      );
+    };
+    const maybeReload = (msg: unknown) => {
+      if (!isChunkError(msg)) return;
+      const last = Number(sessionStorage.getItem(KEY) || 0);
+      if (Date.now() - last < 10_000) return; // avoid reload loops
+      sessionStorage.setItem(KEY, String(Date.now()));
+      window.location.reload();
+    };
+    const onError = (e: ErrorEvent) => maybeReload(e.message || e.error?.message);
+    const onRejection = (e: PromiseRejectionEvent) =>
+      maybeReload((e.reason as { message?: string } | undefined)?.message ?? e.reason);
+    window.addEventListener("error", onError);
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => {
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    };
+  }, []);
+}
 
 function NotFoundComponent() {
   return (
