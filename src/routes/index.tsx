@@ -340,14 +340,19 @@ function Index() {
     return false;
   };
 
+  const repliesResultsRef = React.useRef<HTMLDivElement | null>(null);
+  const threadResultsRef = React.useRef<HTMLDivElement | null>(null);
+
   const runReplies = async () => {
     if (!tweet.trim()) { toast.error("Paste a tweet first"); return; }
     if (!requireSignIn()) return;
     setLoadingReplies(true);
     setReplies([]);
+    requestAnimationFrame(() => repliesResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     try {
       const res = await generateAI({ data: { prompt: tweet, mode: "replies", tone, persona: persona.trim() || undefined, environment: getPaddleEnvironment() } });
       setReplies(res.items);
+      requestAnimationFrame(() => repliesResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       if (!isPro) refreshUsage();
       save([
         { id: crypto.randomUUID(), mode: "replies", prompt: tweet, items: res.items, createdAt: Date.now() },
