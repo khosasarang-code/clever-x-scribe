@@ -35,6 +35,39 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          approved: boolean
+          created_at: string
+          handle: string | null
+          id: string
+          message: string
+          name: string
+          rating: number
+          user_id: string | null
+        }
+        Insert: {
+          approved?: boolean
+          created_at?: string
+          handle?: string | null
+          id?: string
+          message: string
+          name: string
+          rating: number
+          user_id?: string | null
+        }
+        Update: {
+          approved?: boolean
+          created_at?: string
+          handle?: string | null
+          id?: string
+          message?: string
+          name?: string
+          rating?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           cancel_at_period_end: boolean | null
