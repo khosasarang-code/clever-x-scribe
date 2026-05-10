@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { PageTransition } from "@/components/PageTransition";
+import { BackgroundVideo } from "@/components/BackgroundVideo";
 
 function NotFoundComponent() {
   return (
@@ -149,6 +150,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <BackgroundVideo />
       <PaymentTestModeBanner />
       <PageTransition>
         <Outlet />
