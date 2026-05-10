@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star, BadgeCheck } from "lucide-react";
 
 type T = { q: string; n: string; h: string; a: number };
 
