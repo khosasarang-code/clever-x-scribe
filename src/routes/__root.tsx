@@ -150,7 +150,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <PaymentTestModeBanner />
-      <Outlet />
+      <PageTransition>
+        <Outlet />
+      </PageTransition>
     </QueryClientProvider>
   );
 }
