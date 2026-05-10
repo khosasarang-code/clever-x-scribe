@@ -562,7 +562,7 @@ function Index() {
               { icon: Shield, title: "Private & Secure", desc: "We never train on your inputs. Your account, your voice, your data." },
             ].map((f, i) => (
               <Reveal key={f.title} delay={i * 70} y={24}>
-                <Card className="hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70">
+                <Card className="glow-border hover-lift h-full p-6 bg-card/50 border-border/60 hover:border-primary/40 hover:bg-card/70 rounded-xl">
                   <div className="h-10 w-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
                     <f.icon className="h-5 w-5" />
                   </div>
