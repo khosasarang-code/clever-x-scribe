@@ -5,7 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Sparkles, Loader2, Copy, Check, Wand2 } from "lucide-react";
 import { toast } from "sonner";
-import { rewriteAI, REWRITE_STYLES } from "@/lib/ai.functions";
+import { rewriteAI } from "@/lib/ai.functions";
+import { REWRITE_STYLES } from "@/lib/ai.shared";
 import { getPaddleEnvironment } from "@/lib/paddle";
 
 type Props = {
