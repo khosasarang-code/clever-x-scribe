@@ -652,7 +652,7 @@ function Index() {
                     className="min-h-[140px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-primary relative" />
 
                   <Button size="lg" onClick={runReplies} disabled={loadingReplies}
-                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    className="btn-glow group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-100 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
                     {loadingReplies ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
                     {loadingReplies ? "Crafting replies…" : "Generate Smart Replies"}
                     {!loadingReplies && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
@@ -729,7 +729,7 @@ function Index() {
                     className="min-h-[260px] text-base resize-none bg-input/40 border-border/60 focus-visible:ring-accent relative" />
 
                   <Button size="lg" onClick={runThread} disabled={loadingThread}
-                    className="group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-95 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
+                    className="btn-glow group w-full h-12 text-sm bg-gradient-brand text-primary-foreground hover:opacity-100 shadow-[var(--shadow-glow)] font-semibold rounded-lg relative">
                     {loadingThread ? <Loader2 className="h-4 w-4 animate-spin" /> : <Flame className="h-4 w-4" />}
                     {loadingThread ? "Writing thread…" : "Generate Viral Thread"}
                     {!loadingThread && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
