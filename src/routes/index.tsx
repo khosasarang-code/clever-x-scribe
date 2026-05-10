@@ -564,7 +564,19 @@ function Index() {
 
         {/* ============== MAIN GENERATORS (side-by-side) ============== */}
         <section id="try-it" className="relative scroll-mt-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16 space-y-6">
+            <Reveal>
+              <ExamplePrompts
+                onPickReply={(t) => {
+                  setTweet(t);
+                  document.getElementById("try-it")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                onPickThread={(t) => {
+                  setIdea(t);
+                  document.getElementById("try-it")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              />
+            </Reveal>
             <div className="grid lg:grid-cols-2 gap-5 lg:gap-6">
               {/* ===== Smart Replies (left/top) ===== */}
               <div className="space-y-4">
